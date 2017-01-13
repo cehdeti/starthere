@@ -32,9 +32,13 @@ TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 ALLOWED_HOSTS = ["*"]
 
+SITE_ID=1
+
 INSTALLED_APPS = (
     'collectfast',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'storages',
     'corsheaders',
 
