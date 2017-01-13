@@ -1,0 +1,25 @@
+.idea
+venv/
+venv
+*.pyc
+.pyc
+.DS_Store
+.vagrant
+.sass-cache
+
+# Web build artifacts
+/node_modules/
+/static/
+
+# Testing artifacts
+/.coverage
+/htmlcov/
+
+# User-uploaded files.
+/media/
+
+# Elastic Beanstalk
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+!.elasticbeanstalk/config.yml

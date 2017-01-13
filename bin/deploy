@@ -1,0 +1,36 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# Store the current directory and switch to the project root.
+dir=$(pwd)
+cd "$(dirname "$0")/.." || exit
+
+trap ctrl_c INT TERM
+ctrl_c() {
+  echo "*** Returning you to $dir"
+  cd "$dir" || exit
+  exit 0
+}
+
+_ebenv=""
+ebenv() {
+  if [ -z "$_ebenv" ]; then
+    _ebenv="$(eb printenv | tail -n +2 | sed -e 's/^[ \t]*//' | sed -e 's/ = /=/')"
+  fi
+
+  echo "$_ebenv" | grep "$1" | sed -e 's/^.*=//'
+}
+
+npm --prefix=./static install
+gulp clean
+gulp build --production
+eb deploy
+eb labs cleanup-versions --num-to-leave=5 --force
+
+s3_bucket="$(ebenv 'S3_BUCKET_NAME')"
+settings_module="$(ebenv 'DJANGO_SETTINGS_MODULE')"
+DJANGO_SETTINGS_MODULE="$settings_module" S3_BUCKET_NAME="$s3_bucket" ./manage.py collectstatic --no-input
+
+cd "$dir" || exit
+exit 0

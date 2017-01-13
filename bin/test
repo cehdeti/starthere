@@ -1,0 +1,31 @@
+#!/bin/bash
+set -uo pipefail
+IFS=$'\n\t'
+
+# Store the current directory and switch to the project root.
+dir=$(pwd)
+cd "$(dirname "$0")/.." || exit
+
+trap ctrl_c INT TERM
+ctrl_c() {
+  echo "*** Returning you to $dir"
+  cd "$dir" || exit
+  exit 0
+}
+
+echo 'Running the test suite...'
+python manage.py behave --keepdb
+python manage.py test --keepdb --reverse
+
+echo
+echo 'Checking code style [backend]...'
+if ! pep8 . ; then
+  echo 'Code style checks failed. Consider running `autopep8 --in-place <file>` to see if issues can be automatically fixed.'
+fi
+
+echo
+echo 'Checking code style [frontend]...'
+gulp lint
+
+cd "$dir" || exit
+exit 0

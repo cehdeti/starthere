@@ -1,0 +1,25 @@
+dj-database-url
+Django
+django-cors-headers
+django-storages>=1.1.9
+-e git+https://github.com/cehdeti/pyeti.git@master#egg=pyeti
+psycopg2
+six
+
+# Testing/development
+autopep8
+behave-django
+coverage
+django-gulp
+django-rainbowtests
+factory-boy
+Faker
+pep8
+splinter
+
+# AWS
+awsebcli
+Collectfast
+dj-static
+django-ses
+gunicorn

@@ -1,0 +1,35 @@
+{
+  "name": "<<PROJECT>>",
+  "version": "1.0.0",
+  "description": "A repository for the <<PROJECT>> webapp.",
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^13.3.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-add-src": "^0.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-if": "^2.0.2",
+    "gulp-rev": "^7.1.2",
+    "gulp-sass": "^3.0.0",
+    "gulp-sass-lint": "^1.3.2",
+    "gulp-uglify": "^2.0.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "yargs": "^6.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cehdeti/<<PROJECT>>.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cehdeti/<<PROJECT>>/issues"
+  },
+  "homepage": "https://github.com/cehdeti/<<PROJECT>>#readme"
+}
