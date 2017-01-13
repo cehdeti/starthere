@@ -38,7 +38,6 @@ INSTALLED_APPS = (
     'storages',
     'corsheaders',
 
-    'core',
     'web',
 )
 
@@ -56,10 +55,10 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': ['core/templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'builtins': [
-                'missing.templatetags.context_tags',
             ],
             'context_processors': [
                 'django.template.context_processors.debug',

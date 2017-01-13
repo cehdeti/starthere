@@ -19,9 +19,13 @@ A starter repo for ETI projects. Uses Django, gulp, sass, and all the good stuff
         createdb "$(basename "$(pwd)")"
         # or if you're using Postgres.app:
         /Applications/Postgres.app/Contents/Versions/latest/bin/createdb "$(basename "$(pwd)")"
-
-5. Run the setup script to initialize the app: `./bin/setup`
-6. You should be OK to go. Now you only have to start the server: `python manage.py runserver`
+5. If your system python isnt python 3 and you'd like to use python 3, create your virtual environment and activate it
+```
+      python3 -m venv venv
+      source venv/bin/activate
+```
+6. Run the setup script to initialize the app: `./bin/setup`
+7. You should be OK to go. Now you only have to start the server: `python manage.py runserver`
 
 Now you can view the site in your browser at http://127.0.0.1:8000.
 

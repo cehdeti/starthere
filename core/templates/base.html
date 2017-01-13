@@ -1,8 +1,8 @@
 {% load staticfiles %}
 
-{% setcontext as title %}{% block title %}{% endblock %}{% endsetcontext %}
-{% setcontext as head_title %}{% block head_title %}{% endblock %}{% endsetcontext %}
-{% setcontext as page_title %}{% block page_title %}{% endblock %}{% endsetcontext %}
+{% block title %}{% endblock %}
+{% block head_title %}{% endblock %}
+{% block page_title %}{% endblock %}
 
 <!doctype html>
 <html lang="en">
@@ -11,7 +11,7 @@
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
       <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-      <meta name="application-version" content="{{ request.application_version }}" />
+<!--      <meta name="application-version" content="{{ request.application_version }}" /> not functional-->
       <meta name="description" content="{% block meta_description %}{% endblock %}" />
       <meta name="keywords" content="{% block meta_keywords %}{% endblock %}" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,7 +33,6 @@
   </head>
   <body>
     <div class="container">
-      {% render_breadcrumbs %}
 
       {% if page_title or title %}
         <div class="page-header">
@@ -41,7 +40,6 @@
         </div>
       {% endif %}
 
-      {% bootstrap_messages %}
 
       <div id="main-content">
         {% block content %}{% endblock %}
