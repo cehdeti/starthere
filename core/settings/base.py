@@ -32,7 +32,7 @@ TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 ALLOWED_HOSTS = ["*"]
 
-SITE_ID=1
+SITE_ID = 1
 
 INSTALLED_APPS = (
     'collectfast',

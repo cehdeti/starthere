@@ -6,8 +6,8 @@ def home(request):
 
 
 def do404(request):
-    return render(request,'404.html', request)
+    return render(request, '404.html', request)
 
 
 def do500(request):
-    return render(request, '500.html',request)
+    return render(request, '500.html', request)

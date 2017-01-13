@@ -1,4 +1,3 @@
-
 from django.contrib import sitemaps
 
 
@@ -7,9 +6,9 @@ class DefaultSitemap(sitemaps.Sitemap):
     priority = 0.5
 
     def items(self):
-        return ['/',]
+        return ['/']
 
 
-DEFAULT_SITEMAPS={
-    'pages':DefaultSitemap,
+DEFAULT_SITEMAPS = {
+    'pages': DefaultSitemap,
 }
