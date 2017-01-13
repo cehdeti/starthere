@@ -22,4 +22,3 @@ awsebcli
 Collectfast
 dj-static
 django-ses
-gunicorn
