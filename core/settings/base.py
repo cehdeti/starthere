@@ -32,9 +32,13 @@ TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 ALLOWED_HOSTS = ["*"]
 
+SITE_ID=1
+
 INSTALLED_APPS = (
     'collectfast',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'storages',
     'corsheaders',
 
@@ -55,10 +59,10 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': ['core/templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'builtins': [
-                'missing.templatetags.context_tags',
             ],
             'context_processors': [
                 'django.template.context_processors.debug',
