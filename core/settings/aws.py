@@ -2,6 +2,8 @@ import os
 from .base import *
 
 
+INSTALLED_APPS += ('django_ses',)
+
 ###################
 # MAIN AWS SETTINGS
 ###################
@@ -35,6 +37,13 @@ MEDIA_URL = '%s//%s/%s/' % (AWS_S3_URL_PROTOCOL, AWS_S3_CUSTOM_DOMAIN, MEDIA_DIR
 
 DEFAULT_FILE_STORAGE = 'core.s3_storages.MediaStorage'
 STATICFILES_STORAGE = 'core.s3_storages.StaticStorage'
+
+#####
+# SES
+#####
+
+EMAIL_BACKEND = 'django_ses.SESBackend'
+DEFAULT_FROM_EMAIL = 'eti@umn.edu'
 
 #####
 # RDS
