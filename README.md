@@ -8,7 +8,7 @@ repo, then follow the instructions below. The `bin/setup` script will detect
 that you are starting a new project from the `starthere` app and replace some
 strings, do additional setup, etc.
 # <<REMOVE_END>>
-# starthere
+# <<PROJECT>>
 
 ## Requirements/Versions
 
