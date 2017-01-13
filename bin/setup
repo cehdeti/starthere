@@ -112,11 +112,12 @@ compile_pip_requirements() {
   pip-compile --rebuild requirements.in > /dev/null
   printf 'done.\n'
 }
-
-replace_project_token_with_name() {
+# <<REMOVE_BEGIN>>
+replace_project_meta() {
   printf 'Replacing occurrances of <<PROJECT>> with project name...'
   local dir="$(basename "$(pwd)")"
-  find . -type f ! -path './.git/*' ! -path './bin/*' ! -path './node_modules/*' -print0 | xargs -0 perl -i -pe "s~<<PROJECT>>~$dir~g"
+  find . -type f ! -path './.git/*' ! -path './bin/*' ! -path './node_modules/*' -print0 | xargs -0 env LC_CTYPE=C LANG=C sed -i '' "s/<<PROJECT>>/$dir/g"
+  find . -type f ! -path './.git/*' ! -path './node_modules/*' -print0 | xargs -0 env LC_CTYPE=C LANG=C sed -i '' '/^# <<REMOVE_BEGIN>>$/,/^# <<REMOVE_END>>$/d'
   printf 'done.\n'
 }
 
@@ -132,8 +133,9 @@ new_project_setup() {
   fi
 
   compile_pip_requirements
-  replace_project_token_with_name
+  replace_project_meta
 }
+# <<REMOVE_END>>
 
 install_pip_requirements() {
   printf 'Installing requirements (pip)...'
@@ -158,6 +160,9 @@ init_database() {
   printf 'done.\n'
 }
 
+replace_project_meta
+exit
+
 check_virtualenv_install
 check_npm_install
 
@@ -166,8 +171,9 @@ create_and_activate_virtualenv
 venv_created=$?
 set -e
 
+# <<REMOVE_BEGIN>>
 new_project_setup
-
+# <<REMOVE_END>>
 install_requirements
 init_database
 
