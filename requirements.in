@@ -1,6 +1,7 @@
 dj-database-url
 Django
 django-cors-headers
+django-missing
 django-storages>=1.1.9
 -e git+https://github.com/cehdeti/pyeti.git@master#egg=pyeti
 psycopg2
