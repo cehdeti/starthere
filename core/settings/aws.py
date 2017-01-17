@@ -35,8 +35,8 @@ STATIC_URL = '%s//%s/%s/' % (AWS_S3_URL_PROTOCOL, AWS_S3_CUSTOM_DOMAIN, STATIC_D
 STATIC_ROOT = '/%s/' % STATIC_DIR
 MEDIA_URL = '%s//%s/%s/' % (AWS_S3_URL_PROTOCOL, AWS_S3_CUSTOM_DOMAIN, MEDIA_DIR)
 
-DEFAULT_FILE_STORAGE = 'core.s3_storages.MediaStorage'
-STATICFILES_STORAGE = 'core.s3_storages.StaticStorage'
+DEFAULT_FILE_STORAGE = 'pyeti.django.s3_storages.MediaStorage'
+STATICFILES_STORAGE = 'pyeti.django.s3_storages.StaticStorage'
 
 #####
 # SES
