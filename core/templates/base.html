@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles hashed_static %}
 
 {% setcontext as title %}{% block title %}{% endblock %}{% endsetcontext %}
 {% setcontext as head_title %}{% block head_title %}{% endblock %}{% endsetcontext %}
@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
 
     {% block styles %}
-      <link rel="stylesheet" href="{% static 'css/screen.css' %}" />
+      <link rel="stylesheet" href="{% hashed_static 'screen.css' %}" />
     {% endblock %}
   </head>
   <body>
@@ -46,7 +46,7 @@
     </div>
 
     {% block scripts %}
-      <script src="{% static 'js/app.js' %}" type="text/javascript"></script>
+      <script src="{% hashed_static 'app.js' %}" type="text/javascript"></script>
     {% endblock %}
   </body>
 </html>

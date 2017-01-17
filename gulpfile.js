@@ -8,6 +8,8 @@ const concat = require('gulp-concat');
 const del = require('del');
 const gulp = require('gulp');
 const gulpif = require('gulp-if');
+const lazypipe = require('lazypipe');
+const rev = require('gulp-rev');
 const sass = require('gulp-sass');
 const source = require('vinyl-source-stream');
 const uglify = require('gulp-uglify');
@@ -31,21 +33,34 @@ gulp.task('clean:js', function() {
   return del(['static/js']);
 });
 
-gulp.task('css', ['clean:css'], function() {
-  return gulp.src(['./assets/scss/app.scss'])
-    .pipe(sass().on('error', sass.logError))
-    .pipe(concat('screen.css'))
-    .pipe(gulp.dest('./static/css'))
-  ;
-});
+const jsPipeline = lazypipe()
+  .pipe(function() {
+    return gulpif(argv.production, uglify());
+  });
 
-gulp.task('js', ['clean:js'], function() {
+const scssPipeline = lazypipe()
+  .pipe(function() {
+    return sass().on('error', sass.logError);
+  });
+
+const cssPipeline = lazypipe()
+  .pipe(function() {
+    return concat('screen.css');
+  });
+
+gulp.task('build', ['clean'], function() {
   return browserify({entries: './assets/js/app.js', debug: !argv.production})
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
-    .pipe(gulpif(argv.production, uglify()))
-    .pipe(gulp.dest('build/js'))
+    .pipe(addsrc.append('./assets/scss/app.scss'))
+    .pipe(gulpif('*.js', jsPipeline()))
+    .pipe(gulpif('*.scss', scssPipeline()))
+    .pipe(gulpif('*.css', cssPipeline()))
+    .pipe(rev())
+    .pipe(gulp.dest('./static'))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest('./static'))
   ;
 });
 
@@ -68,9 +83,7 @@ gulp.task('lint:sass', function() {
 gulp.task('lint', ['lint:js', 'lint:sass']);
 
 gulp.task('watch', ['build'], function() {
-  gulp.watch(paths.css, ['css']);
-  gulp.watch(paths.js, ['js']);
+  gulp.watch(paths.css + paths.js, ['build']);
 });
 
-gulp.task('build', ['css', 'js']);
 gulp.task('default', [argv.production ? 'build' : 'watch']);

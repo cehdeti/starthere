@@ -8,6 +8,7 @@ venv
 .sass-cache
 
 # Web build artifacts
+/rev-manifest.json
 /node_modules/
 /static/
 
