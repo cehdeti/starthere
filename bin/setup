@@ -105,14 +105,14 @@ create_and_activate_virtualenv() {
   set -u
   printf 'done.\n'
 }
-
+# <<REMOVE_BEGIN>>
 compile_pip_requirements() {
   printf 'Installing pip-tools and compiling requirements file...'
   "$(_pip)" install -q pip-tools
   pip-compile --rebuild requirements.in > /dev/null
   printf 'done.\n'
 }
-# <<REMOVE_BEGIN>>
+
 replace_project_meta() {
   printf 'Replacing occurrances of <<PROJECT>> with project name...'
   local dir="$(basename "$(pwd)")"
@@ -159,9 +159,6 @@ init_database() {
   python manage.py migrate -v 0
   printf 'done.\n'
 }
-
-replace_project_meta
-exit
 
 check_virtualenv_install
 check_npm_install
