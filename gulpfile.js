@@ -16,6 +16,7 @@ const source = require('vinyl-source-stream');
 const uglify = require('gulp-uglify');
 const eslint = require('gulp-eslint');
 const sasslint = require('gulp-sass-lint');
+const Server = require('karma').Server;
 
 const paths = {
   css: ['./assets/scss/**/*.scss'],
@@ -79,6 +80,13 @@ gulp.task('lint:sass', function() {
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
   ;
+});
+
+gulp.task('test:js', function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });
 
 gulp.task('lint', ['lint:js', 'lint:sass']);
