@@ -36,6 +36,7 @@ SITE_ID = 1
 
 INSTALLED_APPS = (
     'collectfast',
+    'django.contrib.auth',
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
@@ -44,6 +45,7 @@ INSTALLED_APPS = (
 
     'pyeti.django',
 
+    'user',
     'web',
 )
 
@@ -114,6 +116,12 @@ STATICFILES_FINDERS = (
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+
+AUTHENTICATION_BACKENDS = (
+    'user.backend.EmailAuthBackend',
+)
+AUTH_USER_MODEL = 'user.Account'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const addsrc = require('gulp-add-src');
 const argv = require('yargs').argv;
 const browserify = require('browserify');
@@ -83,7 +84,7 @@ gulp.task('lint:sass', function() {
 gulp.task('lint', ['lint:js', 'lint:sass']);
 
 gulp.task('watch', ['build'], function() {
-  gulp.watch(paths.css + paths.js, ['build']);
+  gulp.watch(_.flatten(_.values(paths)), ['build']);
 });
 
 gulp.task('default', [argv.production ? 'build' : 'watch']);
