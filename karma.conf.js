@@ -6,19 +6,26 @@ module.exports = function(config) {
 
     basePath: '',
 
-    frameworks: ['jasmine'],
+    frameworks: ['browserify', 'jasmine'],
 
+    /*
+      the code needed to run the tests.
+      e.g. app code, test files, sometimes a framework
+    */
     files: [
-      'assets/js'
+      'assets/js/*.js',
+      'tests/js/*.spec.js'
     ],
 
     exclude: [
     ],
 
     preprocessors: {
+      'assets/js/*.js': ['browserify'],
+      'tests/js/*.spec.js': ['browserify']
     },
 
-    reporters: ['progress'],
+    reporters: ['dots'],
 
     port: 9876,
 
@@ -28,7 +35,14 @@ module.exports = function(config) {
 
     autoWatch: false,
 
-    browsers: ['Chrome'],
+    /*
+      karma will automatically look for and load npm packages that
+      start with karma. e.g. karma-istanbul. but sometimes
+      you will want to list them explicitly here
+    */
+    //plugins: [],
+
+    browsers: ['PhantomJS'],
 
     singleRun: false,
 
