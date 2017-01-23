@@ -14,7 +14,7 @@ ctrl_c() {
 }
 
 echo 'Running the test suite...'
-python manage.py behave --keepdb
+python manage.py behave --keepdb --format progress
 python manage.py test --keepdb --reverse
 gulp test:js
 
