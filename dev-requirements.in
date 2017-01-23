@@ -1,0 +1,12 @@
+-r requirements.in
+
+autopep8
+behave-django
+coverage
+django-gulp
+django-rainbowtests
+factory-boy
+Faker
+pep8
+splinter
+

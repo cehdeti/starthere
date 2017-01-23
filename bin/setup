@@ -110,6 +110,7 @@ compile_pip_requirements() {
   printf 'Installing pip-tools and compiling requirements file...'
   "$(_pip)" install -q pip-tools
   pip-compile --rebuild requirements.in > /dev/null
+  pip-compile --rebuild dev-requirements.in > /dev/null
   printf 'done.\n'
 }
 
@@ -139,7 +140,7 @@ new_project_setup() {
 
 install_pip_requirements() {
   printf 'Installing requirements (pip)...'
-  "$(_pip)" install -q -r requirements.txt
+  "$(_pip)" install -q -r dev-requirements.txt
   printf 'done.\n'
 }
 
