@@ -58,6 +58,9 @@ Some helpful commands:
   Now you should have a `htmlcov/index.html` file that you can view in
   a browser.
 
+Front-end unit tests can be run with `gulp test:js` and they will run according to the
+karma.js config.
+
 ## Deployment
 
 Currently, the application is deployed to Amazon AWS. To deploy, just run the
