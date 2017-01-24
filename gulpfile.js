@@ -16,6 +16,7 @@ const source = require('vinyl-source-stream');
 const uglify = require('gulp-uglify');
 const eslint = require('gulp-eslint');
 const sasslint = require('gulp-sass-lint');
+const detab = require('gulp-soften');
 const Server = require('karma').Server;
 
 const paths = {
@@ -82,12 +83,28 @@ gulp.task('lint:sass', function() {
   ;
 });
 
+gulp.task('detab:js', function() {
+  gulp.src(paths.js)
+    .pipe(detab(2))
+    .pipe(gulp.dest('assets'));
+});
+
+gulp.task('detab:sass', function() {
+  gulp.src(paths.css)
+    .pipe(detab(2))
+    .pipe(gulp.dest('assets'))
+});
+
+
+
 gulp.task('test:js', function (done) {
   new Server({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
   }, done).start();
 });
+
+gulp.task('detab', ['detab:js','detab:sass']);
 
 gulp.task('lint', ['lint:js', 'lint:sass']);
 
