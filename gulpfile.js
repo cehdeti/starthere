@@ -7,17 +7,18 @@ var browserify = require('browserify');
 var buffer = require('vinyl-buffer');
 var concat = require('gulp-concat');
 var del = require('del');
+var detab = require('gulp-soften');
+var eslint = require('gulp-eslint');
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var lazypipe = require('lazypipe');
+var notify = require('gulp-notify');
 var rev = require('gulp-rev');
 var sass = require('gulp-sass');
+var sasslint = require('gulp-sass-lint');
+var Server = require('karma').Server;
 var source = require('vinyl-source-stream');
 var uglify = require('gulp-uglify');
-var eslint = require('gulp-eslint');
-var sasslint = require('gulp-sass-lint');
-var detab = require('gulp-soften');
-var Server = require('karma').Server;
 
 var paths = {
   css: ['./assets/scss/**/*.scss'],
@@ -44,7 +45,9 @@ var jsPipeline = lazypipe()
 
 var scssPipeline = lazypipe()
   .pipe(function() {
-    return sass().on('error', sass.logError);
+    return sass().on('error', notify.onError(function(error) {
+      return 'Error! ' + error;
+    }));
   });
 
 var cssPipeline = lazypipe()
@@ -80,7 +83,7 @@ gulp.task('lint:sass', function() {
   return gulp.src(paths.css)
     .pipe(sasslint())
     .pipe(sasslint.format())
-    .pipe(sasslint.failOnError())
+    // .pipe(sasslint.failOnError())
   ;
 });
 

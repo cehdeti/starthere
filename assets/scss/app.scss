@@ -1,0 +1,8 @@
+// Bootstrap imports.  Import bootstrap modules as needed.
+// Keep that bloat down, soldier.
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/bootstrap/scss/grid';
+
+// Bootstrap variables override.
+@import './settings/settings.bootstrap-variables';
