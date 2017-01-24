@@ -1,4 +1,4 @@
--r requirements.in
+-r requirements.txt
 
 autopep8
 behave-django
@@ -9,4 +9,3 @@ factory-boy
 Faker
 pep8
 splinter
-
