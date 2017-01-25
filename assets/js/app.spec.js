@@ -1,17 +1,17 @@
-var App = require('./app.js');
+var app = require('./app.js');
 
 describe('App module', function() {
-  var app;
+  var _app;
   beforeEach(function() {
-    app = App()
+    _app = app();
   });
 
   describe('App', function() {
     it('should be defined', function() {
-      expect(app).toBeDefined();
+      expect(_app).toBeDefined();
     });
     it('should return the correct string', function() {
-      expect(app.greet()).toEqual('ETI rocks');
-    })
+      expect(_app.greet()).toEqual('ETI rocks');
+    });
   });
 });

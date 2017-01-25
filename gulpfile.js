@@ -1,27 +1,28 @@
 'use strict';
 
-const _ = require('lodash');
-const addsrc = require('gulp-add-src');
-const argv = require('yargs').argv;
-const browserify = require('browserify');
-const buffer = require('vinyl-buffer');
-const concat = require('gulp-concat');
-const del = require('del');
-const gulp = require('gulp');
-const gulpif = require('gulp-if');
-const lazypipe = require('lazypipe');
-const rev = require('gulp-rev');
-const sass = require('gulp-sass');
-const source = require('vinyl-source-stream');
-const uglify = require('gulp-uglify');
-const eslint = require('gulp-eslint');
-const sasslint = require('gulp-sass-lint');
-const detab = require('gulp-soften');
-const Server = require('karma').Server;
+var _ = require('lodash');
+var addsrc = require('gulp-add-src');
+var argv = require('yargs').argv;
+var browserify = require('browserify');
+var buffer = require('vinyl-buffer');
+var concat = require('gulp-concat');
+var del = require('del');
+var gulp = require('gulp');
+var gulpif = require('gulp-if');
+var lazypipe = require('lazypipe');
+var rev = require('gulp-rev');
+var sass = require('gulp-sass');
+var source = require('vinyl-source-stream');
+var uglify = require('gulp-uglify');
+var eslint = require('gulp-eslint');
+var sasslint = require('gulp-sass-lint');
+var detab = require('gulp-soften');
+var Server = require('karma').Server;
 
-const paths = {
+var paths = {
   css: ['./assets/scss/**/*.scss'],
-  js: ['./assets/js/**/*.js']
+  js: ['./assets/js/**/*.js'],
+  gulpfile: ['./gulpfile.js'],
 };
 
 gulp.task('clean', function() {
@@ -36,17 +37,17 @@ gulp.task('clean:js', function() {
   return del(['static/js']);
 });
 
-const jsPipeline = lazypipe()
+var jsPipeline = lazypipe()
   .pipe(function() {
     return gulpif(argv.production, uglify());
   });
 
-const scssPipeline = lazypipe()
+var scssPipeline = lazypipe()
   .pipe(function() {
     return sass().on('error', sass.logError);
   });
 
-const cssPipeline = lazypipe()
+var cssPipeline = lazypipe()
   .pipe(function() {
     return concat('screen.css');
   });
@@ -68,7 +69,7 @@ gulp.task('build', ['clean'], function() {
 });
 
 gulp.task('lint:js', function() {
-  return gulp.src(paths.js)
+  return gulp.src(_.concat(paths.js, paths.gulpfile))
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
@@ -84,7 +85,7 @@ gulp.task('lint:sass', function() {
 });
 
 gulp.task('detab:js', function() {
-  gulp.src(paths.js)
+  gulp.src(_.concat(paths.js, paths.gulpfile))
     .pipe(detab(2))
     .pipe(gulp.dest('assets'));
 });
@@ -92,19 +93,17 @@ gulp.task('detab:js', function() {
 gulp.task('detab:sass', function() {
   gulp.src(paths.css)
     .pipe(detab(2))
-    .pipe(gulp.dest('assets'))
+    .pipe(gulp.dest('assets'));
 });
 
-
-
-gulp.task('test:js', function (done) {
+gulp.task('test:js', function(done) {
   new Server({
     configFile: __dirname + '/karma.conf.js',
-    singleRun: true
+    singleRun: true,
   }, done).start();
 });
 
-gulp.task('detab', ['detab:js','detab:sass']);
+gulp.task('detab', ['detab:js', 'detab:sass']);
 
 gulp.task('lint', ['lint:js', 'lint:sass']);
 
