@@ -66,3 +66,9 @@ karma.js config.
 Currently, the application is deployed to Amazon AWS. To deploy, just run the
 `./bin/deploy` script. This will compile the frontend assets, upload them to
 S3, then deploy the backend application with Elastic Beanstalk.
+
+## Styleguide
+
+* From root, type `cd assets/styleguide`.
+* In this directory you can build the initial style guide by typing `gulp` in the commandline.
+* Next, type `gulp dev` to initialize the development server.
