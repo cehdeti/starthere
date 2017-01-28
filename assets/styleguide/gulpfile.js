@@ -1,18 +1,18 @@
 
 // Imports
 
-var gulp = require('gulp'); 
+var gulp = require('gulp');
 var sass = require('gulp-sass');
 var styleguide = require('sc5-styleguide');
 
 // Path definitions
 
-var sourcePath = 'src';
-var htmlWild = sourcePath + '/**/*.html';
-var styleSourcePath = sourcePath + '/styles';
+var sourcePath = '../';
+var htmlWild = sourcePath + '/src/**/*.html';
+var styleSourcePath = sourcePath + '/scss';
 var scssWild = styleSourcePath + '/**/*.scss';
-var scssRoot = styleSourcePath + '/tutorial.scss';
-var overviewPath = styleSourcePath + '/README.md';
+var scssRoot = styleSourcePath + '/app.scss';
+var overviewPath = sourcePath + '/styleguide/README.md';
 
 var buildPath = 'build';
 var styleBuildPath = buildPath + '/styles';
@@ -123,4 +123,3 @@ gulp.task('default', ['html', 'scss', 'staticStyleguide'], function() {
         'Run gulp with "gulp dev" for developer mode and style guide!\n'
     );
 });
-

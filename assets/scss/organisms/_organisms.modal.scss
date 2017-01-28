@@ -1,0 +1,127 @@
+
+// Organisms
+//
+// Index of existing "Organism" patterns.
+//
+// Styleguide 1.0
+
+// Modal
+//
+// Due to anchor link issues with Angular, modals must be tested here: http://codepen.io/sodapop/pen/ZBXXKV
+//
+// markup:
+// <section class="modal" id="modal" role="dialog">
+//   <a class="modal__overlay" href="#!"></a>
+//   <div class="modal__container">
+//     <header class="modal__header">
+//       <a aria-label="close" class="modal__close" href="#close"><a>
+//       <h3 class="modal__heading">Add Venue</h3>
+//     </header>
+//     <div class="modal__body">
+//       <p>Hello world!</p>
+//     </div>
+//     <footer class="modal__footer">
+//       <a class="btn">Save</a>
+//       <a href="#!" class="btn" role="button">Cancel</a>
+//     </footer>
+//   </div>
+// </section>
+//
+// Styleguide 1.1
+
+$modal-padding: 24px;
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  &:target {
+    visibility: visible;
+    transition: ease all;
+    position: fixed;
+    opacity: 0.8;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    .modal__overlay {
+      visibility: visible;
+      background: #000;
+      opacity: 0.9;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      position: fixed;
+      transition: 0.1s ease all;
+    }
+  }
+  &__overlay {
+    visibility: hidden;
+    opacity: 0;
+  }
+  &__container {
+    background: #fff;
+    position: relative;
+    min-height: 300px;
+    z-index: 999;
+    width: 100%;
+    box-shadow: 38px 40px 36px 2px rgba(0,0,0,1);
+    border-radius: 4px;
+    @media (min-width: 860px) {
+      width: 700px;
+    }
+  }
+  &__body {
+    padding: 0 $modal-padding $modal-padding;
+  }
+  &__footer {
+    width: 100%;
+    height: 54px;
+    padding: $modal-padding;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background: #000;
+    color: #fff;
+  }
+  &__header {
+    width: 100%;
+    height: 54px;
+    padding: $modal-padding;
+    margin-bottom: 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #000;
+    color: #fff;
+  }
+  &__heading {
+    margin: 0;
+  }
+  &__close {
+    position: absolute;
+    right: $modal-padding;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    color: #000;
+    background: #bbb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &::after {
+      content: 'x';
+    }
+    &:hover {
+      background: #f1f1f1;
+    }
+  }
+}

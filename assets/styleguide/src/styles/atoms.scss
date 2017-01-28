@@ -70,7 +70,7 @@
 
   &.eg-person-info_role_designer {
     .eg-person-info__name {
-      background-color:  $eg-color-cyan;
+      background-color:  $brand-primary;
     }
   }
 
@@ -245,7 +245,7 @@
 //
 // Exercise 1.6b: Add some styling to your button by defining a new eg-button class.
 //
-// Exercise 1.6c: Add hover state to your button so it responds to mouse movements. 
+// Exercise 1.6c: Add hover state to your button so it responds to mouse movements.
 //
 // Exercise 1.6d: Make hover state always visible in style guide so people who
 // are looking at a printout have a way of seeing what it would look like

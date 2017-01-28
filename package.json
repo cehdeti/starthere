@@ -2,7 +2,8 @@
   "name": "<<PROJECT>>",
   "version": "1.0.0",
   "description": "A repository for the <<PROJECT>> webapp.",
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "browserify": "^13.3.0",
     "del": "^2.2.2",

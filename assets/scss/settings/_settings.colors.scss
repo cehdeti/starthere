@@ -1,0 +1,73 @@
+// Color palette
+$brand-primary: blue;
+$brand-secondary: red;
+$brand-tertiary: green;
+
+//Grey Scale
+$grey-scale-1: #f4f4f4;
+$grey-scale-2: #dbdbdb; //10%
+$grey-scale-3: #b4b4b4; //25%
+$grey-scale-4: #8e8e8e; //40%
+$grey-scale-5: #686868; //55%
+$grey-scale-6: #424242; //70%
+
+// articulation palette
+$ui-danger: #E23232;
+$ui-success: green;
+$ui-notification: white;
+$ui-warning: orange;
+
+
+// Colors
+//
+// This file contains variables that are used to normalize the values used in
+// atom style definitions.
+//
+// Styleguide 2.0
+
+// Color Palette
+//
+// Styleguide 2.1
+
+// Brand Colors
+//
+// These are defining colors of a brand.
+//
+// markup:
+// <div style="background: {$modifiers};" class="styleguide-color">{$modifiers}</div>
+//
+// $brand-primary - Primary brand color.
+// $brand-secondary - Secondary brand color.
+// $brand-tertiary - Tertirary brand color.
+//
+// Styleguide 2.1.1
+
+// Grey Scale
+//
+// These are auxiliary colors.
+//
+// markup:
+// <div style="background: {$modifiers};" class="styleguide-color">{$modifiers}</div>
+//
+// $grey-scale-1 - Base grey: #f4f4f4
+// $grey-scale-2 - 10% darker than base.
+// $grey-scale-3 - 25% darker than base.
+// $grey-scale-4 - 40% darker than base.
+// $grey-scale-5 - 55% darker than base.
+// $grey-scale-6 - 70% darker than base.
+//
+// Styleguide 2.1.2
+
+// Articulating Palette
+//
+// These colors articulate various meanings, like success, danger, warning, and notification.
+//
+// markup:
+// <div style="background: {$modifiers};" class="styleguide-color">{$modifiers}</div>
+//
+// $ui-danger - This articulates much importance, like deleting or an error.
+// $ui-success - This articulates success, like saving.
+// $ui-notification - This is neutral, as it is meant to inform -- like a tip.
+// $ui-warning - This articulates importance.
+//
+// Styleguide 2.1.3

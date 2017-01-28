@@ -1,0 +1,208 @@
+// global padding
+$btn-vertical-padding: 6px;
+$btn-horizontal-padding: 12px;
+
+// mixin that generates button icon class.
+// it adds variable padding to a button, as well as variable positioning, which is determined by the args.
+// first arg can only be 'before' or 'after'
+@mixin btn-icon($el, $padding, $pos) {
+  // if first arg is 'after', use the following code block.
+  @if $el=="after" {
+    &.ui-btn--icon {
+      padding-right: $padding;
+      position: relative;
+      &::after {
+        content: attr(data-btn-icon);
+        // add your glyphicon fonts here.
+        font-family: 'Material Icons';
+        position: absolute;
+        right: $pos;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: normal;
+        font-style: normal;
+        font-size: 1rem;  /* Preferred icon size */
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+
+        /* Support for all WebKit browsers. */
+        -webkit-font-smoothing: antialiased;
+        /* Support for Safari and Chrome. */
+        text-rendering: optimizeLegibility;
+
+        /* Support for Firefox. */
+        -moz-osx-font-smoothing: grayscale;
+
+        /* Support for IE. */
+        font-feature-settings: 'liga';
+      }
+    }
+  }
+  // else if first arg is 'before', use this block.
+  @else if $el=="before" {
+    &.ui-btn--icon {
+      &-left {
+        padding-left: $padding;
+        position: relative;
+        &::after {
+          content: attr(data-btn-icon);
+          // add your glyphicon fonts here.
+          font-family: 'Material Icons';
+          position: absolute;
+          left: $pos;
+          top: 50%;
+          transform: translateY(-50%);
+          font-weight: normal;
+          font-style: normal;
+          font-size: 1rem;  /* Preferred icon size */
+          line-height: 1;
+          text-transform: none;
+          letter-spacing: normal;
+          word-wrap: normal;
+          white-space: nowrap;
+          direction: ltr;
+
+          /* Support for all WebKit browsers. */
+          -webkit-font-smoothing: antialiased;
+          /* Support for Safari and Chrome. */
+          text-rendering: optimizeLegibility;
+
+          /* Support for Firefox. */
+          -moz-osx-font-smoothing: grayscale;
+
+          /* Support for IE. */
+          font-feature-settings: 'liga';
+        }
+      }
+    }
+  }
+  @else {
+    @warn "An icon mixin parameter is not valid.";
+  }
+}
+
+$btnAttrs: (primary: $brand-primary, secondary: $brand-secondary, tertiary: $brand-tertiary, danger: $ui-danger);
+
+.ui-btn {
+  border: 1px solid $grey-scale-3;
+  min-width: 24px;
+  padding: $btn-vertical-padding $btn-horizontal-padding;
+  font-size: 13px;
+  background: $grey-scale-3;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 1px;
+  line-height: 1;
+  display: inline-block;
+  white-space: nowrap;
+  &:hover,
+  &:focus {
+    transition: $basic-transition;
+  }
+}
+
+.ui-btn {
+  @each $btnName, $color in $btnAttrs {
+    &.ui-btn--outline {
+      background: transparent;
+      border: 1px solid $color;
+      color: $color;
+      &:hover,
+      &:focus {
+        background: darken($color, 15%);
+        border: 1px solid darken($color, 15%);
+        color: white;
+      }
+    }
+  }
+}
+
+.ui-btn {
+  @include btn-icon('before', 32px, 12px);
+  @include btn-icon('after', 32px, 12px);
+  @each $btnName, $color in $btnAttrs {
+    &.ui-btn--#{$btnName} {
+      background: $color;
+      border: 1px solid $color;
+      color: white;
+      &:hover,
+      &:focus {
+        border: 1px solid darken($color, 15%);
+        background: darken($color, 15%);
+        color: white;
+      }
+    }
+  }
+}
+
+// the following each loop generates button sizes.
+// these params determine the classes/sizes of btns.
+//arg order:
+// (classname, fontsize, btn-padding, icon-left/right-padding, icon-mixin-icon-position)
+
+$btnSizes: (lg, 16px, ($btn-vertical-padding * 1.5) ($btn-horizontal-padding * 1.5), 48px, 20px),
+(sm, 13px, ($btn-vertical-padding/1.5) ($btn-horizontal-padding/1.5), 24px, 8px);
+
+@each $classSize, $fontSize, $padding, $mixPad, $mixPos in $btnSizes {
+  .ui-btn {
+    &.ui-btn--#{$classSize} {
+      font-size: $fontSize;
+      padding: $padding;
+      @include btn-icon('before', $mixPad, $mixPos);
+      @include btn-icon('after', $mixPad, $mixPos);
+    }
+  }
+}
+
+// Atoms
+//
+// Index of existing "Atom" patterns.
+//
+// Styleguide 3.0
+
+// Buttons
+//
+// A button has several available modifiers influencing color, border, inner contents, and size.
+//
+// markup:
+// <button class="ui-btn">Button</button>
+//
+// Styleguide 3.1
+
+// Button Color Variations
+//
+// markup:
+// <button class="ui-btn {$modifiers}">Button</button>
+//
+// .ui-btn--outline - Creates a button with a transparent background.
+// .ui-btn--primary - Colors a button with the primary brand color.
+// .ui-btn--secondary - Colors a button with the secondary brand color.
+// .ui-btn--tertiary - Colors a button with the tertiary brand color.
+//
+// Styleguide 3.1.2
+
+// Button Sizes
+//
+// markup:
+// <button class="ui-btn {$modifiers}">Button</button>
+//
+// .ui-btn--lg - Creates a large call-to-action button.
+// .ui-btn--sm - Creates a small button.
+//
+// Styleguide 3.1.3
+
+// Button Icons
+//
+// The data-btn-icon attribute can be used to add an icon. Add your glyphinon font family in _atoms.buttons.scss.
+//
+// markup:
+// <button class="ui-btn {$modifiers}" data-btn-icon="+">Button</button>
+//
+// .ui-btn--icon - (default) Adds icon to the right.
+// .ui-btn--icon-left - Adds icon to the left.
+//
+// Styleguide 3.1.4
