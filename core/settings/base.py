@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'storages',
     'corsheaders',
 
-    'pyeti.django',
+    'pyeti.eti_django',
 
     'web',
 )
