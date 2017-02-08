@@ -2,8 +2,5 @@
 @import 'settings/settings.colors';
 @import 'settings/settings.configuration-variables';
 
-// components
-@import 'organisms/organisms.modal';
-
-// atom
-@import 'atoms/atoms.buttons';
+// example of importing pattern from pattern_library
+@import '../../node_modules/pattern_library/styles/atoms/atoms.buttons';

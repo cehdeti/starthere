@@ -1,66 +1,63 @@
-SC5 Styleguide Tutorial
-=======================
-[![Dependency Status](https://david-dm.org/SC5/sc5-styleguide-tutorial.png)](https://david-dm.org/SC5/sc5-styleguide-tutorial)
+tl;dr - A Living Style guide
+============================
 
-This is an example project and tutorial for learning the basics of styleguide driven development. This tutorial should cover everything you need to try out style guide driven development. We take you through the steps of installing and running style guide, creating a semantic for your project and creating and documenting your styles. Ideally you should have your own project in the back of your head to reflect upon what you learn here but we will provide some ideas for people who want to take the course for the sake of learning.
+What the heck is this?
 
-Table of Contents
------------------
+* This style guide uses [Atomic Design Principles](http://bradfrost.com/blog/post/atomic-web-design/) to help drive project conventions in a scalable, maintainable direction.
+* Developers contribute to the style guide via annotations in their code. You can learn more [here](#tutorial).
 
-* [About the Styleguide Generator](#about-the-styleguide-generator)
-* [Getting Started](#getting-started)
-* [Navigating the Tutorial](#navigating-the-tutorial)
+Tutorial
+--------
 
-About the Styleguide Generator
-------------------------------
+If you look at `_atoms.buttons.scss`, you'll notice the annotations at the bottom begin with:
 
-The SC5 Styleguide reads your projects [LESS](http://lesscss.org/), [SASS / SCSS](http://sass-lang.com/) or [CSS](http://www.w3.org/Style/CSS/) files and generates documentation for your styles based on some metadata that you need to provide. The metadata needs to be provided in a specific KSS based format. The format is a mixture of the original [KSS](https://github.com/kneath/kss) and the [node-kss](https://github.com/kss-node/kss-node) with some SC5 Styleguide specific [additions](https://github.com/SC5/sc5-styleguide#user-content-documenting-syntax).
-
-Your styleguide will only be as good as the metadata you provide but using a styleguide generator may be a good way of motivating you to write that metadata. The metadata should describe where certain styles are appropriate, what kind of HTML markup should be used to refer the styles and how the different markup can be combined to achieve more complex parts of the user interface. 
-
-Adding all new user interface parts to the style guide first encourages thinking through the user interface and the markup before writing the code. It also makes it possible to review the user interface before the related functionalties are implemented. Finally the provided example markup works as test cases for the styles and their cross platform compatibility can easily be verified by viewing the style guide itself on different devices and screen sizes.
-
-Getting Started
----------------
-
-Before we start you need to install git and npm. See http://git-scm.com/ and https://docs.npmjs.com/ to get git and npm installed. You do not need to become a master of either one. We just need them to setup an example styleguide for you.
-
-You first need to use git to copy all the required files to your computer.
 ```
-git clone https://github.com/SC5/sc5-styleguide-tutorial.git
+// Atoms
+//
+// Index of existing "Atom" patterns.
+//
+// Styleguide 3.0
 ```
+The first row indicates the name of the category. It's then separated by an empty comment, and then a description as added. In this convention, titles, descriptions, markup, modifier classes, etc, are separated by an empty comment line.
 
-Once the files have downloaded you may change to the tutorial directory and get all dependencies.
-```
-cd sc5-styleguide-tutorial
-npm install
-```
+At the very end of a block, `Styleguide` and the figure number is added -- `3.0`. Each new category must be `*.0`. Each section nested within that category must contain a floating number for the figure, like `3.1`. You can also go deeper with something like `3.1.1`. This determines how sections are nested visually within the generated document.
 
-If you have not used gulp before you should also install a global gulp to get the gulp command added to your environment.
+Let's take a look at a section that contains actual markup:
 ```
-npm install -g gulp
+// Button Color Variations
+//
+// markup:
+// <button class="ui-btn {$modifiers}">Button</button>
+//
+// .ui-btn--outline - Creates a button with a transparent background.
+// .ui-btn--primary - Colors a button with the primary brand color.
+// .ui-btn--secondary - Colors a button with the secondary brand color.
+// .ui-btn--tertiary - Colors a button with the tertiary brand color.
+//
+// Styleguide 3.1.1
 ```
+From top to bottom, we have the following:
+* Title
+* Markup
+* Modifier classes
+* Figure number
 
-Next you need to build the example project. Just running gulp without any arguments will build both the project and the styleguide.
-```
-gulp
-```
+Markup must begin with `markup:`. After that, you can add code. Notice that in the example above, a binding -- `{$modifiers}` -- is contained in the class attribute. Adding this binding allows SC5 to loop through the modifier classes that are defined below the markup, rendering actual elements in the documentation that contain each modifier class.
 
-The generated project and styleguide should now exist in the build directory. You may examine the styleguide by serving to the browser with some web server software. Here we demonstrate making the files available to http://localhost:8000/ and http://localhost:8000/styleguide/ using the Python SimpleHTTPServer module. However, if you don't have that installed or all of this seems over the top, do not worry, just skip this step and you'll be alright.
+Modifier classes are added below markup, and must contain a description that's separated by a hyphen (`-`).
+
+If you want `variables` related to a specific element to appear, you can add them to the beginning of a particular section. In this example, I added them to the parent of each nested section, fashioned in the same way as modifier classes.
+
 ```
-(cd build; python -m SimpleHTTPServer)
+// Buttons
+//
+// A button has several available modifiers influencing color, border, inner contents, and size.
+//
+// $btn-vertical-padding - The vertical padding of a button.
+// $btn-horizontal-padding - The horizontal padding of a button.
+// $btn-border-radius - A buttons border radius.
+//
+// markup: <button style="padding:{$modifiers}">Modifiers</button>
+//
+// Styleguide 3.1
 ```
-
-To end the SimpleHTTPServer running from the previous step you need to end it first by pressing the c key while holding down the ctrl key. This will print some ugly error messages on the screen. Don't worry. It is to be expected.
-
-Building the project will become tiresome when you are constantly developing styles and markup. Therefore the styleguide has a developer mode with a built-in server that will make the styleguide available at http://localhost:3000/ Try it!
-```
-gulp dev
-```
-
-In development mode styleguide will monitor your changes to the example styles that you can find under src/styles/ in your sc5-styleguide-tutorial directory. User your favourite text editor to modify the scss files. The styleguide should be automatically to match your changes. In case of an error you may find an error message in the console where you are running gulp. You may end the developer mode by pressing the c key while holding down the ctrl key.
-
-Navigating the Tutorial
------------------------
-
-The tutorial will continue inside the example style guide. Each chapter contains example content, explanations and exercises. The reader adviced to go through the chapters in order studying one chapter at a time, doing the exercises even where they may seem trivial. We hope that the exercises will help the reader remember the essential parts of the tutorial. There is no scoring, there are no exams. You are on your own. Good luck!

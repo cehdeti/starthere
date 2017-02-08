@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A repository for the <<PROJECT>> webapp.",
   "dependencies": {
+    "pattern_library": "git+ssh://git@github.com:cehdeti/pattern_library.git",
   },
   "devDependencies": {
     "browserify": "^13.3.0",
