@@ -69,6 +69,9 @@ S3, then deploy the backend application with Elastic Beanstalk.
 
 ## Styleguide
 
+* Run `npm install` to add pattern library dependencies.
+* Pattern Library modules can be imported via `node_modules` into the `assets/scss/app.scss` file.
+* Next, let's build the styleguide.
 * From root, type `cd assets/styleguide`.
 * In this directory you can build the initial style guide by typing `gulp` in the commandline.
 * Next, type `gulp dev` to initialize the development server.
