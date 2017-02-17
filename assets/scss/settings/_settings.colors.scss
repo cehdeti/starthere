@@ -11,23 +11,23 @@ $grey-scale-4: #8e8e8e; //40%
 $grey-scale-5: #686868; //55%
 $grey-scale-6: #424242; //70%
 
-// articulation palette
-$ui-danger: #E23232;
-$ui-success: green;
-$ui-notification: white;
-$ui-warning: orange;
+// Articulating Colors
+$brand-danger: #E23232;
+$brand-success: green;
+$brand-notification: white;
+$brand-warning: orange;
 
-
-// Colors
-//
-// This file contains variables that are used to normalize the values used in
-// atom style definitions.
-//
-// Styleguide 2.0
+// button colors
+$btn-default: $grey-scale-4;
+$btn-primary: $brand-primary;
+$btn-secondary: $brand-secondary;
+$btn-tertiary: $brand-tertiary;
+$btn-default-text: white;
+$btn-default-text-hover: white;
 
 // Color Palette
 //
-// Styleguide 2.1
+// Styleguide 1.1
 
 // Brand Colors
 //
@@ -40,7 +40,7 @@ $ui-warning: orange;
 // $brand-secondary - Secondary brand color.
 // $brand-tertiary - Tertirary brand color.
 //
-// Styleguide 2.1.1
+// Styleguide 1.1.1
 
 // Grey Scale
 //
@@ -56,7 +56,7 @@ $ui-warning: orange;
 // $grey-scale-5 - 55% darker than base.
 // $grey-scale-6 - 70% darker than base.
 //
-// Styleguide 2.1.2
+// Styleguide 1.1.2
 
 // Articulating Palette
 //
@@ -65,9 +65,9 @@ $ui-warning: orange;
 // markup:
 // <div style="background: {$modifiers};" class="styleguide-color">{$modifiers}</div>
 //
-// $ui-danger - This articulates much importance, like deleting or an error.
-// $ui-success - This articulates success, like saving.
-// $ui-notification - This is neutral, as it is meant to inform -- like a tip.
-// $ui-warning - This articulates importance.
+// $brand-danger - This articulates much importance, like deleting or an error.
+// $brand-success - This articulates success, like saving.
+// $brand-notification - This is neutral, as it is meant to inform -- like a tip.
+// $brand-warning - This articulates importance.
 //
-// Styleguide 2.1.3
+// Styleguide 1.1.3

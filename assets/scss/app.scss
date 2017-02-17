@@ -1,6 +1,12 @@
-// settings -- includes variables and configs
+// Settings -- Includes variables and configs
 @import 'settings/settings.colors';
 @import 'settings/settings.configuration-variables';
 
-// example of importing pattern from pattern_library
+// Bootstrap grid imports
+@import '../../node_modules/pattern_library/node_modules/bootstrap/scss/variables';
+@import '../../node_modules/pattern_library/node_modules/bootstrap/scss/mixins/grid';
+@import '../../node_modules/pattern_library/node_modules/bootstrap/scss/mixins/grid-framework';
+@import '../../node_modules/pattern_library/node_modules/bootstrap/scss/mixins/breakpoints';
+
+// Example of importing pattern from pattern_library
 @import '../../node_modules/pattern_library/styles/atoms/atoms.buttons';

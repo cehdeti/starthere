@@ -1,2 +1,42 @@
 // standard transition
 $basic-transition: all 0.1s ease;
+
+// ========= Bootstrap Overrides ========
+$border-radius: 4px;
+
+// true enables gradient buttons
+$enableGradientBtns: true;
+
+// Modal colors
+// ===============================================
+$modal-overlay-bg: #000;
+$modal-container-bg: #fff;
+$modal-container-shadow: 18px 18px 90px 2px rgba(0,0,0,0.5);
+
+// modal icon colors
+$modal-close-icon-color: #000;
+$modal-close-bg: $grey-scale-2;
+$modal-close-bg-hover: $grey-scale-4;
+
+
+
+// panel colors
+// ===============================================
+$panel-bg: #fff;
+$panel-header-bg: $grey-scale-2;
+$panel-header-text-color: #000;
+$panel-options-bg: $grey-scale-3;
+$panel-footer-bg: $grey-scale-2;
+$panel-footer-text-color: #fff;
+
+// gradient header
+$panel-header-gradient: false;
+$panel-header-gradient-color: linear-gradient(-90deg, white 0%,#797a82 100%);
+
+// gradient footer
+$panel-footer-gradient: false;
+$panel-footer-gradient-color: linear-gradient(-90deg, white 0%,#797a82 100%);
+
+// table colors
+// ===============================================
+$table-nth-child-bg: $grey-scale-1
