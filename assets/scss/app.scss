@@ -1,0 +1,74 @@
+/*  NOTE:
+	------------------------------------
+	Files structure adapted from Harry Roberts. Mostly with BEM naming conventions and if you want to be sane, highly recommend naming your stuff the BEM way.
+
+	https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
+
+	If you do use the following **suggested** files structure and BEM, I promise they will save you losing hair over specificity battles.
+	------------------------------------ */
+
+
+/*  SETTINGS
+  ------------------------------------ */
+
+//@import "settings/setting.colors";
+//@import "settings/setting.fonts";
+//@import "settings/setting.variables";
+
+
+/*  VENDORS
+
+	3rd Party stuff. The settings above should able to overwrite the vendor's
+  ------------------------------------ */
+
+
+/*  TOOLS
+
+	Mixins, functions, etc...
+  ------------------------------------ */
+
+//@import "tools/tool.grids";
+
+
+/*  ELEMENTS
+
+	I personally like to put normalize.css here since normalize styles on the element themselves
+  ------------------------------------ */
+
+//@import "elements/element.normalize";
+
+
+/*  GENERICS
+  ------------------------------------ */
+
+//@import "generics/generic.animations";
+//@import "generics/generic.borders";
+//@import "generics/generic.forms";
+//@import "generics/generic.lists";
+//@import "generics/generic.typography";
+
+
+/*  OBJECTS
+  ------------------------------------ */
+
+//@import "objects/object.media";
+
+
+/*  COMPONENTS
+  ------------------------------------ */
+
+//@import "components/component.buttons";
+//@import "components/component.header";
+//@import "components/component.footer";
+
+
+/*  UTILS / HELPERS
+  ------------------------------------ */
+
+//@import "utilities/utility.ellipsisize";
+
+
+/*  PAGES
+  ------------------------------------ */
+
+//@import "pages/page.base";
