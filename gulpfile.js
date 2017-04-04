@@ -19,11 +19,14 @@ var sasslint = require('gulp-sass-lint');
 var detab = require('gulp-soften');
 var Server = require('karma').Server;
 
+var config = require('./package');
+
 var paths = {
   css: ['./assets/scss/**/*.scss'],
   js: ['./assets/js/**/*.js'],
   gulpfile: ['./gulpfile.js'],
 };
+
 
 gulp.task('clean', function() {
   return del(['static']);
@@ -78,7 +81,7 @@ gulp.task('lint:js', function() {
 
 gulp.task('lint:sass', function() {
   return gulp.src(paths.css)
-    .pipe(sasslint())
+    .pipe(sasslint({rules: config.lint_configs.sasslint.RULES}))
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
   ;
