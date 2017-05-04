@@ -6,6 +6,7 @@ venv
 .DS_Store
 .vagrant
 .sass-cache
+*.log
 
 # Web build artifacts
 /rev-manifest.json
