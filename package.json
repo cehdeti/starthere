@@ -34,7 +34,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sassVar": "mustache ./styleguide/styles.json ./styleguide/sass_output.mst > ./assets/scss/_settings.variables.scss"
+    "sassVar": "mustache ./styleguide/theme.json ./styleguide/sass_theme.mst > ./assets/scss/_settings.theme.scss"
   },
   "repository": {
     "type": "git",
