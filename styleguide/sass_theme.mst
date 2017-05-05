@@ -1,5 +1,12 @@
-/*  Colors
-	------------------------------------ */
+//	Primary Colors
+//
+// {{#colors}}
+// {{#primary}}
+// {{{.}}}
+// {{/primary}}
+//
+//	Style guide: settings.theme
+/* ------------------------------------ */
 {{#colors}}
 {{#primary}}
 {{{.}}}
@@ -14,8 +21,12 @@
 {{/accent}}
 {{/colors}}
 
-/*  Fonts
-	------------------------------------ */
+// Fonts
+//
+// Base font stack. You can overwrite these using `settings.variables` or somewhere below `settings.theme`
+//
+// Style guide: settings.theme
+/* ------------------------------------ */
 
 {{#fonts}}
 {{{.}}}

@@ -1,5 +1,9 @@
-/*  Colors
-	------------------------------------ */
+//	Colors
+//
+// Base colors theme
+//
+//	Style guide: settings.theme
+/* ------------------------------------ */
 $primary-color-1: '#fff';
 $primary-color-2: '#333';
 $primary-color-3: '#ddd';
@@ -10,8 +14,12 @@ $secondary-color-3: 'blue';
 
 $accent-color-1: 'orange';
 
-/*  Fonts
-	------------------------------------ */
+// Fonts
+//
+// Base font stack. You can overwrite these using `settings.variables` or somewhere below `settings.theme`
+//
+// Style guide: settings.theme
+/* ------------------------------------ */
 
 $primary-font: 'Roboto', serif;
 $secondary-font: 'Open Sans', serif;

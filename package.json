@@ -24,6 +24,7 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-jasmine": "^1.1.0",
     "karma-phantomjs-launcher": "^1.0.2",
+    "kss": "^3.0.0-beta.18",
     "lazypipe": "^1.0.1",
     "lodash": "^4.17.4",
     "mustache": "^2.3.0",
@@ -34,7 +35,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sassVar": "mustache ./styleguide/theme.json ./styleguide/sass_theme.mst > ./assets/scss/_settings.theme.scss"
+    "sassVar": "mustache ./styleguide/theme.json ./styleguide/sass_theme.mst > ./assets/scss/_settings.theme.scss",
+    "kss": "kss --source ./assets/scss/ --destination ./styleguide/kss"
   },
   "repository": {
     "type": "git",
