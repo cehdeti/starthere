@@ -37,6 +37,10 @@ strings, do additional setup, etc.
 
 Now you can view the site in your browser at http://127.0.0.1:8000.
 
+## Front-end
+
+See `/assets/scss/README.md`
+
 ## Testing
 
 You'll find unit tests inside the `tests` directory of each app in the root
