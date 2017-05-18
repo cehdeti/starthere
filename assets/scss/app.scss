@@ -2,6 +2,7 @@
 /*  ------------------------------------ */
 
 $use-bootstrap: true;
+$fa-font-path: '';
 
 /*  THEME
 
@@ -17,7 +18,7 @@ $use-bootstrap: true;
 /* ------------------------------------ */
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
-
+@import "../../node_modules/font-awesome/scss/font-awesome";
 
 
 //  Tools

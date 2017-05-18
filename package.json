@@ -4,10 +4,12 @@
   "description": "A repository for the <<PROJECT>> webapp.",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.2.1"
   },
   "devDependencies": {
     "browserify": "^13.3.0",
+    "browsersync": "0.0.1-security",
     "del": "^2.2.2",
     "eslint-config-google": "^0.7.1",
     "gulp": "^3.9.1",
