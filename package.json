@@ -2,9 +2,11 @@
   "name": "Base",
   "version": "1.0.0",
   "description": "A repository for the <<PROJECT>> webapp.",
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "jquery": "^3.2.1"
+  },
   "devDependencies": {
-    "bootstrap-sass": "^3.3.7",
     "browserify": "^13.3.0",
     "del": "^2.2.2",
     "eslint-config-google": "^0.7.1",
@@ -19,7 +21,6 @@
     "gulp-soften": "^0.0.1",
     "gulp-uglify": "^2.0.0",
     "jasmine": "^2.5.3",
-    "jquery": "^3.2.1",
     "karma": "^1.4.0",
     "karma-browserify": "^5.1.0",
     "karma-chrome-launcher": "^2.0.0",
@@ -31,6 +32,7 @@
     "phantomjs-prebuilt": "^2.1.14",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.9.0",
     "yargs": "^6.6.0"
   },
   "scripts": {

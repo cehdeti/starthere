@@ -10,8 +10,3 @@
 // Styleguide: 1.1
 // ------------------------------ //
 $use-bootstrap: true !default;
-$bootstrap-sass-asset-helper: false !default;
-
-@if $use-bootstrap {
-	$icon-font-path: ''; //Set to root because the `static` folder is served as root
-}

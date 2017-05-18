@@ -1,29 +1,29 @@
 // Settings
-//
-//  Styleguide: 1.1
 /*  ------------------------------------ */
 
-@import "settings.configs";
-@import "settings.variables";
-//@import "settings/setting.colors";
-//@import "settings/setting.fonts";
+$use-bootstrap: true;
+
+/*  THEME
+
+	This should contains from colors to overriding Bootstrap variables.
+	------------------------------------ */
+
+@import "theme";
 
 
 //  Vendors
 //
-// 3rd Party stuff. The settings above should able to overwrite the vendor's
-// Styleguide: 1.2
+// 3rd Party stuff. Theme should able to overwrite the vendor's
 /* ------------------------------------ */
 
-@if $use-bootstrap {
-	@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-}
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+
 
 //  Tools
 //
 //	Mixins, functions, etc...
 //
-//	Styleguide: 1.3
 /* ------------------------------------ */
 
 //@import "tools/tool.grids";
@@ -31,15 +31,14 @@
 //  Elements
 //
 //  The ground zero styles. They are low-specificity and far reaching. Think about resets and normalizing our styles for cross-browser compatibility.
-//
-// Styleguide: 1.4
+
 /* ------------------------------------ */
 
 //@import "elements/element.forms";
 //@import "elements/element.lists";
 //@import "elements/element.typography";
 //
-// Styleguide: 1.5
+
 /* ------------------------------------ */
 
 // Generics

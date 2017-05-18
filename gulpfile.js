@@ -115,3 +115,14 @@ gulp.task('watch', ['build'], function() {
 });
 
 gulp.task('default', [argv.production ? 'build' : 'watch']);
+
+
+gulp.task('styleguide', function() {
+  return gulp.src('./assets/styleguide/scss/theme.scss')
+    .pipe(sass())
+    .pipe(gulp.dest('./assets/styleguide/css'));
+  });
+
+gulp.task('guide', ['styleguide'], function() {
+  gulp.watch(['./assets/styleguide/scss/theme.scss'], ['styleguide']);
+  });
