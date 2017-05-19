@@ -1,33 +1,10 @@
 <header class="navbar navbar-light navbar-toggleable-md bd-navbar">
   <nav class="container">
-    {% comment %}
-    <nav class="nav navbar-nav float-right">
-      <div class="nav-item dropdown">
-        <a class="nav-item nav-link dropdown-toggle" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          v{{ site.current_version }}
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
-          <a class="dropdown-item" href="#">v4.0.0-alpha.2</a>
-          <a class="dropdown-item" href="#">v3.3.5</a>
-          <a class="dropdown-item" href="#">v3.3.4</a>
-          <a class="dropdown-item" href="#">v3.3.2</a>
-          <a class="dropdown-item" href="#">v3.3.1</a>
-          <a class="dropdown-item" href="#">v3.3.0</a>
-          <a class="dropdown-item" href="#">v3.2.0</a>
-          <a class="dropdown-item" href="#">v3.1.1</a>
-          <a class="dropdown-item" href="#">v3.1.0</a>
-          <a class="dropdown-item" href="#">v3.0.3</a>
-          <a class="dropdown-item" href="#">v3.0.2</a>
-          <a class="dropdown-item" href="#">v3.0.1</a>
-          <a class="dropdown-item" href="#">v3.0.0</a>
-        </div>
-      </div>
-    </nav>
-    {% endcomment %}
 
     <div class="d-flex justify-content-between hidden-lg-up">
       <a class="navbar-brand" href="{{ site.baseurl }}/">
-        Bootstrap
+         <img src="/assets/img/eti-logo-inverted.png" width="30" height="30" class="d-inline-block align-top" alt="ETI logo">
+        ETI Styleguide
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bd-main-nav" aria-controls="bd-main-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -35,11 +12,30 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bd-main-nav">
+      <a class="navbar-brand hidden-md-down" href="{{ site.baseurl }}/">
+        <img src="/assets/img/eti-logo-inverted.png" width="30" height="30" class="d-inline-block align-top" alt="ETI logo">
+        ETI Styleguide
+      </a>
       <ul class="nav navbar-nav">
+
+      {% assign page_slug = page.url | split: '/' | last %}
+      {% for group in site.data.nav %}
+        {% assign link = group.pages | first %}
+        {% assign link_slug = link.title | slugify %}
+        {% assign group_slug = group.title | slugify %}
+        {% assign active = nil %}
+
+      {% if page.group == group_slug %}
+        {% assign active = 'active' %}
+      {% endif %}
         <li class="nav-item active">
-          <a class="nav-item nav-link {% if page.layout == "docs" %}active{% endif %}" href="{{ site.baseurl }}/">ETI Styleguide</a>
+          <a class="nav-item nav-link {{ active }}" href="{{ site.baseurl }}/{{ group_slug }}/{{ link_slug }}{% if link_slug %}/{% endif %}">
+            {{ group.title }}
+          </a>
         </li>
+      {% endfor %}
       </ul>
     </div>
+
   </nav>
 </header>

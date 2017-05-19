@@ -133,10 +133,10 @@ gulp.task('styleguide', function() {
 
 gulp.task('styleguide:watch', ['styleguide'], function() {
   browserSync.init({
-      proxy: "localhost:9001",
+      server: paths.styleguide+'/_gh_pages/',
       port: "9002"
   });
 
   gulp.watch([paths.scss, paths.styleguide+'/docs/assets/scss/**/*.scss'], ['styleguide']);
-  gulp.watch([paths.styleguide+'/_gh_pages']).on('change', browserSync.reload);
+  gulp.watch([paths.styleguide+'/_gh_pages/**/*.html']).on('change', browserSync.reload);
   });

@@ -3,6 +3,7 @@ layout: docs
 title: What is this?
 description: Hey! You should read me first!
 group: overview
+redirect_from: "/overview/"
 ---
 
 This Style Guide is based off Bootstrap 4.0 Alpha as of (5/2017). The concept is that we will adapt the `_variables` from Bootstrap as a _base_ for all variables to keep things consistent. The idea is that if you changed your `_theme.scss` in your `static/scss` folder, this should inherit the theme settings so you can visually see all of the changes.
@@ -62,4 +63,22 @@ Example:
 
 Why add a class on everything? I'll let [this guy](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) does the talking.
 
+### Quick notes on styleguide maintenance
 
+Just a reminder if you're adding new pages to this styleguide, here's quick tour:
+
+* Only files inside `docs` will be build out to the `_gh_pages`
+* Adding new subpage: 
+    * In the category/folder (Ex: `content`) you want, just copy one of the `.md` file as from `content` or `components` as a base
+    * Open up `/docs/_data/nav.yml` and add your new page in.
+* How the side menu and categories work:
+    * To add a new category, create a new folder then
+    * `/docs/_data/nav.yml` - Add your new category etc...
+    * Add them into the side menu: `/docs/_includes/nav-docs.html`
+    * Lastly, if you want a fancy page title heading. Add the grouping in `/docs/_includes/page-headers.html`
+
+### Todo's
+
+* Add a gulp task for running jekyll 
+* Add a gulp task for copying font-size
+* Add autoprefixer
