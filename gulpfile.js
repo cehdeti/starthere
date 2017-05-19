@@ -21,8 +21,6 @@ var sasslint = require('gulp-sass-lint');
 var detab = require('gulp-soften');
 var Server = require('karma').Server;
 
-var config = require('./package');
-
 var paths = {
   scss: ['./assets/scss/**/*.scss'],
   js: ['./assets/js/**/*.js'],
@@ -84,7 +82,7 @@ gulp.task('lint:js', function() {
 
 gulp.task('lint:sass', function() {
   return gulp.src(paths.scss)
-    .pipe(sasslint({rules: config.lint_configs.sasslint.RULES}))
+    .pipe(sasslint())
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
   ;
@@ -121,7 +119,7 @@ gulp.task('default', [argv.production ? 'build' : 'watch']);
 
 
 gulp.task('styleguide', function() {
-  return gulp.src(paths.styleguide+'/docs/assets/scss/docs.scss')
+  return gulp.src(paths.styleguide + '/docs/assets/scss/docs.scss')
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(rename(function(path) {
       path.basename += '.min';
