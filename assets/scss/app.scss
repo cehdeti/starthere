@@ -9,7 +9,7 @@ $fa-font-path: '';
 	This should contains from colors to overriding Bootstrap variables.
 	------------------------------------ */
 
-@import "theme";
+@import 'theme';
 
 
 //  Vendors
@@ -17,7 +17,7 @@ $fa-font-path: '';
 // 3rd Party stuff. Theme should able to overwrite the vendor's
 /* ------------------------------------ */
 
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@import '../../node_modules/bootstrap/scss/bootstrap';
 
 
 //  Tools
