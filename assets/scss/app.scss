@@ -1,50 +1,50 @@
 // Settings
-/*  ------------------------------------ */
+// ------------------------------------
 
 $use-bootstrap: true;
 $fa-font-path: '';
 
-/*  THEME
+// THEME
+//
+// This should contains from colors to overriding Bootstrap variables.
+// ------------------------------------
 
-	This should contains from colors to overriding Bootstrap variables.
-	------------------------------------ */
+@import 'theme';
 
-@import "theme";
-
-
-//  Vendors
+// Vendors
 //
 // 3rd Party stuff. Theme should able to overwrite the vendor's
-/* ------------------------------------ */
+// ------------------------------------
 
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@import '../../node_modules/bootstrap/scss/bootstrap';
 
-
-//  Tools
+// Tools
 //
-//	Mixins, functions, etc...
-//
-/* ------------------------------------ */
+// Mixins, functions, etc...
+// ------------------------------------
 
 //@import "tools/tool.grids";
 
-//  Elements
+// Elements
 //
-//  The ground zero styles. They are low-specificity and far reaching. Think about resets and normalizing our styles for cross-browser compatibility.
-
-/* ------------------------------------ */
+// The ground zero styles. They are low-specificity and far reaching. Think
+// about resets and normalizing our styles for cross-browser compatibility.
+// ------------------------------------
 
 //@import "elements/element.forms";
 //@import "elements/element.lists";
 //@import "elements/element.typography";
-//
-
-/* ------------------------------------ */
 
 // Generics
 //
-// I think of this level are the reusable stuff begins. They're and should be generic enough that you can copy to any project and add styles on in the `components` level. I would go as far as using the % instead a class name so the css won't bloat up when you extend them below. For example, `%button` or `%border`
+// I think of this level are the reusable stuff begins. They're and should be
+// generic enough that you can copy to any project and add styles on in the
+// `components` level. I would go as far as using the % instead a class name so
+// the css won't bloat up when you extend them below. For example, `%button` or
+// `%border`
 //
+// ------------------------------------
+
 //@import "generics/generic.animations";
 //@import "generics/generic.buttons";
 //@import "generics/generic.borders";
@@ -54,30 +54,28 @@ $fa-font-path: '';
 //@import "generics/generic.list";
 //@import "generics/object.panel";
 
-//  COMPONENTS
+// COMPONENTS
 //
-//  Explicitly named designed pieces of UI. The cosmetic layer, includes more specific styling instructions. Here when I actually `.button` to extend `%button` from above.
-//
-/* ------------------------------------ */
+// Explicitly named designed pieces of UI. The cosmetic layer, includes more
+// specific styling instructions. Here when I actually `.button` to extend
+// `%button` from above.
+// ------------------------------------
 
 //@import "components/component.buttons";
 //@import "components/component.header";
 //@import "components/component.footer";
 
-
-//  UTILITIES
+// UTILITIES
 //
-//  Helper, one-off classes. For example, `.pull--left`, `text--center`
-//
-/* ------------------------------------ */
+// Helper, one-off classes. For example, `.pull--left`, `text--center`
+// ------------------------------------
 
 //@import "utilities/utility.ellipsisize";
 
-
-//  PAGES
+// PAGES
 //
-//  Some call this `Scopes`, but I don't like fancy words and just call it as it is. Styles for individual pages.
-//
-/*  ------------------------------------ */
+// Some call this `Scopes`, but I don't like fancy words and just call it as it
+// is. Styles for individual pages.
+// ------------------------------------
 
 //@import "pages/page.base";
