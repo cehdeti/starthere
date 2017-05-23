@@ -39,7 +39,13 @@ Now you can view the site in your browser at http://127.0.0.1:8000.
 
 ## Front-end
 
-See `/assets/scss/README.md`
+If you ran `./bin/setup`, npm dependencies should be installed. You just have to run `gulp watch` and it'll start watching files. Other gulp tasks:
+
+* `gulp (default)`: starts watching unless a `--production` flag is passed into the command, it'll run the `build` task.
+* `gulp build`: build the assets
+* `gulp watch`: watch the files inside the `assets` folder
+* `gulp styleguide`: build the `styleguide`
+* `gulp styleguide:watch`: watch the `styleguide` folder and starts up a browserSync server
 
 ## Testing
 
