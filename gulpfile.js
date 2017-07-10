@@ -4,6 +4,7 @@ var _ = require('lodash');
 var addsrc = require('gulp-add-src');
 var argv = require('yargs').argv;
 var browserify = require('browserify');
+var browserSync = require('browser-sync').create();
 var buffer = require('vinyl-buffer');
 var concat = require('gulp-concat');
 var del = require('del');
@@ -11,6 +12,7 @@ var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var lazypipe = require('lazypipe');
 var rev = require('gulp-rev');
+var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var source = require('vinyl-source-stream');
 var uglify = require('gulp-uglify');
@@ -19,12 +21,11 @@ var sasslint = require('gulp-sass-lint');
 var detab = require('gulp-soften');
 var Server = require('karma').Server;
 
-var config = require('./package');
-
 var paths = {
-  css: ['./assets/scss/**/*.scss'],
+  scss: ['./assets/scss/**/*.scss'],
   js: ['./assets/js/**/*.js'],
   gulpfile: ['./gulpfile.js'],
+  styleguide: ['./assets/styleguide'],
 };
 
 
@@ -80,8 +81,8 @@ gulp.task('lint:js', function() {
 });
 
 gulp.task('lint:sass', function() {
-  return gulp.src(paths.css)
-    .pipe(sasslint({rules: config.lint_configs.sasslint.RULES}))
+  return gulp.src(paths.scss)
+    .pipe(sasslint())
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
   ;
@@ -94,7 +95,7 @@ gulp.task('detab:js', function() {
 });
 
 gulp.task('detab:sass', function() {
-  gulp.src(paths.css)
+  gulp.src(paths.scss)
     .pipe(detab(2))
     .pipe(gulp.dest('assets'));
 });
@@ -115,3 +116,24 @@ gulp.task('watch', ['build'], function() {
 });
 
 gulp.task('default', [argv.production ? 'build' : 'watch']);
+
+
+gulp.task('styleguide', function() {
+  return gulp.src(paths.styleguide + '/docs/assets/scss/docs.scss')
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(rename(function(path) {
+      path.basename += '.min';
+    }))
+    .pipe(gulp.dest(paths.styleguide+'/docs/assets/css/'))
+    .pipe(browserSync.stream());
+});
+
+gulp.task('styleguide:watch', ['styleguide'], function() {
+  browserSync.init({
+    server: paths.styleguide + '/_gh_pages/',
+    port: '9002',
+  });
+
+  gulp.watch([paths.scss, paths.styleguide + '/docs/assets/scss/**/*.scss'], ['styleguide']);
+  gulp.watch([paths.styleguide + '/_gh_pages/**/*.html']).on('change', browserSync.reload);
+});

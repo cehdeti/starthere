@@ -6,10 +6,12 @@ venv
 .DS_Store
 .vagrant
 .sass-cache
+*.log
 
 # Web build artifacts
 /rev-manifest.json
-/node_modules/
+node_modules
+_gh_pages
 /static/
 
 # Testing artifacts

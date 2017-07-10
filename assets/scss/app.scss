@@ -1,74 +1,81 @@
-/*  NOTE:
-	------------------------------------
-	Files structure adapted from Harry Roberts. Mostly with BEM naming conventions and if you want to be sane, highly recommend naming your stuff the BEM way.
+// Settings
+// ------------------------------------
 
-	https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
+$use-bootstrap: true;
+$fa-font-path: '';
 
-	If you do use the following **suggested** files structure and BEM, I promise they will save you losing hair over specificity battles.
-	------------------------------------ */
+// THEME
+//
+// This should contains from colors to overriding Bootstrap variables.
+// ------------------------------------
 
+@import 'theme';
 
-/*  SETTINGS
-  ------------------------------------ */
+// Vendors
+//
+// 3rd Party stuff. Theme should able to overwrite the vendor's
+// ------------------------------------
 
-//@import "settings/setting.colors";
-//@import "settings/setting.fonts";
-//@import "settings/setting.variables";
+@import '../../node_modules/bootstrap/scss/bootstrap';
 
-
-/*  VENDORS
-
-	3rd Party stuff. The settings above should able to overwrite the vendor's
-  ------------------------------------ */
-
-
-/*  TOOLS
-
-	Mixins, functions, etc...
-  ------------------------------------ */
+// Tools
+//
+// Mixins, functions, etc...
+// ------------------------------------
 
 //@import "tools/tool.grids";
 
+// Elements
+//
+// The ground zero styles. They are low-specificity and far reaching. Think
+// about resets and normalizing our styles for cross-browser compatibility.
+// ------------------------------------
 
-/*  ELEMENTS
+//@import "elements/element.forms";
+//@import "elements/element.lists";
+//@import "elements/element.typography";
 
-	I personally like to put normalize.css here since normalize styles on the element themselves
-  ------------------------------------ */
-
-//@import "elements/element.normalize";
-
-
-/*  GENERICS
-  ------------------------------------ */
+// Generics
+//
+// I think of this level are the reusable stuff begins. They're and should be
+// generic enough that you can copy to any project and add styles on in the
+// `components` level. I would go as far as using the % instead a class name so
+// the css won't bloat up when you extend them below. For example, `%button` or
+// `%border`
+//
+// ------------------------------------
 
 //@import "generics/generic.animations";
+//@import "generics/generic.buttons";
 //@import "generics/generic.borders";
-//@import "generics/generic.forms";
-//@import "generics/generic.lists";
-//@import "generics/generic.typography";
+//@import "generics/object.cards";
+//@import "generics/object.form";
+//@import "generics/object.grid";
+//@import "generics/generic.list";
+//@import "generics/object.panel";
 
-
-/*  OBJECTS
-  ------------------------------------ */
-
-//@import "objects/object.media";
-
-
-/*  COMPONENTS
-  ------------------------------------ */
+// COMPONENTS
+//
+// Explicitly named designed pieces of UI. The cosmetic layer, includes more
+// specific styling instructions. Here when I actually `.button` to extend
+// `%button` from above.
+// ------------------------------------
 
 //@import "components/component.buttons";
 //@import "components/component.header";
 //@import "components/component.footer";
 
-
-/*  UTILS / HELPERS
-  ------------------------------------ */
+// UTILITIES
+//
+// Helper, one-off classes. For example, `.pull--left`, `text--center`
+// ------------------------------------
 
 //@import "utilities/utility.ellipsisize";
 
-
-/*  PAGES
-  ------------------------------------ */
+// PAGES
+//
+// Some call this `Scopes`, but I don't like fancy words and just call it as it
+// is. Styles for individual pages.
+// ------------------------------------
 
 //@import "pages/page.base";

@@ -1,0 +1,27 @@
+//
+// Main navbar
+//
+
+.bd-navbar {
+  .navbar-nav {
+    .nav-link {
+      color: $bd-graphite-light;
+      text-transform: uppercase;
+
+      &.active,
+      &:hover,
+      &:focus {
+        color: darken($bd-gold, 10%);
+        background-color: transparent;
+      }
+
+      &.active {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .dropdown-menu {
+    font-size: inherit;
+  }
+}

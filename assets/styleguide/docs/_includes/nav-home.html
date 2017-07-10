@@ -1,0 +1,41 @@
+<header class="navbar navbar-light navbar-toggleable-md bd-navbar">
+  <nav class="container">
+
+    <div class="d-flex justify-content-between hidden-lg-up">
+      <a class="navbar-brand" href="{{ site.baseurl }}/">
+         <img src="/assets/img/eti-logo-inverted.png" width="30" height="30" class="d-inline-block align-top" alt="ETI logo">
+        ETI Styleguide
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bd-main-nav" aria-controls="bd-main-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bd-main-nav">
+      <a class="navbar-brand hidden-md-down" href="{{ site.baseurl }}/">
+        <img src="/assets/img/eti-logo-inverted.png" width="30" height="30" class="d-inline-block align-top" alt="ETI logo">
+        ETI Styleguide
+      </a>
+      <ul class="nav navbar-nav">
+
+      {% assign page_slug = page.url | split: '/' | last %}
+      {% for group in site.data.nav %}
+        {% assign link = group.pages | first %}
+        {% assign link_slug = link.title | slugify %}
+        {% assign group_slug = group.title | slugify %}
+        {% assign active = nil %}
+
+      {% if page.group == group_slug %}
+        {% assign active = 'active' %}
+      {% endif %}
+        <li class="nav-item active">
+          <a class="nav-item nav-link {{ active }}" href="{{ site.baseurl }}/{{ group_slug }}/{{ link_slug }}{% if link_slug %}/{% endif %}">
+            {{ group.title }}
+          </a>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+
+  </nav>
+</header>
