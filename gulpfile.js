@@ -30,15 +30,15 @@ var paths = {
 
 
 gulp.task('clean', function() {
-  return del(['static']);
+  return del.sync(['static']);
 });
 
 gulp.task('clean:css', function() {
-  return del(['static/css']);
+  return del.sync(['static/css']);
 });
 
 gulp.task('clean:js', function() {
-  return del(['static/js']);
+  return del.sync(['static/js']);
 });
 
 var jsPipeline = lazypipe()
