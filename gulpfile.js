@@ -46,9 +46,9 @@ const lazypipe      = require('lazypipe');
 const newer         = require('gulp-newer');
 const plumber       = require('gulp-plumber');
 const postcss       = require('gulp-postcss');
-const rename        = require('gulp-rename');
 const sass          = require('gulp-sass');
 const sasslint      = require('gulp-sass-lint');
+const Server        = require('karma').Server;
 const soften        = require('gulp-soften');
 const sourcemaps    = require('gulp-sourcemaps');
 const stripCssComments  = require('gulp-strip-css-comments');
@@ -148,4 +148,13 @@ gulp.task('scripts', function () {
         .pipe(gulpif(argv.production, uglify()))
         .pipe(gulp.dest(configs.scripts_out))
         .pipe(browserSync.stream({match: '**/*.js'}));
+});
+
+/* ----- test ----- */
+
+gulp.task('test:js', function(done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true,
+  }, done).start();
 });
