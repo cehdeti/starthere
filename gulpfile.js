@@ -30,14 +30,17 @@ const reportErrors = (error) => {
 /* ----- BEGINS GULP TASKS ----- */
 //:: Tasks are in alphabetical orders.
 
+
+const _             = require('lodash');
 const argv          = require('yargs').argv;
 const autoprefixer  = require('autoprefixer');
 const browserSync   = require('browser-sync').create();
 const browserify    = require('browserify');
 const buffer        = require('vinyl-buffer');
 const changed       = require('gulp-changed');
-const concat          = require('gulp-concat');
+const concat        = require('gulp-concat');
 const del           = require('del');
+const eslint        = require('gulp-eslint');
 const gulpif        = require('gulp-if');
 const lazypipe      = require('lazypipe');
 const newer         = require('gulp-newer');
@@ -45,6 +48,8 @@ const plumber       = require('gulp-plumber');
 const postcss       = require('gulp-postcss');
 const rename        = require('gulp-rename');
 const sass          = require('gulp-sass');
+const sasslint      = require('gulp-sass-lint');
+const soften        = require('gulp-soften');
 const sourcemaps    = require('gulp-sourcemaps');
 const stripCssComments  = require('gulp-strip-css-comments');
 const tap           = require('gulp-tap');
@@ -72,7 +77,27 @@ gulp.task('clean:js', function() {
   return del(['static/js']);
 });
 
-/* ----- css ----- */
+/* ----- lint ----- */
+
+gulp.task('lint:js', function() {
+  return gulp.src(_.concat(configs.scripts_src))
+    .pipe(soften(2))
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError())
+  ;
+});
+
+gulp.task('lint:sass', function() {
+  return gulp.src(configs.scss_src)
+    .pipe(soften(2))
+    .pipe(sasslint())
+    .pipe(sasslint.format())
+    .pipe(sasslint.failOnError())
+  ;
+});
+
+/* ----- sass ----- */
 
 var compileSassTask = lazypipe()
   .pipe(function() {
@@ -98,7 +123,7 @@ gulp.task('sass', function() {
     .pipe(plumber({
       errorHandler: reportErrors
     }))
-    .pipe(concat('app.css'))
+    .pipe(concat(configs.css_filename))
     .pipe(compileSassTask())
     .pipe(gulp.dest(configs.css_out))
     .pipe(browserSync.stream({match: '**/*.css'}));
