@@ -56,8 +56,6 @@ const tap           = require('gulp-tap');
 const uglify        = require('gulp-uglify');
 const using         = require('gulp-using');
 
-/* ----- Shared pipes ------ */
-
 
 /* ----- clean ----- */
 
@@ -77,11 +75,20 @@ gulp.task('clean:js', function() {
   return del(['static/js']);
 });
 
+/* ----- detab ----- */
+
+const detab = lazypipe()
+  .pipe(function() {
+      return soften(2);
+  });
+
 /* ----- lint ----- */
+
+gulp.task('lint', ['lint:js', 'lint:sass']);
 
 gulp.task('lint:js', function() {
   return gulp.src(_.concat(configs.scripts_src))
-    .pipe(soften(2))
+    .pipe(detab())
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
@@ -90,7 +97,7 @@ gulp.task('lint:js', function() {
 
 gulp.task('lint:sass', function() {
   return gulp.src(configs.scss_src)
-    .pipe(soften(2))
+    .pipe(detab())
     .pipe(sasslint())
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
