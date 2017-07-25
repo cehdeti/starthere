@@ -20,13 +20,13 @@ module.exports = {
   images_out: 'static/images',
 
   // Browserify the root JS only so we don't compile components and vendors
-  scripts_src: ['assets/js/*.js', '!assets/js/*.spec.js'],
+  scripts_src: ['assets/js/[^_]*.js', '!assets/js/*.spec.js'],
   scripts_watch_src: ['assets/js/**/*.js'],
-  scripts_out: 'static/js', //Gulp-rename append the `js` dir. Output to `static/js`
+  scripts_out: './static/js',
 
   scss_src: ['assets/scss/[^_]*.scss'], //Ignore file with _ prefix
   scss_watch_src: ['assets/scss/**/*.scss'],
-  css_out: 'static/', //Gulp rename appends the `css` dir name, output to `static/css`
+  css_out: 'static/css', //Gulp rename appends the `css` dir name, output to `static/css`
 
   /* ------ STYLGUIDE -----
     Note: You might wonder there are two output paths for css. That because `build-css` task outputs to `docs/assets/css` instead of `docs/_build/assets/css/`. That because the `styleguide/_build` folder is not version control and it shouldn't be. All of the output would get copied and built by the `jekyll-build` task which how jekyll works anyways. It's not me. That's why we have two different output paths for css for the config files.
