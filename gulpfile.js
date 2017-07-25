@@ -130,7 +130,7 @@ gulp.task('sass', function() {
     .pipe(plumber({
       errorHandler: reportErrors
     }))
-    .pipe(concat(configs.css_filename))
+    .pipe(concat(configs.css_out_filename))
     .pipe(compileSassTask())
     .pipe(gulp.dest(configs.css_out))
     .pipe(browserSync.stream({match: '**/*.css'}));
