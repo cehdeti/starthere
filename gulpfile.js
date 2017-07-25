@@ -28,17 +28,25 @@ const reportErrors = (error) => {
 };
 
 /* ----- BEGINS GULP TASKS ----- */
+//:: Tasks are in alphabetical orders.
+
 const argv          = require('yargs').argv;
+const autoprefixer  = require('autoprefixer');
 const browserSync   = require('browser-sync').create();
 const browserify    = require('browserify');
 const buffer        = require('vinyl-buffer');
 const changed       = require('gulp-changed');
+const concat          = require('gulp-concat');
 const del           = require('del');
 const gulpif        = require('gulp-if');
 const lazypipe      = require('lazypipe');
 const newer         = require('gulp-newer');
+const plumber       = require('gulp-plumber');
+const postcss       = require('gulp-postcss');
 const rename        = require('gulp-rename');
+const sass          = require('gulp-sass');
 const sourcemaps    = require('gulp-sourcemaps');
+const stripCssComments  = require('gulp-strip-css-comments');
 const tap           = require('gulp-tap');
 const uglify        = require('gulp-uglify');
 const using         = require('gulp-using');
@@ -64,31 +72,55 @@ gulp.task('clean:js', function() {
   return del(['static/js']);
 });
 
-/* ----- scripts ----- */
-var uglifyJsTask = lazypipe()
-  .pipe(function() {
-      return sourcemaps.init({loadMaps: true})
-  })
-  .pipe(uglify)
-  .pipe(function() {
-      return sourcemaps.write('.')
-  });
+/* ----- css ----- */
 
+var compileSassTask = lazypipe()
+  .pipe(function() {
+    return sourcemaps.init()
+  })
+  .pipe(function() {
+    return sass({
+              outputStyle: 'compressed'
+          }).on('error', reportErrors)
+  })
+  .pipe(function() {
+    return postcss([ autoprefixer({ browsers: ['last 15 versions', '> 1%'] }) ])
+  })
+  .pipe(function() {
+    return sourcemaps.write('.')
+  })
+  .pipe(stripCssComments);
+
+gulp.task('sass', function() {
+  gulp.src(configs.scss_src)
+    .pipe(changed(configs.css_out))
+    .pipe(using(configs.using_opts))
+    .pipe(plumber({
+      errorHandler: reportErrors
+    }))
+    .pipe(concat('app.css'))
+    .pipe(compileSassTask())
+    .pipe(gulp.dest(configs.css_out))
+    .pipe(browserSync.stream({match: '**/*.css'}));
+});
+
+/* ----- scripts ----- */
+
+//You can bundle multiple bundles as long as the files are on the root of js folder.
 var jsCompileTask = lazypipe()
-        .pipe(function() {
-            return tap(function (file) {
-              // replace file contents with browserify's bundle stream
-              file.contents = browserify(file.path, {debug: true}).bundle().on('error', reportErrors);
-            })
-        });
+  .pipe(function() {
+      return tap(function (file) {
+        // replace file contents with browserify's bundle stream
+        file.contents = browserify(file.path, {debug: true}).bundle().on('error', reportErrors);
+      })
+  });
 
 gulp.task('scripts', function () {
     return gulp.src(configs.scripts_src, {read: false})
-        .pipe(changed(configs.scripts_out))
         .pipe(using(configs.using_opts))
-        .pipe(changed(configs.scripts_out))
         .pipe(jsCompileTask())
-        .pipe(gulpif(argv.production, uglifyJsTask()))
+        .pipe(buffer())
+        .pipe(gulpif(argv.production, uglify()))
         .pipe(gulp.dest(configs.scripts_out))
         .pipe(browserSync.stream({match: '**/*.js'}));
 });
