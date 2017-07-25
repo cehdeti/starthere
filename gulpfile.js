@@ -60,7 +60,7 @@ const using         = require('gulp-using');
 
 
 /* ----- build ----- */
-gulp.task('build', ['clean', 'scripts', 'sass', 'images'])
+gulp.task('build', ['clean', 'scripts', 'sass', 'images']);
 
 /* ----- clean ----- */
 
@@ -194,4 +194,27 @@ gulp.task('test:js', function(done) {
     configFile: __dirname + '/karma.conf.js',
     singleRun: true,
   }, done).start();
+});
+
+/* ----- watch ----- */
+
+gulp.task('watch', ['build'], function() {
+  browserSync.init({
+      snippetOptions: {
+        rule: {
+          match: /<\/head>/i,
+          fn: function (snippet, match) {
+            return snippet + match;
+          }
+        }
+      },
+      proxy: configs.bs_proxy,
+      xip: configs.bs_use_xip
+  });
+
+  gulp.watch(configs.paths.scss_watch, ['sass']);
+  gulp.watch(configs.paths.images_src, ['images']);
+  gulp.watch(configs.paths.scripts_watch_src, ['scripts']);
+  gulp.watch(configs.paths.fonts_src, ['fonts']);
+  gulp.watch(configs.paths.html_src).on('change', browserSync.reload({stream:true}));
 });
