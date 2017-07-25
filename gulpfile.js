@@ -42,10 +42,12 @@ const concat        = require('gulp-concat');
 const del           = require('del');
 const eslint        = require('gulp-eslint');
 const gulpif        = require('gulp-if');
+const imagemin      = require('gulp-imagemin');
 const lazypipe      = require('lazypipe');
 const newer         = require('gulp-newer');
 const plumber       = require('gulp-plumber');
 const postcss       = require('gulp-postcss');
+const rev           = require('gulp-rev');
 const sass          = require('gulp-sass');
 const sasslint      = require('gulp-sass-lint');
 const Server        = require('karma').Server;
@@ -57,21 +59,25 @@ const uglify        = require('gulp-uglify');
 const using         = require('gulp-using');
 
 
+/* ----- build ----- */
+gulp.task('build', ['clean', 'scripts', 'sass'])
+
 /* ----- clean ----- */
 
-gulp.task('clean', function() {
-  return del(['static']);
+gulp.task('clean', (cb) => {
+  del(['static']);
+  cb();
 });
 
-gulp.task('clean:css', function() {
+gulp.task('clean:css', () => {
   return del(['static/css']);
 });
 
-gulp.task('clean:images', function() {
+gulp.task('clean:images', () => {
   return del(['static/images']);
 });
 
-gulp.task('clean:js', function() {
+gulp.task('clean:js', () => {
   return del(['static/js']);
 });
 
@@ -82,12 +88,37 @@ const detab = lazypipe()
       return soften(2);
   });
 
+/* ----- fonts ----- */
+
+/*
+  Since we don't really know which fonts we want yet.
+
+gulp.task('fonts', () =>{
+  return gulp.src(configs.paths.fonts_src)
+      .pipe(newer(configs.paths.fonts_out))
+      .pipe(gulp.dest(configs.paths.fonts_out))
+      .pipe(browserSync.reload({stream: true}));
+});
+
+*/
+
+/* ----- images ----- */
+
+gulp.task('images', () => {
+  return gulp.src(configs.paths.images_src)
+    .pipe(using(configs.using_opts))
+    .pipe(newer(configs.paths.images_out))
+    .pipe(gulpif(argv.production, imagemin()))
+    .pipe(gulp.dest(configs.paths.images_out))
+    .pipe(browserSync.reload({stream: true}));
+});
+
 /* ----- lint ----- */
 
 gulp.task('lint', ['lint:js', 'lint:sass']);
 
-gulp.task('lint:js', function() {
-  return gulp.src(_.concat(configs.scripts_src))
+gulp.task('lint:js', () => {
+  return gulp.src(_.concat(configs.paths.scripts_src))
     .pipe(detab())
     .pipe(eslint())
     .pipe(eslint.format())
@@ -95,8 +126,8 @@ gulp.task('lint:js', function() {
   ;
 });
 
-gulp.task('lint:sass', function() {
-  return gulp.src(configs.scss_src)
+gulp.task('lint:sass', () => {
+  return gulp.src(configs.paths.scss_src)
     .pipe(detab())
     .pipe(sasslint())
     .pipe(sasslint.format())
@@ -123,16 +154,16 @@ const compileSassTask = lazypipe()
   })
   .pipe(stripCssComments);
 
-gulp.task('sass', function() {
-  gulp.src(configs.scss_src)
-    .pipe(changed(configs.css_out))
+gulp.task('sass', ['lint:sass'], () => {
+  gulp.src(configs.paths.scss_src)
+    .pipe(changed(configs.paths.css_out))
     .pipe(using(configs.using_opts))
     .pipe(plumber({
       errorHandler: reportErrors
     }))
-    .pipe(concat(configs.css_out_filename))
+    .pipe(concat(configs.paths.css_out_filename))
     .pipe(compileSassTask())
-    .pipe(gulp.dest(configs.css_out))
+    .pipe(gulp.dest(configs.paths.css_out))
     .pipe(browserSync.stream({match: '**/*.css'}));
 });
 
@@ -147,13 +178,13 @@ const bundleJsTask = lazypipe()
       })
   });
 
-gulp.task('scripts', function () {
-    return gulp.src(configs.scripts_src, {read: false})
+gulp.task('scripts', ['lint:js'], () => {
+    return gulp.src(configs.paths.scripts_src, {read: false})
         .pipe(using(configs.using_opts))
         .pipe(bundleJsTask())
         .pipe(buffer())
         .pipe(gulpif(argv.production, uglify()))
-        .pipe(gulp.dest(configs.scripts_out))
+        .pipe(gulp.dest(configs.paths.scripts_out))
         .pipe(browserSync.stream({match: '**/*.js'}));
 });
 

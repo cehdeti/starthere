@@ -15,23 +15,26 @@ module.exports = {
 
   /* ------ ASSETS SOURCE ------ */
 
-  //fonts_src: ['./node_modules/font-awesome/fonts/**/*'],
-  fonts_out: 'static/fonts',
+  paths: {
 
-  html_src: ['web/templates/**/*.html'],
+    //fonts_src: ['./node_modules/font-awesome/fonts/**/*'],
+    //fonts_out: 'static/fonts',
 
-  images_src: ['assets/images/**/*'],
-  images_out: 'static/images',
+    html_src: ['web/templates/**/*.html'],
 
-  // Browserify the root JS only so we don't compile components and vendors
-  scripts_src: ['assets/js/[^_]*.js', '!assets/js/*.spec.js'],
-  scripts_watch_src: ['assets/js/**/*.js'],
-  scripts_out: './static/js',
+    images_src: ['assets/images/**/*'],
+    images_out: 'static/images',
 
-  scss_src: ['assets/scss/[^_]*.scss'], //Ignore files with _ prefix
-  scss_watch_src: ['assets/scss/**/*.scss'],
-  css_out: 'static/css',
-  css_out_filename: 'screen.css',
+    // Browserify the root JS only so we don't compile components and vendors
+    scripts_src: ['assets/js/[^_]*.js', '!assets/js/*.spec.js'],
+    scripts_watch_src: ['assets/js/**/*.js'],
+    scripts_out: './static/js',
+
+    scss_src: ['assets/scss/[^_]*.scss'], //Ignore files with _ prefix
+    scss_watch_src: ['assets/scss/**/*.scss'],
+    css_out: 'static/css',
+    css_out_filename: 'screen.css'
+  },
 
   /* ------ STYLGUIDE -----
     Note: You might wonder there are two output paths for css. That because `build-css` task outputs to `docs/assets/css` instead of `docs/_build/assets/css/`. That because the `styleguide/_build` folder is not version control and it shouldn't be. All of the output would get copied and built by the `jekyll-build` task which how jekyll works anyways. It's not me. That's why we have two different output paths for css for the config files.
