@@ -60,17 +60,21 @@ const using         = require('gulp-using');
 
 
 /* ----- build ----- */
-gulp.task('build', ['clean', 'scripts', 'sass'])
+gulp.task('build', ['clean', 'scripts', 'sass', 'images'])
 
 /* ----- clean ----- */
 
 gulp.task('clean', (cb) => {
-  del(['static']);
+  del(['static/**/*']);
   cb();
 });
 
 gulp.task('clean:css', () => {
   return del(['static/css']);
+});
+
+gulp.task('clean:fonts', () => {
+  return del(['static/fonts']);
 });
 
 gulp.task('clean:images', () => {
@@ -90,17 +94,12 @@ const detab = lazypipe()
 
 /* ----- fonts ----- */
 
-/*
-  Since we don't really know which fonts we want yet.
-
 gulp.task('fonts', () =>{
   return gulp.src(configs.paths.fonts_src)
       .pipe(newer(configs.paths.fonts_out))
       .pipe(gulp.dest(configs.paths.fonts_out))
       .pipe(browserSync.reload({stream: true}));
 });
-
-*/
 
 /* ----- images ----- */
 

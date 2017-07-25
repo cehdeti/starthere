@@ -17,8 +17,8 @@ module.exports = {
 
   paths: {
 
-    //fonts_src: ['./node_modules/font-awesome/fonts/**/*'],
-    //fonts_out: 'static/fonts',
+    fonts_src: ['static/fonts'],
+    fonts_out: 'static/fonts',
 
     html_src: ['web/templates/**/*.html'],
 
