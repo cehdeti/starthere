@@ -99,7 +99,7 @@ gulp.task('lint:sass', function() {
 
 /* ----- sass ----- */
 
-var compileSassTask = lazypipe()
+const compileSassTask = lazypipe()
   .pipe(function() {
     return sourcemaps.init()
   })
@@ -132,7 +132,7 @@ gulp.task('sass', function() {
 /* ----- scripts ----- */
 
 //You can bundle multiple bundles as long as the files are on the root of js folder.
-var jsCompileTask = lazypipe()
+const bundleJsTask = lazypipe()
   .pipe(function() {
       return tap(function (file) {
         // replace file contents with browserify's bundle stream
@@ -143,7 +143,7 @@ var jsCompileTask = lazypipe()
 gulp.task('scripts', function () {
     return gulp.src(configs.scripts_src, {read: false})
         .pipe(using(configs.using_opts))
-        .pipe(jsCompileTask())
+        .pipe(bundleJsTask())
         .pipe(buffer())
         .pipe(gulpif(argv.production, uglify()))
         .pipe(gulp.dest(configs.scripts_out))
