@@ -211,7 +211,7 @@ gulp.task('scripts', ['lint:js'], () => {
 /* ----- styleguide / Jekyll ----- */
 
   gulp.task('styleguide', ['jekyll-build-css', 'jekyll-build-js', 'jekyll-build'], function() {
-    bs.init({
+    browserSync.init({
         files: configs.styleguide.root_dest+'/**/*',
         port: 9001,
         open: true,
@@ -220,10 +220,10 @@ gulp.task('scripts', ['lint:js'], () => {
         }
     });
 
-    gulp.watch(configs.styelguide.css_watch, ['jekyll-build-css']);
+    gulp.watch(configs.styleguide.css_watch, ['jekyll-build-css']);
     gulp.watch(configs.styleguide.js_watch, ['jekyll-build-js']);
     gulp.watch(configs.styleguide.html_src, ['jekyll-build']);
-    gulp.watch(configs.styleguide.html_watch).on('change', bs.reload);
+    gulp.watch(configs.styleguide.html_watch).on('change', browserSync.reload);
 
   });
 

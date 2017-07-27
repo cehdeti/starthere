@@ -49,8 +49,8 @@ module.exports = {
 
     css_src: 'assets/styleguide/docs/assets/scss/docs.scss',
     css_dest: './assets/styleguide/docs/assets/css', //jekyll-build
-    scss_dest: './assets/styleguide/_build/assets/css', //jekyll-build-css task
-    css_watch: ['./assets/scss/app.scss', 'assets/styleguide/docs/assets/scss/**/*.scss'],
+    css_watch: ['./assets/scss/app.scss', 'assets/styleguide/docs/assets/scss/*.scss'],
+    scss_dest: './assets/styleguide/_gh_pages/assets/css', //jekyll-build-css task
 
     html_src: ['assets/styleguide/docs/**/*.{md,html,json,css,min.js}'],
     html_watch: ['assets/styleguide/docs/**/*.{md,html,json}'],
