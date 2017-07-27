@@ -27,7 +27,8 @@
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
 
     {% block styles %}
-      <link rel="stylesheet" href="{% hashed_static 'screen.css' %}" />
+      <link rel="stylesheet" href="{% static 'screen.css' %}" media="screen" />
+      <link rel="stylesheet" href="{% static 'print.css' %}" media="print" />
     {% endblock %}
   </head>
   <body>
@@ -46,7 +47,7 @@
     </div>
 
     {% block scripts %}
-      <script src="{% hashed_static 'app.js' %}" type="text/javascript"></script>
+      <script src="{% static 'app.js' %}" type="text/javascript"></script>
     {% endblock %}
   </body>
 </html>

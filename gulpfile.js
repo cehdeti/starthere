@@ -63,15 +63,9 @@ const using         = require('gulp-using');
 gulp.task('default', [argv.production ? 'build' : 'watch']);
 
 /* ----- build ----- */
-gulp.task('compile', ['clean', 'scripts', 'sass', 'images'], function(done) {
+gulp.task('build', ['clean', 'scripts', 'sass', 'images'], function(done) {
   done();
 });
-
-gulp.task('build', ['compile'], function() {
-  return gulp.src([configs.paths.root_dest+'/*.{js,css,jpg,gif,png,svg}'], {base: 'static'})
-    .pipe(gulpif(argv.production, revTask()))
-  });
-
 /* ----- clean ----- */
 
 gulp.task('clean', (cb) => {
@@ -144,18 +138,6 @@ gulp.task('lint:sass', () => {
   ;
 });
 
-/* ----- rev ----- */
-
-const revTask = lazypipe()
-  .pipe(rev)
-  .pipe(revcss)
-  .pipe(revdel)
-  .pipe(gulp.dest, configs.paths.root_dest)
-  .pipe(function() {
-    return rev.manifest('rev-manifest.json', { merge: true })
-    })
-  .pipe(gulp.dest, configs.paths.root_dest);
-
 /* ----- sass ----- */
 
 const compileSassTask = lazypipe()
@@ -182,7 +164,6 @@ gulp.task('sass', ['lint:sass'], () => {
     .pipe(plumber({
       errorHandler: reportErrors
     }))
-    .pipe(concat(configs.paths.css_dest_filename))
     .pipe(compileSassTask())
     .pipe(gulp.dest(configs.paths.css_dest))
     .pipe(browserSync.stream({match: '**/*.css'}));

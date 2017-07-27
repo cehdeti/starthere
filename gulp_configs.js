@@ -37,8 +37,7 @@ module.exports = {
 
     scss_src: ['assets/scss/[^_]*.scss'], //Ignore files with _ prefix
     scss_watch: ['./assets/scss/**/*.scss'],
-    css_dest: './static',
-    css_dest_filename: 'screen.css'
+    css_dest: './static'
   },
 
   /* ------ STYLGUIDE -----
