@@ -38,6 +38,7 @@ const browserSync   = require('browser-sync').create();
 const browserify    = require('browserify');
 const buffer        = require('vinyl-buffer');
 const changed       = require('gulp-changed');
+const cp            = require('child_process');
 const concat        = require('gulp-concat');
 const del           = require('del');
 const eslint        = require('gulp-eslint');
@@ -205,6 +206,52 @@ gulp.task('scripts', ['lint:js'], () => {
         .pipe(gulp.dest(configs.paths.scripts_dest))
         .pipe(browserSync.stream({match: '**/*.js'}));
 });
+
+/* ----- styleguide / Jekyll ----- */
+
+  gulp.task('styleguide', ['jekyll-build-css', 'jekyll-build-js', 'jekyll-build'], function() {
+    bs.init({
+        files: configs.styleguide.root_dest+'/**/*',
+        port: 9001,
+        open: true,
+        server: {
+          baseDir: configs.styleguide.root_dest
+        }
+    });
+
+    gulp.watch(configs.styelguide.css_watch, ['jekyll-build-css']);
+    gulp.watch(configs.styleguide.js_watch, ['jekyll-build-js']);
+    gulp.watch(configs.styleguide.html_src, ['jekyll-build']);
+    gulp.watch(configs.styleguide.html_watch).on('change', bs.reload);
+
+  });
+
+  gulp.task('jekyll-build', function(cb) {
+    return cp.spawn('jekyll', ['build'], {cwd: configs.styleguide.src, stdio: 'pipe'}).on('exit', cb);
+  });
+
+  gulp.task('jekyll-build-css', function() {
+    return gulp.src(configs.styleguide.css_src)
+      .pipe(changed(configs.styleguide.scss_dest))
+      .pipe(using(configs.using_opts))
+      .pipe(plumber({
+        errorHandler: reportErrors
+      }))
+      .pipe(compileSassTask())
+      .pipe(gulp.dest(configs.styleguide.css_dest))
+      .pipe(browserSync.stream({match: '**/*.css'}));
+  });
+
+  gulp.task('jekyll-build-js', function(){
+    return gulp.src(configs.styleguide.js_src, {read: false})
+        .pipe(changed(configs.styleguide.js_src))
+        .pipe(using(configs.using_opts))
+        .pipe(bundleJsTask())
+        .pipe(buffer())
+        .pipe(uglify())
+        .pipe(gulp.dest(configs.styleguide.js_dest))
+        .pipe(browserSync.stream({match: '**/*.js'}));
+  });
 
 /* ----- test ----- */
 

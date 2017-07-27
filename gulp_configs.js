@@ -43,15 +43,20 @@ module.exports = {
   /* ------ STYLGUIDE -----
     Note: You might wonder there are two output paths for css. That because `build-css` task outputs to `docs/assets/css` instead of `docs/_build/assets/css/`. That because the `styleguide/_build` folder is not version control and it shouldn't be. All of the output would get copied and built by the `jekyll-build` task which how jekyll works anyways. It's not me. That's why we have two different output paths for css for the config files.
    */
+  styleguide: {
+    src: ['assets/styleguide/'],
+    root_dest: './assets/styleguide/_gh_pages',
 
-  styleguide_src: ['assets/styleguide/'],
-  styleguide_css_src: 'assets/styleguide/docs/assets/scss/docs.scss',
-  styleguide_css_dest: './assets/styleguide/docs/assets/css', //jekyll-build
-  styleguide_scss_dest: './assets/styleguide/_build/assets/css', //build-css task
-  styleguide_html_src: ['assets/styleguide/docs/**/*.{md,html,json,css,min.js}'],
-  styleguide_js_src: 'assets/styleguide/docs/assets/js/src/eti.js',
-  styleguide_js_dest: './assets/styleguide/docs/assets/js/',
-  styleguide_watch_css_glob: ['./assets/scss/app.scss', 'assets/styleguide/docs/assets/scss/**/*.scss'],
-  styleguide_watch_html: ['assets/styleguide/docs/**/*.{md,html,json}'],
-  styleguide_watch_js: ['assets/styleguide/docs/assets/js/src/eti.js'],
+    css_src: 'assets/styleguide/docs/assets/scss/docs.scss',
+    css_dest: './assets/styleguide/docs/assets/css', //jekyll-build
+    scss_dest: './assets/styleguide/_build/assets/css', //jekyll-build-css task
+    css_watch: ['./assets/scss/app.scss', 'assets/styleguide/docs/assets/scss/**/*.scss'],
+
+    html_src: ['assets/styleguide/docs/**/*.{md,html,json,css,min.js}'],
+    html_watch: ['assets/styleguide/docs/**/*.{md,html,json}'],
+
+    js_src: 'assets/styleguide/docs/assets/js/src/eti.js',
+    js_dest: './assets/styleguide/docs/assets/js/',
+    js_watch: ['assets/styleguide/docs/assets/js/src/eti.js']
+  }
 };
