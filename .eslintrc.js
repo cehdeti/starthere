@@ -8,6 +8,7 @@ module.exports = {
   rules: {
     'camelcase': 0,
     'max-len': 0,
+    'no-multi-spaces': 0,
     'no-use-before-define': 2,
     'no-var': 0,
     'no-warning-comments': 0,

@@ -1,104 +1,260 @@
 'use strict';
 
-var _ = require('lodash');
-var addsrc = require('gulp-add-src');
-var argv = require('yargs').argv;
-var browserify = require('browserify');
-var browserSync = require('browser-sync').create();
-var buffer = require('vinyl-buffer');
-var concat = require('gulp-concat');
-var del = require('del');
-var gulp = require('gulp');
-var gulpif = require('gulp-if');
-var lazypipe = require('lazypipe');
-var rev = require('gulp-rev');
-var rename = require('gulp-rename');
-var sass = require('gulp-sass');
-var source = require('vinyl-source-stream');
-var uglify = require('gulp-uglify');
-var eslint = require('gulp-eslint');
-var sasslint = require('gulp-sass-lint');
-var detab = require('gulp-soften');
-var Server = require('karma').Server;
+const configs   = require('./gulp_configs');
+const gulp      = require('gulp');
 
-var paths = {
-  scss: ['./assets/scss/**/*.scss'],
-  js: ['./assets/js/**/*.js'],
-  gulpfile: ['./gulpfile.js'],
-  styleguide: ['./assets/styleguide'],
+// Errors Handler for tasks
+const gutil  = require('gulp-util');
+const notify = require('gulp-notify');
+const reportErrors = (error) => {
+    const lineNumber = (error.lineNumber) ? 'LINE ' + error.lineNumber + ' -- ' : '';
+    notify({
+        title: 'Task Error: [' + error.plugin + ']',
+        message: lineNumber + 'See console.',
+        sound: 'Sosumi'
+    }).write(error);
+
+    gutil.beep();
+
+    var report = '';
+    var chalk = gutil.colors.white.bgRed;
+
+    report += chalk('TASK:') + ' [' + error.plugin + ']\n';
+    report += chalk('CULPRIT:') + ' ' + error.message + '\n';
+    if (error.lineNumber) { report += chalk('LINE:') + ' ' + error.lineNumber + '\n'; }
+    if (error.fileName)   { report += chalk('FILE:') + ' ' + error.fileName + '\n'; }
+    console.error(report);
+    this.emit('end');
 };
 
+/* ----- BEGINS GULP TASKS ----- */
+//:: Tasks are in alphabetical orders.
 
-gulp.task('clean', function() {
-  return del.sync(['static']);
+
+const _             = require('lodash');
+const argv          = require('yargs').argv;
+const autoprefixer  = require('autoprefixer');
+const browserSync   = require('browser-sync').create();
+const browserify    = require('browserify');
+const buffer        = require('vinyl-buffer');
+const changed       = require('gulp-changed');
+const cp            = require('child_process');
+const concat        = require('gulp-concat');
+const del           = require('del');
+const eslint        = require('gulp-eslint');
+const gulpif        = require('gulp-if');
+const imagemin      = require('gulp-imagemin');
+const lazypipe      = require('lazypipe');
+const newer         = require('gulp-newer');
+const plumber       = require('gulp-plumber');
+const postcss       = require('gulp-postcss');
+const rev           = require('gulp-rev');
+const revcss        = require('gulp-rev-css-url');
+const revdel        = require('gulp-rev-delete-original');
+const sass          = require('gulp-sass');
+const sasslint      = require('gulp-sass-lint');
+const Server        = require('karma').Server;
+const soften        = require('gulp-soften');
+const sourcemaps    = require('gulp-sourcemaps');
+const stripCssComments  = require('gulp-strip-css-comments');
+const tap           = require('gulp-tap');
+const uglify        = require('gulp-uglify');
+const using         = require('gulp-using');
+
+gulp.task('default', [argv.production ? 'build' : 'watch']);
+
+/* ----- build ----- */
+gulp.task('build', ['clean', 'scripts', 'sass', 'images'], function(done) {
+  done();
 });
 
-gulp.task('clean:css', function() {
-  return del.sync(['static/css']);
+/* ----- clean ----- */
+
+gulp.task('clean', (cb) => {
+  del(['static/**/*']);
+  cb();
 });
 
-gulp.task('clean:js', function() {
-  return del.sync(['static/js']);
+gulp.task('clean:css', () => {
+  return del(['static/css']);
 });
 
-var jsPipeline = lazypipe()
+gulp.task('clean:fonts', () => {
+  return del(['static/fonts']);
+});
+
+gulp.task('clean:images', () => {
+  return del(['static/images']);
+});
+
+gulp.task('clean:js', () => {
+  return del(['static/js']);
+});
+
+/* ----- detab ----- */
+
+const detab = lazypipe()
   .pipe(function() {
-    return gulpif(argv.production, uglify());
+      return soften(2);
   });
 
-var scssPipeline = lazypipe()
-  .pipe(function() {
-    return sass().on('error', sass.logError);
-  });
+/* ----- fonts ----- */
 
-var cssPipeline = lazypipe()
-  .pipe(function() {
-    return concat('screen.css');
-  });
-
-gulp.task('build', ['clean'], function() {
-  return browserify({entries: './assets/js/app.js', debug: !argv.production})
-    .bundle()
-    .pipe(source('app.js'))
-    .pipe(buffer())
-    .pipe(addsrc.append('./assets/scss/app.scss'))
-    .pipe(gulpif('*.js', jsPipeline()))
-    .pipe(gulpif('*.scss', scssPipeline()))
-    .pipe(gulpif('*.css', cssPipeline()))
-    .pipe(rev())
-    .pipe(gulp.dest('./static'))
-    .pipe(rev.manifest())
-    .pipe(gulp.dest('./static'))
-  ;
+gulp.task('fonts', () =>{
+  return gulp.src(configs.paths.fonts_src)
+      .pipe(newer(configs.paths.fonts_dest))
+      .pipe(gulp.dest(configs.paths.fonts_dest))
+      .pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('lint:js', function() {
-  return gulp.src(_.concat(paths.js, paths.gulpfile))
+/* ----- images ----- */
+
+gulp.task('images', () => {
+  return gulp.src(configs.paths.images_src)
+    .pipe(using(configs.using_opts))
+    .pipe(newer(configs.paths.images_dest))
+    .pipe(gulpif(argv.production, imagemin()))
+    .pipe(gulp.dest(configs.paths.images_dest))
+    .pipe(browserSync.reload({stream: true}));
+});
+
+/* ----- lint ----- */
+
+gulp.task('lint', ['lint:js', 'lint:sass']);
+
+gulp.task('lint:js', () => {
+  return gulp.src(_.concat(configs.paths.scripts_src))
+    .pipe(detab())
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
   ;
 });
 
-gulp.task('lint:sass', function() {
-  return gulp.src(paths.scss)
+gulp.task('lint:sass', () => {
+  return gulp.src(configs.paths.scss_src)
+    .pipe(detab())
     .pipe(sasslint())
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
   ;
 });
 
-gulp.task('detab:js', function() {
-  gulp.src(_.concat(paths.js, paths.gulpfile))
-    .pipe(detab(2))
-    .pipe(gulp.dest('assets'));
+/* ----- rev -----
+
+Just case someone still wants to use this.
+
+const revTask = lazypipe()
+  .pipe(rev)
+  .pipe(revcss)
+  .pipe(revdel)
+  .pipe(gulp.dest, configs.paths.root_dest)
+  .pipe(function() {
+    return rev.manifest('rev-manifest.json', { merge: true })
+    })
+  .pipe(gulp.dest, configs.paths.root_dest);
+
+*/
+
+/* ----- sass ----- */
+
+const compileSassTask = lazypipe()
+  .pipe(function() {
+    return sourcemaps.init()
+  })
+  .pipe(function() {
+    return sass({
+              outputStyle: 'compressed'
+          }).on('error', reportErrors)
+  })
+  .pipe(function() {
+    return postcss([ autoprefixer({ browsers: ['last 15 versions', '> 1%'] }) ])
+  })
+  .pipe(function() {
+    return sourcemaps.write('.')
+  })
+  .pipe(stripCssComments)
+
+gulp.task('sass', ['lint:sass'], () => {
+  return gulp.src(configs.paths.scss_src)
+    .pipe(changed(configs.paths.css_dest))
+    .pipe(using(configs.using_opts))
+    .pipe(plumber({
+      errorHandler: reportErrors
+    }))
+    .pipe(compileSassTask())
+    .pipe(gulp.dest(configs.paths.css_dest))
+    .pipe(browserSync.stream({match: '**/*.css'}));
 });
 
-gulp.task('detab:sass', function() {
-  gulp.src(paths.scss)
-    .pipe(detab(2))
-    .pipe(gulp.dest('assets'));
+/* ----- scripts ----- */
+
+//You can bundle multiple bundles as long as the files are on the root of js folder.
+const bundleJsTask = lazypipe()
+  .pipe(function() {
+      return tap(function (file) {
+        // replace file contents with browserify's bundle stream
+        file.contents = browserify(file.path, {debug: true}).bundle().on('error', reportErrors);
+      })
+  });
+
+gulp.task('scripts', ['lint:js'], () => {
+    return gulp.src(configs.paths.scripts_src, {read: false})
+        .pipe(using(configs.using_opts))
+        .pipe(bundleJsTask())
+        .pipe(buffer())
+        .pipe(gulpif(argv.production, uglify()))
+        .pipe(gulp.dest(configs.paths.scripts_dest))
+        .pipe(browserSync.stream({match: '**/*.js'}));
 });
+
+/* ----- styleguide / Jekyll ----- */
+
+  gulp.task('styleguide', ['jekyll-build-css', 'jekyll-build-js', 'jekyll-build'], function() {
+    browserSync.init({
+        files: configs.styleguide.root_dest+'/**/*',
+        port: 9001,
+        open: true,
+        server: {
+          baseDir: configs.styleguide.root_dest
+        }
+    });
+
+    gulp.watch(configs.styleguide.css_watch, ['jekyll-build-css']);
+    gulp.watch(configs.styleguide.js_watch, ['jekyll-build-js']);
+    gulp.watch(configs.styleguide.html_src, ['jekyll-build']);
+    gulp.watch(configs.styleguide.html_watch).on('change', browserSync.reload);
+
+  });
+
+  gulp.task('jekyll-build', function(cb) {
+    return cp.spawn('jekyll', ['build'], {cwd: configs.styleguide.src, stdio: 'pipe'}).on('exit', cb);
+  });
+
+  gulp.task('jekyll-build-css', function() {
+    return gulp.src(configs.styleguide.css_src)
+      .pipe(changed(configs.styleguide.scss_dest))
+      .pipe(using(configs.using_opts))
+      .pipe(plumber({
+        errorHandler: reportErrors
+      }))
+      .pipe(compileSassTask())
+      .pipe(gulp.dest(configs.styleguide.css_dest))
+      .pipe(browserSync.stream({match: '**/*.css'}));
+  });
+
+  gulp.task('jekyll-build-js', function(){
+    return gulp.src(configs.styleguide.js_src, {read: false})
+        .pipe(changed(configs.styleguide.js_src))
+        .pipe(using(configs.using_opts))
+        .pipe(bundleJsTask())
+        .pipe(buffer())
+        .pipe(uglify())
+        .pipe(gulp.dest(configs.styleguide.js_dest))
+        .pipe(browserSync.stream({match: '**/*.js'}));
+  });
+
+/* ----- test ----- */
 
 gulp.task('test:js', function(done) {
   new Server({
@@ -107,33 +263,17 @@ gulp.task('test:js', function(done) {
   }, done).start();
 });
 
-gulp.task('detab', ['detab:js', 'detab:sass']);
-
-gulp.task('lint', ['lint:js', 'lint:sass']);
+/* ----- watch ----- */
 
 gulp.task('watch', ['build'], function() {
-  gulp.watch(_.flatten(_.values(paths)), ['build']);
-});
-
-gulp.task('default', [argv.production ? 'build' : 'watch']);
-
-
-gulp.task('styleguide', function() {
-  return gulp.src(paths.styleguide + '/docs/assets/scss/docs.scss')
-    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-    .pipe(rename(function(path) {
-      path.basename += '.min';
-    }))
-    .pipe(gulp.dest(paths.styleguide+'/docs/assets/css/'))
-    .pipe(browserSync.stream());
-});
-
-gulp.task('styleguide:watch', ['styleguide'], function() {
   browserSync.init({
-    server: paths.styleguide + '/_gh_pages/',
-    port: '9002',
+      proxy: configs.bs_proxy,
+      xip: configs.bs_use_xip
   });
 
-  gulp.watch([paths.scss, paths.styleguide + '/docs/assets/scss/**/*.scss'], ['styleguide']);
-  gulp.watch([paths.styleguide + '/_gh_pages/**/*.html']).on('change', browserSync.reload);
+  gulp.watch(configs.paths.scss_watch, ['sass']);
+  gulp.watch(configs.paths.images_watch, ['images']);
+  gulp.watch(configs.paths.scripts_watch, ['scripts']);
+  gulp.watch(configs.paths.fonts_watch, ['fonts']);
+  gulp.watch(configs.paths.html_watch).on('change', browserSync.reload);
 });

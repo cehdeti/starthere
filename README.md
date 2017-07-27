@@ -44,8 +44,13 @@ If you ran `./bin/setup`, npm dependencies should be installed. You just have to
 * `gulp (default)`: starts watching unless a `--production` flag is passed into the command, it'll run the `build` task.
 * `gulp build`: build the assets
 * `gulp watch`: watch the files inside the `assets` folder
-* `gulp styleguide`: build the `styleguide`
-* `gulp styleguide:watch`: watch the `styleguide` folder and starts up a browserSync server
+
+
+### Styleguide
+
+`cd` into `assets/styleguide` and run `bundle install`. 
+
+* `gulp styleguide`: watch the `styleguide` folder and starts up a browserSync server
 
 ## Testing
 
