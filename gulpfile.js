@@ -68,8 +68,8 @@ gulp.task('compile', ['clean', 'scripts', 'sass', 'images'], function(done) {
 });
 
 gulp.task('build', ['compile'], function() {
-  return gulp.src(['static/*', '!static/*.map'], {base: 'static'})
-    .pipe(revTask())
+  return gulp.src([configs.paths.root_dest+'/*.{js,css,jpg,gif,png,svg}'], {base: 'static'})
+    .pipe(gulpif(argv.production, revTask()))
   });
 
 /* ----- clean ----- */
