@@ -48,7 +48,6 @@ const newer         = require('gulp-newer');
 const plumber       = require('gulp-plumber');
 const postcss       = require('gulp-postcss');
 const rev           = require('gulp-rev');
-const revAll        = require('gulp-rev-all');
 const revcss        = require('gulp-rev-css-url');
 const revdel        = require('gulp-rev-delete-original');
 const sass          = require('gulp-sass');
@@ -61,6 +60,7 @@ const tap           = require('gulp-tap');
 const uglify        = require('gulp-uglify');
 const using         = require('gulp-using');
 
+gulp.task('default', [argv.production ? 'build' : 'watch']);
 
 /* ----- build ----- */
 gulp.task('compile', ['clean', 'scripts', 'sass', 'images'], function(done) {
