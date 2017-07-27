@@ -31,9 +31,9 @@ $fa-font-path: '';
 // about resets and normalizing our styles for cross-browser compatibility.
 // ------------------------------------
 
-//@import "elements/element.forms";
-//@import "elements/element.lists";
-//@import "elements/element.typography";
+//@import "elements/_forms";
+//@import "elements/_lists";
+//@import "elements/_typography";
 
 // Generics
 //
@@ -45,14 +45,7 @@ $fa-font-path: '';
 //
 // ------------------------------------
 
-//@import "generics/generic.animations";
-//@import "generics/generic.buttons";
-//@import "generics/generic.borders";
-//@import "generics/object.cards";
-//@import "generics/object.form";
-//@import "generics/object.grid";
-//@import "generics/generic.list";
-//@import "generics/object.panel";
+//@import "generics/_animations";
 
 // COMPONENTS
 //
@@ -61,16 +54,15 @@ $fa-font-path: '';
 // `%button` from above.
 // ------------------------------------
 
-//@import "components/component.buttons";
-//@import "components/component.header";
-//@import "components/component.footer";
+//@import "components/_header";
+//@import "components/_footer";
 
 // UTILITIES
 //
 // Helper, one-off classes. For example, `.pull--left`, `text--center`
 // ------------------------------------
 
-//@import "utilities/utility.ellipsisize";
+//@import "utilities/_ellipsisize";
 
 // PAGES
 //
@@ -78,4 +70,4 @@ $fa-font-path: '';
 // is. Styles for individual pages.
 // ------------------------------------
 
-//@import "pages/page.base";
+//@import "pages/_page.base";

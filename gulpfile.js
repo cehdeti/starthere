@@ -227,5 +227,5 @@ gulp.task('watch', ['build'], function() {
   gulp.watch(configs.paths.images_watch, ['images']);
   gulp.watch(configs.paths.scripts_watch, ['scripts']);
   gulp.watch(configs.paths.fonts_watch, ['fonts']);
-  gulp.watch(configs.paths.html_watch).on('change', browserSync.reload({stream:true}));
+  gulp.watch(configs.paths.html_watch).on('change', browserSync.reload);
 });
