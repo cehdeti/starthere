@@ -15,8 +15,5 @@ module.exports = {
     'one-var': 0,
     'require-jsdoc': 0,
     'valid-jsdoc': 0
-  },
-  parserOptions: {
-    "ecmaVersion": 6
   }
 };
