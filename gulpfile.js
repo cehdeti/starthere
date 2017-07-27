@@ -48,6 +48,9 @@ const newer         = require('gulp-newer');
 const plumber       = require('gulp-plumber');
 const postcss       = require('gulp-postcss');
 const rev           = require('gulp-rev');
+const revAll        = require('gulp-rev-all');
+const revcss        = require('gulp-rev-css-url');
+const revdel        = require('gulp-rev-delete-original');
 const sass          = require('gulp-sass');
 const sasslint      = require('gulp-sass-lint');
 const Server        = require('karma').Server;
@@ -60,7 +63,14 @@ const using         = require('gulp-using');
 
 
 /* ----- build ----- */
-gulp.task('build', ['clean', 'scripts', 'sass', 'images']);
+gulp.task('compile', ['clean', 'scripts', 'sass', 'images'], function(done) {
+  done();
+});
+
+gulp.task('build', ['compile'], function() {
+  return gulp.src(['static/*'], {base: 'static'})
+    .pipe(revTask())
+  });
 
 /* ----- clean ----- */
 
@@ -96,8 +106,8 @@ const detab = lazypipe()
 
 gulp.task('fonts', () =>{
   return gulp.src(configs.paths.fonts_src)
-      .pipe(newer(configs.paths.fonts_out))
-      .pipe(gulp.dest(configs.paths.fonts_out))
+      .pipe(newer(configs.paths.fonts_dest))
+      .pipe(gulp.dest(configs.paths.fonts_dest))
       .pipe(browserSync.reload({stream: true}));
 });
 
@@ -106,9 +116,9 @@ gulp.task('fonts', () =>{
 gulp.task('images', () => {
   return gulp.src(configs.paths.images_src)
     .pipe(using(configs.using_opts))
-    .pipe(newer(configs.paths.images_out))
+    .pipe(newer(configs.paths.images_dest))
     .pipe(gulpif(argv.production, imagemin()))
-    .pipe(gulp.dest(configs.paths.images_out))
+    .pipe(gulp.dest(configs.paths.images_dest))
     .pipe(browserSync.reload({stream: true}));
 });
 
@@ -134,6 +144,18 @@ gulp.task('lint:sass', () => {
   ;
 });
 
+/* ----- rev ----- */
+
+const revTask = lazypipe()
+  .pipe(rev)
+  .pipe(revcss)
+  .pipe(revdel)
+  .pipe(gulp.dest, configs.paths.root_dest)
+  .pipe(function() {
+    return rev.manifest('rev-manifest.json', { merge: true })
+    })
+  .pipe(gulp.dest, configs.paths.root_dest);
+
 /* ----- sass ----- */
 
 const compileSassTask = lazypipe()
@@ -151,18 +173,18 @@ const compileSassTask = lazypipe()
   .pipe(function() {
     return sourcemaps.write('.')
   })
-  .pipe(stripCssComments);
+  .pipe(stripCssComments)
 
 gulp.task('sass', ['lint:sass'], () => {
-  gulp.src(configs.paths.scss_src)
-    .pipe(changed(configs.paths.css_out))
+  return gulp.src(configs.paths.scss_src)
+    .pipe(changed(configs.paths.css_dest))
     .pipe(using(configs.using_opts))
     .pipe(plumber({
       errorHandler: reportErrors
     }))
-    .pipe(concat(configs.paths.css_out_filename))
+    .pipe(concat(configs.paths.css_dest_filename))
     .pipe(compileSassTask())
-    .pipe(gulp.dest(configs.paths.css_out))
+    .pipe(gulp.dest(configs.paths.css_dest))
     .pipe(browserSync.stream({match: '**/*.css'}));
 });
 
@@ -183,7 +205,7 @@ gulp.task('scripts', ['lint:js'], () => {
         .pipe(bundleJsTask())
         .pipe(buffer())
         .pipe(gulpif(argv.production, uglify()))
-        .pipe(gulp.dest(configs.paths.scripts_out))
+        .pipe(gulp.dest(configs.paths.scripts_dest))
         .pipe(browserSync.stream({match: '**/*.js'}));
 });
 
@@ -200,21 +222,13 @@ gulp.task('test:js', function(done) {
 
 gulp.task('watch', ['build'], function() {
   browserSync.init({
-      snippetOptions: {
-        rule: {
-          match: /<\/head>/i,
-          fn: function (snippet, match) {
-            return snippet + match;
-          }
-        }
-      },
       proxy: configs.bs_proxy,
       xip: configs.bs_use_xip
   });
 
   gulp.watch(configs.paths.scss_watch, ['sass']);
-  gulp.watch(configs.paths.images_src, ['images']);
-  gulp.watch(configs.paths.scripts_watch_src, ['scripts']);
-  gulp.watch(configs.paths.fonts_src, ['fonts']);
-  gulp.watch(configs.paths.html_src).on('change', browserSync.reload({stream:true}));
+  gulp.watch(configs.paths.images_watch, ['images']);
+  gulp.watch(configs.paths.scripts_watch, ['scripts']);
+  gulp.watch(configs.paths.fonts_watch, ['fonts']);
+  gulp.watch(configs.paths.html_watch).on('change', browserSync.reload({stream:true}));
 });

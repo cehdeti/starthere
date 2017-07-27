@@ -17,23 +17,28 @@ module.exports = {
 
   paths: {
 
-    fonts_src: ['static/fonts'],
-    fonts_out: 'static/fonts',
+    root_dest: './static',
+
+    fonts_src: ['assets/fonts'],
+    fonts_watch: ['assets/fonts'],
+    fonts_dest: './static',
 
     html_src: ['web/templates/**/*.html'],
+    html_watch: ['web/templates/**/*.html'],
 
-    images_src: ['assets/images/**/*'],
-    images_out: 'static/images',
+    images_src: ['assets/images/**/*.{png,jpg,gif,svg}'],
+    images_watch: ['assets/images/**/*.{png,jpg,gif,svg}'],
+    images_dest: './static',
 
     // Browserify the root JS only so we don't compile components and vendors
     scripts_src: ['assets/js/[^_]*.js', '!assets/js/*.spec.js'],
-    scripts_watch_src: ['assets/js/**/*.js'],
-    scripts_out: './static/js',
+    scripts_watch_src: ['./assets/js/**/*.js'],
+    scripts_dest: './static',
 
     scss_src: ['assets/scss/[^_]*.scss'], //Ignore files with _ prefix
-    scss_watch_src: ['assets/scss/**/*.scss'],
-    css_out: 'static/css',
-    css_out_filename: 'screen.css'
+    scss_watch_src: ['./assets/scss/**/*.scss'],
+    css_dest: './static',
+    css_dest_filename: 'screen.css'
   },
 
   /* ------ STYLGUIDE -----
@@ -42,11 +47,11 @@ module.exports = {
 
   styleguide_src: ['assets/styleguide/'],
   styleguide_css_src: 'assets/styleguide/docs/assets/scss/docs.scss',
-  styleguide_css_out: './assets/styleguide/docs/assets/css', //jekyll-build
-  styleguide_scss_out: './assets/styleguide/_build/assets/css', //build-css task
+  styleguide_css_dest: './assets/styleguide/docs/assets/css', //jekyll-build
+  styleguide_scss_dest: './assets/styleguide/_build/assets/css', //build-css task
   styleguide_html_src: ['assets/styleguide/docs/**/*.{md,html,json,css,min.js}'],
   styleguide_js_src: 'assets/styleguide/docs/assets/js/src/eti.js',
-  styleguide_js_out: './assets/styleguide/docs/assets/js/',
+  styleguide_js_dest: './assets/styleguide/docs/assets/js/',
   styleguide_watch_css_glob: ['./assets/scss/app.scss', 'assets/styleguide/docs/assets/scss/**/*.scss'],
   styleguide_watch_html: ['assets/styleguide/docs/**/*.{md,html,json}'],
   styleguide_watch_js: ['assets/styleguide/docs/assets/js/src/eti.js'],
