@@ -138,6 +138,22 @@ gulp.task('lint:sass', () => {
   ;
 });
 
+/* ----- rev -----
+
+Just case someone still wants to use this.
+
+const revTask = lazypipe()
+  .pipe(rev)
+  .pipe(revcss)
+  .pipe(revdel)
+  .pipe(gulp.dest, configs.paths.root_dest)
+  .pipe(function() {
+    return rev.manifest('rev-manifest.json', { merge: true })
+    })
+  .pipe(gulp.dest, configs.paths.root_dest);
+
+*/
+
 /* ----- sass ----- */
 
 const compileSassTask = lazypipe()
