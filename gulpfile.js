@@ -68,7 +68,7 @@ gulp.task('compile', ['clean', 'scripts', 'sass', 'images'], function(done) {
 });
 
 gulp.task('build', ['compile'], function() {
-  return gulp.src(['static/*'], {base: 'static'})
+  return gulp.src(['static/*', '!static/*.map'], {base: 'static'})
     .pipe(revTask())
   });
 
