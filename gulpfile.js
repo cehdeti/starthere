@@ -67,6 +67,7 @@ gulp.task('default', [argv.production ? 'build' : 'watch']);
 gulp.task('build', ['clean', 'scripts', 'sass', 'images'], function(done) {
   done();
 });
+
 /* ----- clean ----- */
 
 gulp.task('clean', (cb) => {
