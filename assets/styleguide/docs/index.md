@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: What is this?
+title: What is this? 
 description: Hey! You should read me first!
 group: overview
 redirect_from: "/overview/"
@@ -27,15 +27,17 @@ Whether you decide to use Bootstrap or other frameworks or not. Extending is bet
 
 ```
 <div class="row">
-    <div class="col-xs-12 col-md-6">...</div>
-    <div class="col-xs-12 col-md-6">...</div>
+    <div class="col-12 col-md-6">...</div>
+    <div class="col-12 col-md-6">...</div>
 </div>
 ```
 
-Try this instead:
+#### Recommendation / Suggestion ####
+
+When you find yourself adding 3+ classes to one element, ask yourself if you are going to reuse this elsewhere? If you do, it might makes sense to extend them into one single semantic class. The following might be harder to debug due to multiple extensions even with sourceMaps, but it is obviously more semantic. You can easily look up the file name a lot faster and if you use the same classes across, you can change it one place instead of going back to the HTML's to remove the classes that you don't need. It is up to you to decide since everyone's coding styles is different. Another pro for this is if the team decides to switch to a different framework or whatever, you don't have to go through the HTML's again.
 
 ```
-<div class="sementic__class-name">
+<div class="semantic__class-name">
     <div class="semantic__column-name">...</div>
     <div class="semantic__column-name">...</div>
 </div>
@@ -46,12 +48,10 @@ Try this instead:
     }
 
     &__column-name {
-        @extend .col-xs-12, .col-md-6; //or use @include make-column()
+        @extend .col-12, .col-md-6, .col-lg-8;
     }
 }
 ```
-
-Why? Because in the future if you decided to upgrade or change to a completely different framework, you don't have to hunt down _every single one_ of those `.col-xs-*`, you just have to change them inside your SCSS. Not to mention you have more meaningful class names. BOOM!
 
 ### Naming Conventions
 
@@ -62,6 +62,29 @@ Example:
 * `li.menu__item` -> `.menu__item--green`
 
 Why add a class on everything? I'll let [this guy](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) does the talking.
+
+**Note** Just like extending everything into one semantic class name makes sense, but it also just as bad to have something like: `.element__parent-child--stuff`, if you have to add more modifiers... you see where it's going right? Rule of thumb, if it's more than 3 elements + 1 modifier looks ugly, it's probably is. That's why I support the use of the "dot" and still have meaningful context:
+
+```
+<li class="menu__item green super-big">
+
+li.menu__item {
+    &.green {}
+    &.blue {}
+    &.super-big {}
+}
+```
+
+Sure, it's almost _too_ general and seriously if you have to overwrite the specificity again, it's probably you're doing something _really_ weird. Besides, it's better than (back to square one on reducing classes):
+
+```
+<li class="menu__item menu__item--green menu__item--super-big">
+
+li.menu__item {
+    &--green {}
+    &--super-big
+}
+```
 
 ### Quick notes on styleguide maintenance
 
@@ -76,9 +99,3 @@ Just a reminder if you're adding new pages to this styleguide, here's quick tour
     * `/docs/_data/nav.yml` - Add your new category etc...
     * Add them into the side menu: `/docs/_includes/nav-docs.html`
     * Lastly, if you want a fancy page title heading. Add the grouping in `/docs/_includes/page-headers.html`
-
-### Todo's
-
-* Add a gulp task for running jekyll 
-* Add a gulp task for copying font-size
-* Add autoprefixer
