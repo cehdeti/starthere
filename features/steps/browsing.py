@@ -1,6 +1,7 @@
 from behave import when, then, use_step_matcher
 
 from six.moves.urllib.parse import urlparse
+from splinter.exceptions import ElementDoesNotExist
 
 
 FINDERS = ['css', 'xpath', 'tag', 'name', 'text', 'id', 'value']
@@ -22,10 +23,10 @@ def i_click_the_button_or_link(context, text):
             if getattr(context.browser, 'is_element_present_by_%s' % finder)(text):
                 getattr(context.browser, 'find_by_%s' % finder)(text).first.click()
                 return
-        except:
-            pass
+        except ElementDoesNotExist:
+            continue
 
-    raise Exception("Cannot find button or link %s" % text)
+    raise Exception('Cannot find button or link %s' % text)
 
 
 use_step_matcher('parse')

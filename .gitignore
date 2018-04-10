@@ -1,6 +1,8 @@
+# <<REMOVE_BEGIN>>
+Pipfile.lock
+package-lock.json
+# <<REMOVE_END>>
 .idea
-venv/
-venv
 *.pyc
 .pyc
 .DS_Store

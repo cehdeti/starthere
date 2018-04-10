@@ -14,18 +14,21 @@ ctrl_c() {
 }
 
 echo 'Running the test suite...'
-python manage.py behave --keepdb --format progress
-python manage.py test --keepdb --reverse
-gulp test:js
+pipenv run python manage.py behave --keepdb --format progress
+pipenv run python manage.py test --keepdb --reverse
 
 echo
-echo 'Checking code style [backend]...'
-if ! pep8 . ; then
-  echo 'Code style checks failed. Consider running `autopep8 --in-place <file>` to see if issues can be automatically fixed.'
+echo 'Checking code style with flake8...'
+if ! pipenv run flake8 . ; then
+  echo 'Code style checks failed.'
 fi
 
 echo
-echo 'Checking code style [frontend]...'
+echo 'Checking safety of installed dependencies...'
+pipenv check
+
+echo
+echo 'Running frontend code style checks...'
 gulp lint
 
 cd "$dir" || exit

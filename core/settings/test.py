@@ -1,4 +1,6 @@
-from .base import *
+# flake8: noqa
+
+from .local import *
 
 
 INSTALLED_APPS += ('behave_django',)

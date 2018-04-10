@@ -1,3 +1,5 @@
+# flake8: noqa
+
 from .base import *
 
 import dj_database_url
@@ -13,6 +15,8 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 STATIC_URL = '/assets/'
 MEDIA_URL = '/media/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 HOST = 'http://localhost:8000'
 

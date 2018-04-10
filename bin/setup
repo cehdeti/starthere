@@ -18,168 +18,48 @@ ctrl_c() {
   exit 0
 }
 
-# https://gist.github.com/davejamesmiller/1965569
-ask() {
-  while true; do
-    if [ "${2:-}" = "Y" ]; then
-      prompt="Y/n"
-      default=Y
-    elif [ "${2:-}" = "N" ]; then
-      prompt="y/N"
-      default=N
-    else
-      prompt="y/n"
-      default=
-    fi
-
-    printf '%s' "$1 [$prompt]: "
-    read -r </dev/tty
-
-    if [ -z "$REPLY" ]; then
-      REPLY=$default
-    fi
-
-    case "$REPLY" in
-      Y*|y*) return 0 ;;
-      N*|n*) return 1 ;;
-    esac
-  done
-}
-
-# Returns the path to the pip we're going to use.
-_pip() {
-  # We need to do pips with sudo if we're using the system's python.
-  if [ "$(uname -s)" = 'Darwin' ] && [ "$(which python)" = '/usr/bin/python' ]; then
-    printf "sudo pip"
-  else
-    printf "pip"
-  fi
-}
-
-# Check to see if they have virtualenv installed and install it for them if
-# they don't.
-check_virtualenv_install() {
-  if command -v virtualenv >/dev/null 2>&1; then
-    return 0
-  fi
-
-  if ! ask "It looks like you don't have virtualenv installed. Should I install it? (Choose yes if you don't have preferences about where it's installed, etc.)"; then
-    echo 'OK, install virtualenv and run this script again.'
-    exit 0
-  fi
-
-  printf 'Installing virtualenv...'
-  PIP_REQUIRE_VIRTUALENV=false "$(_pip)" install -q virtualenv
-  printf 'done.\n'
-}
-
-# Check to see if npm is installed.
-check_npm_install() {
-  if command -v npm >/dev/null 2>&1; then
-    return 0
-  fi
-
-  echo "Couldn't find npm. Please install node/npm (https://nodejs.org/en/download/), and run this script again."
-  exit 0
-}
-
-# Check to see if the user is in a virtual env. If they aren't, let's create
-# one for them or stop.
-#
-# Returns a status code of 2 if a virtualenv was already found, and 0 if one
-# was created.
-create_and_activate_virtualenv() {
-  if [ -n "${VIRTUAL_ENV+x}" ]; then
-    return 2
-  fi
-
-  if ! ask "It looks like you don't have an active virtualenv. Should I create one? (Choose yes if you don't have preferences about where it's installed, etc.)"; then
-    echo 'OK, you should make one, activate it, and run this script again.'
-    exit 0
-  fi
-
-  printf 'Creating virtualenv...'
-  virtualenv venv > /dev/null
-  set +u
-  . venv/bin/activate
-  set -u
-  printf 'done.\n'
-}
 # <<REMOVE_BEGIN>>
-compile_pip_requirements() {
-  printf 'Installing pip-tools and compiling requirements file...'
-  "$(_pip)" install -q pip-tools
-  pip-compile --rebuild requirements.in > /dev/null
-  pip-compile --rebuild dev-requirements.in > /dev/null
-  printf 'done.\n'
-}
-
 replace_project_meta() {
   printf 'Replacing occurrances of <<PROJECT>> with project name...'
-  local dir="$(basename "$(pwd)")"
+  local dir
+  dir="$(basename "$(pwd)")"
   find . -type f ! -path './.git/*' ! -path './bin/*' ! -path './node_modules/*' -print0 | xargs -0 env LC_CTYPE=C LANG=C sed -i '' "s/<<PROJECT>>/$dir/g"
   find . -type f ! -path './.git/*' ! -path './node_modules/*' -print0 | xargs -0 env LC_CTYPE=C LANG=C sed -i '' '/^# <<REMOVE_BEGIN>>$/,/^# <<REMOVE_END>>$/d'
   printf 'done.\n'
 }
 
-# Does setup steps for new projects.
-#
-# This only happens if we're starting a brand new project from the starter
-# project. We assume this is the case if a `requirements.txt` file does not
-# exist.
-new_project_setup() {
-  if [ -f ./requirements.txt ]; then
-    echo 'Requirements file found, skipping new project setup steps'
-    return 0
-  fi
-
-  compile_pip_requirements
-  replace_project_meta
+git_reinit() {
+  rm -rf .git
+  git init
 }
+
 # <<REMOVE_END>>
+if ! command -v pipenv >/dev/null 2>&1; then
+  echo "Looks like you don't have \`pipenv\` installed. If you're on a Mac, do \`brew install pipenv\` and run this script again."
+  exit 0
+fi
 
-install_pip_requirements() {
-  printf 'Installing requirements (pip)...'
-  "$(_pip)" install -q -r dev-requirements.txt
-  printf 'done.\n'
-}
-
-install_npm_requirements() {
-  printf 'Installing requirements (npm)...'
-  npm install --progress=false
-  printf 'done.\n'
-}
-
-install_requirements() {
-  install_pip_requirements
-  install_npm_requirements
-}
-
-init_database() {
-  printf 'Initializing database...'
-  python manage.py migrate -v 0
-  printf 'done.\n'
-}
-
-check_virtualenv_install
-check_npm_install
-
-set +e
-create_and_activate_virtualenv
-venv_created=$?
-set -e
+if ! command -v npm >/dev/null 2>&1; then
+  echo "Couldn't find npm. Please install node/npm (https://nodejs.org/en/download/), and run this script again."
+  exit 0
+fi
 
 # <<REMOVE_BEGIN>>
-new_project_setup
+replace_project_meta
+git_reinit
 # <<REMOVE_END>>
-install_requirements
-init_database
+echo 'Installing requirements...'
+pipenv install --dev
+npm install
 
-printf '%s' "Awesome, you're all set."
-if [ $venv_created -eq 0 ]; then
-  printf ' Run `source venv/bin/activate` to activate your newly created virtualenv.'
-fi
-printf ' Run `python manage.py runserver` to start the app. Happy devving!\n'
+printf 'Initializing database...'
+pipenv run python manage.py migrate -v 0
+printf 'done.\n'
+
+echo "OK cool. Now let's create your user account."
+pipenv run python manage.py createsuperuser
+
+echo "Awesome, you're all set. Run \`pipenv run python manage.py runserver\` to start the app. Happy devving!"
 
 cd "$dir" || exit
 exit 0

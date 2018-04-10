@@ -1,8 +1,12 @@
+# flake8: noqa
+
+from .production import *
 import os
-from .base import *
+import dj_database_url
+from storages.backends.s3boto import S3BotoStorage
 
 
-INSTALLED_APPS += ('django_ses',)
+INSTALLED_APPS = ('collectfast', ) + INSTALLED_APPS + ('django_ses',)
 
 ###################
 # MAIN AWS SETTINGS
@@ -11,8 +15,6 @@ INSTALLED_APPS += ('django_ses',)
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
-AWS_PRELOAD_METADATA = True
-
 ####
 # S3
 ####
@@ -20,37 +22,45 @@ AWS_PRELOAD_METADATA = True
 AWS_S3_SECURE_URLS = os.environ.get('S3_SECURE_URLS', '1') == '1'
 AWS_S3_USE_SSL = AWS_S3_SECURE_URLS
 AWS_S3_URL_PROTOCOL = 'https:' if AWS_S3_SECURE_URLS else 'http:'
-AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-# The subdirectory within the S3 bucket for storing static files (compiled
-# assets, templates, etc).
-STATIC_DIR = 'assets'
+CACHES['collectfast'] = {
+    'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    'LOCATION': 'collectfast',
+}
 
-# The subdirectory with the S3 bucket for storing all other media, including
-# user-uploaded files, etc.
-MEDIA_DIR = 'uploads'
+COLLECTFAST_CACHE = 'collectfast'
 
-STATIC_URL = '%s//%s/%s/' % (AWS_S3_URL_PROTOCOL, AWS_S3_CUSTOM_DOMAIN, STATIC_DIR)
-STATIC_ROOT = '/%s/' % STATIC_DIR
-MEDIA_URL = '%s//%s/%s/' % (AWS_S3_URL_PROTOCOL, AWS_S3_CUSTOM_DOMAIN, MEDIA_DIR)
+STATIC_URL = '/assets/'
+MEDIA_URL = '/uploads/'
 
-DEFAULT_FILE_STORAGE = 'pyeti.django.s3_storages.MediaStorage'
-STATICFILES_STORAGE = 'pyeti.django.s3_storages.StaticStorage'
+
+class StaticStorage(S3BotoStorage):
+    querystring_auth = False
+    bucket_name = '%s-assets' % os.environ.get('S3_BUCKET_NAME')
+    preload_metadata = True
+
+
+class MediaStorage(S3BotoStorage):
+    bucket_name = '%s-media' % os.environ.get('S3_BUCKET_NAME')
+    default_acl = 'private'
+
+
+DEFAULT_FILE_STORAGE = 'core.settings.aws.MediaStorage'
+STATICFILES_STORAGE = 'core.settings.aws.StaticStorage'
 
 #####
 # SES
 #####
 
 EMAIL_BACKEND = 'django_ses.SESBackend'
-DEFAULT_FROM_EMAIL = 'eti@umn.edu'
 
 #####
 # RDS
 #####
 
-DATABASES = {
-    'default': {
+_database = dj_database_url.config()
+if not _database:
+    _database = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('RDS_DB_NAME'),
         'USER': os.environ.get('RDS_USERNAME'),
@@ -58,6 +68,4 @@ DATABASES = {
         'HOST': os.environ.get('RDS_HOSTNAME'),
         'PORT': os.environ.get('RDS_PORT'),
     }
-}
-
-HOST = 'http://<<PROJECT>>.elasticbeanstalk.com'
+DATABASES = {'default': _database}

@@ -1,16 +1,8 @@
 import os
-import sys
 from django.core import exceptions
 
-"""
-Django settings for im4 project.
+from core.utils import is_testing
 
-For more information on this file, see
-https://docs.djangoproject.com/en/1.8/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.8/ref/settings/
-"""
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -23,14 +15,15 @@ DEBUG = os.environ.get('DEBUG', '1') == '1'
 if 'SECRET_KEY' in os.environ:
     SECRET_KEY = os.environ['SECRET_KEY']
 elif DEBUG:
-    SECRET_KEY = '<<PROJECT>>'
+    SECRET_KEY = 'not_secret'
 else:
     raise exceptions.ImproperlyConfigured('You must set a `SECRET_KEY` env var when `DEBUG` is not enabled')
 
 # Are we running the test suite?
-TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+TESTING = is_testing()
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['*']
+INTERNAL_IPS = ['127.0.0.1']
 
 SITE_ID = 1
 
@@ -42,8 +35,6 @@ INSTALLED_APPS = (
     'storages',
     'corsheaders',
 
-    'pyeti.eti_django',
-
     'web',
 )
 
@@ -54,6 +45,7 @@ MIDDLEWARE_CLASSES = (
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 )
 
 ROOT_URLCONF = 'core.urls'
@@ -116,4 +108,6 @@ STATICFILES_DIRS = (
 )
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ROLLBAR = {
+    'enabled': False,
+}
