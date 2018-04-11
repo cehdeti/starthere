@@ -1,0 +1,13 @@
+%scroll-x {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+%scroll-y {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+%scroll {
+  @extend %scroll-x, %scroll-y;
+}

@@ -1,0 +1,37 @@
+/*
+	Quick includes the link states with this mixin
+
+	Usage:
+		a {
+		  @include hover-states($activeClass: true) {
+		    text-decoration: none;
+		  }
+		}
+
+	Output:
+		a:hover, a:focus, a:active {
+		  text-decoration: none;
+		  transition: all 1s ease;
+		}
+		a.is-active {
+		  text-decoration: none;
+		}
+ */
+
+@mixin hover-states ($activeClass: false, $trans: true) {
+	&:hover,
+	&:focus,
+	&:active {
+		@content;
+
+		@if $trans {
+			transition: $transition-base;
+		}
+	}
+
+	@if $activeClass {
+		&.is-active {
+			@content;
+		}
+	}
+}
