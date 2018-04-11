@@ -1,4 +1,4 @@
-var app = require('./app.js');
+var app = require('../components/hello');
 
 describe('App module', function() {
   var _app;

@@ -10,5 +10,5 @@ require('bootstrap');
 
 
 // Modules
-require('./components/module');
+require('./components/hello');
 

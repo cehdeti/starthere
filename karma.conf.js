@@ -14,7 +14,7 @@ module.exports = function(config) {
     */
     files: [
       'assets/js/*.js',
-      'tests/js/*.spec.js'
+      'assets/js/tests/*.spec.js'
     ],
 
     exclude: [
@@ -22,7 +22,7 @@ module.exports = function(config) {
 
     preprocessors: {
       'assets/js/*.js': ['browserify'],
-      'tests/js/*.spec.js': ['browserify']
+      'assets/js/tests/*.spec.js': ['browserify']
     },
 
     reporters: ['dots'],
