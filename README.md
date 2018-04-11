@@ -7,6 +7,8 @@ Copy the contents of this repo (including this README) to your new project's
 repo, then follow the instructions below. The `bin/setup` script will detect
 that you are starting a new project from the `starthere` app and replace some
 strings, do additional setup, etc.
+
+**DO NOT** run `./bin/setup` in the `starthere` project. Lots of mess to clean up if you do that. Clone then run it in a different project folder.
 # <<REMOVE_END>>
 # <<PROJECT>>
 
