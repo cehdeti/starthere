@@ -50,7 +50,7 @@ git_reinit
 # <<REMOVE_END>>
 echo 'Installing requirements...'
 pipenv install --dev
-npm install
+npm install --from-lock-file
 
 printf 'Initializing database...'
 pipenv run python manage.py migrate -v 0
