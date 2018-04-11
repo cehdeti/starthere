@@ -47,7 +47,8 @@ All frontend assets should reside in `./assets/`, the outputs for the assets wil
 ### Dependencies
 
 * [Bootstrap 4 Beta](https://getbootstrap.com/docs/4.0)
-* [FontAwesome 4](https://fontawesome.com/) - We have a Pro license, you will need to add your project's domain to FontAwesome (ask John or Mon for login).
+* [FontAwesome 5](https://fontawesome.com/) - We have a Pro license, you will need to add your project's domain to FontAwesome (ask John or Mon for login).
+  * [Go here](https://fontawesome.com/how-to-use/js-component-packages) to set your npm config
   * How to use and troubleshooting: [See docs](https://fontawesome.com/how-to-use/web-fonts-with-css)
 
 ### Running Gulp Task
