@@ -55,9 +55,6 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'APP_DIRS': True,
         'OPTIONS': {
-            'builtins': [
-                'missing.templatetags.context_tags',
-            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.media',
