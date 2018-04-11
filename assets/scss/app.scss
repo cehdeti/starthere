@@ -13,6 +13,13 @@
 
 
 // FONTS
+$fa-font-path: '.';
+@import '../../node_modules/@fortawesome/fontawesome-pro-webfonts/scss/fontawesome';
+//You don't need all of these. You can just pick the ones you like and want to use
+@import '../../node_modules/@fortawesome/fontawesome-pro-webfonts/scss/fa-solid';
+@import '../../node_modules/@fortawesome/fontawesome-pro-webfonts/scss/fa-regular';
+@import '../../node_modules/@fortawesome/fontawesome-pro-webfonts/scss/fa-light';
+@import '../../node_modules/@fortawesome/fontawesome-pro-webfonts/scss/fa-brands';
 
 
 // TOOLS - Custom mixins, functions
@@ -40,4 +47,5 @@
 
 // PAGES
 // This is where page specific styles live such as homepage, about etc...
+@import 'pages/base';
 @import 'pages/home';

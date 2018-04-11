@@ -13,7 +13,7 @@ INSTALLED_APPS = \
 COLLECTFAST_ENABLED = False
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-STATIC_URL = '/assets/'
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

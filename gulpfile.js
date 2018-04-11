@@ -64,7 +64,7 @@ const using         = require('gulp-using');
 gulp.task('default', [argv.production ? 'build' : 'watch']);
 
 /* ----- build ----- */
-gulp.task('build', ['clean', 'scripts', 'sass', 'images'], function(done) {
+gulp.task('build', ['clean', 'scripts', 'sass', 'images', 'fonts'], function(done) {
   done();
 });
 
@@ -222,7 +222,8 @@ gulp.task('test:js', function(done) {
 gulp.task('watch', ['build'], function() {
   browserSync.init({
       proxy: configs.bs_proxy,
-      xip: configs.bs_use_xip
+      xip: configs.bs_use_xip,
+      open: configs.bs_open
   });
 
   gulp.watch(configs.paths.scss_watch, ['sass']);
