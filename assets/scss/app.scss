@@ -1,10 +1,17 @@
 // Settings
 // ------------------------------------
 
+<<<<<<< HEAD
+=======
+$use-bootstrap: true;
+$fa-font-path: '';
+
+>>>>>>> 1b1de2ae22268d584001264e059fbb6b43bafd4d
 // THEME
 //
 // This should contains from colors to overriding Bootstrap variables.
 // ------------------------------------
+<<<<<<< HEAD
 @import 'settings/theme';
 
 
@@ -43,3 +50,68 @@ $fa-font-path: '.';
 // PAGES
 // This is where page specific styles live such as homepage, about etc...
 @import 'pages/home';
+=======
+
+@import 'theme';
+
+// Vendors
+//
+// 3rd Party stuff. Theme should able to overwrite the vendor's
+// ------------------------------------
+
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+// Tools
+//
+// Mixins, functions, etc...
+// ------------------------------------
+
+//@import "tools/tool.grids";
+
+// Elements
+//
+// The ground zero styles. They are low-specificity and far reaching. Think
+// about resets and normalizing our styles for cross-browser compatibility.
+// ------------------------------------
+
+//@import "elements/_forms";
+//@import "elements/_lists";
+//@import "elements/_typography";
+
+// Generics
+//
+// I think of this level are the reusable stuff begins. They're and should be
+// generic enough that you can copy to any project and add styles on in the
+// `components` level. I would go as far as using the % instead a class name so
+// the css won't bloat up when you extend them below. For example, `%button` or
+// `%border`
+//
+// ------------------------------------
+
+//@import "generics/_animations";
+
+// COMPONENTS
+//
+// Explicitly named designed pieces of UI. The cosmetic layer, includes more
+// specific styling instructions. Here when I actually `.button` to extend
+// `%button` from above.
+// ------------------------------------
+
+//@import "components/_header";
+//@import "components/_footer";
+
+// UTILITIES
+//
+// Helper, one-off classes. For example, `.pull--left`, `text--center`
+// ------------------------------------
+
+//@import "utilities/_ellipsisize";
+
+// PAGES
+//
+// Some call this `Scopes`, but I don't like fancy words and just call it as it
+// is. Styles for individual pages.
+// ------------------------------------
+
+//@import "pages/_page.base";
+>>>>>>> 1b1de2ae22268d584001264e059fbb6b43bafd4d

@@ -1,3 +1,4 @@
+
 // Dependencies
 var jQuery = require('jquery');
 window.jQuery = jQuery;
@@ -10,3 +11,4 @@ require('bootstrap');
 
 // Modules
 require('./components/module');
+

@@ -1,0 +1,40 @@
+language: python
+
+python:
+  - 3.6
+
+install: "pip install pipenv && pipenv install --dev --ignore-pipfile"
+
+services:
+  - postgres
+
+env:
+  global:
+    - DEBUG=0
+    - DJANGO_SETTINGS_MODULE=core.settings.ci
+    - SECRET_KEY=not_so_secret
+    - DB=postgresql
+
+build:
+  ci:
+    # Create folders for test and code coverage
+    - mkdir -p shippable/testresults
+    - mkdir -p shippable/codecoverage
+
+    # create test database
+    - psql -c 'create database test_<<PROJECT>>;' -U postgres
+    - psql -c 'create user root with superuser;' -U postgres
+
+    # Run test and code coverage and output results to the right folder
+    - pipenv run coverage run --branch manage.py behave --keepdb --junit --junit-directory=shippable/testresults
+    - pipenv run coverage run --branch manage.py test --keepdb --reverse
+    - pipenv run coverage xml -o shippable/codecoverage/coverage.xml
+    - pipenv run flake8 .
+    - pipenv check
+
+integrations:
+  notifications:
+    - integrationName: eti_slack
+      type: slack
+      recipients:
+        - "#activity"

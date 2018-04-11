@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+# <<REMOVE_BEGIN>>
+Pipfile.lock
+package-lock.json
+# <<REMOVE_END>>
+
 .idea
 *.pyc
 .pyc

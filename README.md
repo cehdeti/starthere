@@ -1,4 +1,15 @@
-# starthere
+# <<REMOVE_BEGIN>>
+# Start Here
+
+A starter repo for ETI projects. Uses Django, gulp, sass, and all the good stuff.
+
+Copy the contents of this repo (including this README) to your new project's
+repo, then follow the instructions below. The `bin/setup` script will detect
+that you are starting a new project from the `starthere` app and replace some
+strings, do additional setup, etc.
+# <<REMOVE_END>>
+# <<PROJECT>>
+
 
 ## Requirements/Versions
 
@@ -13,12 +24,11 @@
    don't have them, you can install XCode from self service and they will be
    installed alongside Xcode: `sudo xcode-select --install`
 4. Create a database for the project:
-
         createdb "$(basename "$(pwd)")"
         # or if you're using Postgres.app:
         /Applications/Postgres.app/Contents/Versions/latest/bin/createdb "$(basename "$(pwd)")"
 5. Run the setup script to initialize the app: `./bin/setup`
-6. If your system python isn't python 3 and you'd like to use python 3, create your virtual environment and activate it.
+6. `pipenv` should be installed during the setup script. Then: 
 ```
       //You wil have to type `pipenv run` every time
       pipenv run ./manage.py [commands]
@@ -45,9 +55,6 @@ If you ran `./bin/setup`, npm dependencies should be installed. The default `gul
 
 All of the `gulp` configurations live in the file `gulp_configs.js`.
 
-### Note on the SASS Pyramid
-
-Everything on top _should_ and _can be_ overwritten by anything below, *Cascading* Style Sheet, duh.
 
 ## Testing
 
