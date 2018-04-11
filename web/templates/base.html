@@ -32,19 +32,27 @@
     {% endblock %}
   </head>
   <body>
-    <div class="container">
+    <main class="page-container">
+
+      {% include "_header.html" %}
 
       {% if page_title or title %}
-        <div class="page-header">
-          <h1>{% firstof page_title title %}</h1>
-        </div>
+        <section class="page-header">
+          <h2>{% firstof page_title title %}</h2>
+        </section>
       {% endif %}
 
-
-      <div id="main-content">
+      <article class="page-content">
         {% block content %}{% endblock %}
-      </div>
-    </div>
+      </article>
+
+      {% block footer %}
+        <footer class="page-footer">
+          <p><small>ETI Rocks!</small></p>
+        </footer>
+      {% endblock footer %}
+
+    </main>
 
     {% block scripts %}
       <script src="{% static 'app.js' %}" type="text/javascript"></script>
