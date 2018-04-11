@@ -1,15 +1,26 @@
 $page-paddings: .75rem;
 $page-lg-paddings: 1.5rem;
 
+.pageheader,
+.page-content,
+.page-footer {
+    @extend .container;
+
+    padding: $page-paddings;
+
+    @include media-breakpoint-up(lg) {
+        padding: $page-lg-paddings;
+    }
+}
 
 .page-header {
     @extend .display-3;
 }
 
 .page-content {
-    padding: $page-paddings;
+    color: gray(800);
+}
 
-    @include media-breakpoint-up(lg) {
-        padding: $page-lg-paddings;
-    }
+.page-footer {
+    text-align: center;
 }
