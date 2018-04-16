@@ -20,7 +20,7 @@ module.exports = {
 
     root_dest: './static',
 
-    fonts_src: ['assets/fonts', 'node_modules/@fortawesome/fontawesome-pro-webfonts/webfonts/*'],
+    fonts_src: ['assets/fonts/*', 'node_modules/@fortawesome/fontawesome-pro-webfonts/webfonts/*'],
     fonts_watch: ['assets/fonts'],
     fonts_dest: './static',
 
