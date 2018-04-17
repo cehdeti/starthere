@@ -219,7 +219,7 @@ gulp.task('test:js', function(done) {
 
 /* ----- watch ----- */
 
-gulp.task('watch', ['build'], function() {
+gulp.task('watch', ['scripts', 'sass', 'images', 'fonts'], function() {
   browserSync.init({
       proxy: configs.bs_proxy,
       xip: configs.bs_use_xip,
