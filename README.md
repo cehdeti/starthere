@@ -86,6 +86,8 @@ karma.js config.
 
 ## Deployment
 
+You will need `awscli` in order to deploy. If you don't have `awscli` installed, run `brew install awscli` and `brew install aws-elasticbeanstalk`
+
 Currently, the application is deployed to Amazon AWS. To deploy, just run the
 `./bin/deploy` script. This will compile the frontend assets, upload them to
 S3, then deploy the backend application with Elastic Beanstalk.
