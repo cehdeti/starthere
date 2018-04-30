@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A repository for the starthere webapp.",
   "dependencies": {
-    "@fortawesome/fontawesome-pro-webfonts": "^1.0.6",
+    "@fontawesome/fontawesome-pro-webfonts": "^1.0.6",
     "bootstrap": "^4.0.0-alpha.6",
     "jquery": "^3.2.1",
     "popper.js": "^1.14.3"
