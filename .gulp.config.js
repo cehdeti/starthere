@@ -1,15 +1,17 @@
 module.exports = {
-  //Browser-sync configs
-  bs_proxy: 'localhost:8000',
-  bs_use_xip: false,
-  bs_open: false,
+  // Browser-sync configs
+  browsersync: {
+    open: false,
+    proxy: 'localhost:8000',
+    xip: false,
+  },
 
-  //gulp-using - Files logger so easier to debug stuff later
+  // gulp-using - Files logger so easier to debug stuff later
   using_opts: {
     prefix: 'Compiling...',
     path: 'relative',
     color: 'green',
-    filesize: true
+    filesize: true,
   },
 
   gulpfile: './gulpfile.js',
@@ -36,8 +38,8 @@ module.exports = {
     scripts_watch_src: ['./assets/js/**/*.js'],
     scripts_dest: './static',
 
-    scss_src: ['assets/scss/[^_]*.scss'], //Ignore files with _ prefix
+    scss_src: ['assets/scss/[^_]*.scss'], // Ignore files with _ prefix
     scss_watch: ['./assets/scss/**/*.scss'],
-    css_dest: './static'
-  }
+    css_dest: './static',
+  },
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-const configs   = require('./gulp_configs');
+const configs   = require('./.gulp.config');
 const gulp      = require('gulp');
 
 // Errors Handler for tasks
@@ -220,11 +220,7 @@ gulp.task('test:js', function(done) {
 /* ----- watch ----- */
 
 gulp.task('watch', ['scripts', 'sass', 'images', 'fonts'], function() {
-  browserSync.init({
-      proxy: configs.bs_proxy,
-      xip: configs.bs_use_xip,
-      open: configs.bs_open
-  });
+  browserSync.init(config.browsersync);
 
   gulp.watch(configs.paths.scss_watch, ['sass']);
   gulp.watch(configs.paths.images_watch, ['images']);
