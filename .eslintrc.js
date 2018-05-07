@@ -3,7 +3,7 @@ module.exports = {
   env: {
     browser: true,
     jasmine: true,
-    node: true
+    node: true,
   },
   rules: {
     'camelcase': 0,
@@ -14,6 +14,6 @@ module.exports = {
     'no-warning-comments': 0,
     'one-var': 0,
     'require-jsdoc': 0,
-    'valid-jsdoc': 0
-  }
+    'valid-jsdoc': 0,
+  },
 };
