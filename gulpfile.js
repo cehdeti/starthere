@@ -6,7 +6,7 @@ const gulp      = require('gulp');
 // Errors Handler for tasks
 const gutil  = require('gulp-util');
 const notify = require('gulp-notify');
-const reportErrors = (error) => {
+var reportErrors = function(error) {
     const lineNumber = (error.lineNumber) ? 'LINE ' + error.lineNumber + ' -- ' : '';
     notify({
         title: 'Task Error: [' + error.plugin + ']',
