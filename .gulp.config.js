@@ -35,7 +35,7 @@ module.exports = {
 
     // Browserify the root JS only so we don't compile components and vendors
     scripts_src: ['assets/js/[^_]*.js', '!assets/js/*.spec.js'],
-    scripts_watch_src: ['./assets/js/**/*.js'],
+    scripts_watch: ['./assets/js/**/*.js'],
     scripts_dest: './static',
 
     scss_src: ['assets/scss/[^_]*.scss'], // Ignore files with _ prefix
