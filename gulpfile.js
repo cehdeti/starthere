@@ -220,7 +220,7 @@ gulp.task('test:js', function(done) {
 /* ----- watch ----- */
 
 gulp.task('watch', ['scripts', 'sass', 'images', 'fonts'], function() {
-  browserSync.init(config.browsersync);
+  browserSync.init(configs.browsersync);
 
   gulp.watch(configs.paths.scss_watch, ['sass']);
   gulp.watch(configs.paths.images_watch, ['images']);
