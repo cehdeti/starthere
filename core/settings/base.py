@@ -35,7 +35,7 @@ INSTALLED_APPS = (
     'storages',
     'corsheaders',
 
-    'members',
+    'member',
     'web',
 )
 
@@ -66,7 +66,7 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = 'members.Account'
+AUTH_USER_MODEL = 'member.Account'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
