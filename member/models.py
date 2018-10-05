@@ -2,8 +2,8 @@
 This is to default email as the username instead of letting the user to pick an username
 """
 
-from django.db import models
-from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.db import models, transaction
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import UserManager, PermissionsMixin
 from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
@@ -24,6 +24,9 @@ class AccountQuerySet(models.QuerySet):
 class AccountManager(UserManager.from_queryset(AccountQuerySet)):
 
     use_in_migrations = False
+
+    def get_by_natural_key(self, username):
+        return self.get(email__iexact=username)
 
     def create_user(self, email, password=None, **kwargs):
         if not email:
@@ -85,4 +88,3 @@ class Account(PermissionsMixin, AbstractBaseUser):
 
     class Meta:
         ordering = ('first_name', 'last_name', 'email',)
-
