@@ -60,7 +60,7 @@ class Account(PermissionsMixin, AbstractBaseUser):
     first_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)
     is_active = models.BooleanField(default=True, verbose_name=_('Active'))
-    is_staff = models.BooleanField(default=False, verbose_name=_('Active'))
+    is_staff = models.BooleanField(default=False, verbose_name=_('Staff'))
     is_superadmin = models.BooleanField(default=False, verbose_name=_('Superadmin'))
 
     objects = AccountManager()
