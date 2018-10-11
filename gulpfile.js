@@ -177,13 +177,13 @@ const compileSassTask = lazypipe()
 
 gulp.task('sass', ['lint:sass'], () => {
   return gulp.src(configs.paths.scss_src)
-    .pipe(changed(configs.paths.css_dest))
+    .pipe(changed(configs.paths.scss_dest))
     .pipe(using(configs.using_opts))
     .pipe(plumber({
       errorHandler: reportErrors
     }))
     .pipe(compileSassTask())
-    .pipe(gulp.dest(configs.paths.css_dest))
+    .pipe(gulp.dest(configs.paths.scss_dest))
     .pipe(browserSync.stream({match: '**/*.css'}));
 });
 
