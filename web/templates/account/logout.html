@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+
+{% load i18n bootstrap4 %}
+
+{% block account_title %}
+  {% trans "Logout" %}
+{% endblock account_title %}
+
+{% block account_content %}
+    <p class="lead py-4 text-center">{% trans 'Are you sure you want to sign out?' %}</p>
+
+    <form method="post" action="{% url 'account_logout' %}">
+      {% csrf_token %}
+      {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+      {% endif %}
+
+      {% buttons %}
+        <button type="submit" class="btn btn-primary btn-block">
+          <i class="far fa-sign-out" aria-hidden="true"></i>
+          {% trans "Logout" %}
+        </button>
+      {% endbuttons %}
+
+    </form>
+{% endblock account_content %}

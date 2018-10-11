@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
 
     'storages',
+    'bootstrap4',
     'corsheaders',
 
     'member',
