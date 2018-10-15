@@ -25,12 +25,8 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(max_length=254, unique=True, verbose_name='E-mail Address')),
                 ('first_name', models.CharField(blank=True, max_length=30, null=True)),
                 ('last_name', models.CharField(blank=True, max_length=30, null=True)),
-                ('job_title', models.CharField(blank=True, max_length=50, null=True)),
-                ('avatar', models.ImageField(blank=True, null=True, upload_to='')),
                 ('is_active', models.BooleanField(default=True, verbose_name='Active')),
                 ('is_superadmin', models.BooleanField(default=False, verbose_name='Superadmin')),
-                ('study_id', models.CharField(blank=True, max_length=50, null=True)),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
                 ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
             ],
             options={
