@@ -70,6 +70,10 @@ class Account(PermissionsMixin, AbstractBaseUser):
         return ' '.join((x for x in [self.first_name, self.last_name] if x))
 
     @property
+    def full_name(self):
+        return ' '.join((x for x in [self.first_name, self.last_name] if x))
+
+    @property
     def is_staff(self):
         return self.is_superadmin
 
