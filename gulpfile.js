@@ -170,6 +170,7 @@ const compileSassTask = lazypipe()
   .pipe(function() {
     return postcss([ autoprefixer({ browsers: ['last 15 versions', '> 1%'] }) ])
   })
+  .on('error', reportErrors)
   .pipe(function() {
     return sourcemaps.write('.')
   })
@@ -204,6 +205,7 @@ gulp.task('scripts', ['lint:js'], () => {
         .pipe(bundleJsTask())
         .pipe(buffer())
         .pipe(gulpif(argv.production, uglify()))
+        .on('error', reportErrors)
         .pipe(gulp.dest(configs.paths.scripts_dest))
         .pipe(browserSync.stream({match: '**/*.js'}));
 });

@@ -14,12 +14,12 @@
 
 // FONTS
 $fa-font-path: '.';
-@import '../../node_modules/@fortawesome/fontawesome-pro-webfonts/scss/fontawesome';
+@import '../../node_modules/@fortawesome/fontawesome-pro/scss/fontawesome';
 //You don't need all of these. You can just pick the ones you like and want to use
-@import '../../node_modules/@fortawesome/fontawesome-pro-webfonts/scss/fa-solid';
-@import '../../node_modules/@fortawesome/fontawesome-pro-webfonts/scss/fa-regular';
-@import '../../node_modules/@fortawesome/fontawesome-pro-webfonts/scss/fa-light';
-@import '../../node_modules/@fortawesome/fontawesome-pro-webfonts/scss/fa-brands';
+@import '../../node_modules/@fortawesome/fontawesome-pro/scss/solid';
+@import '../../node_modules/@fortawesome/fontawesome-pro/scss/regular';
+@import '../../node_modules/@fortawesome/fontawesome-pro/scss/light';
+@import '../../node_modules/@fortawesome/fontawesome-pro/scss/brands';
 
 
 // TOOLS - Custom mixins, functions

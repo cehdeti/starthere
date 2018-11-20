@@ -53,7 +53,7 @@ ebenv() {
 }
 
 echo 'Compiling assets'
-npm install
+npm install --from-lock-file
 gulp clean && gulp build --production
 
 # We generate 2 different requirements files here. All regular dependencies go

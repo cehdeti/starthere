@@ -4,7 +4,7 @@
   "description": "A repository for the starthere webapp.",
   "dependencies": {},
   "devDependencies": {
-    "@fortawesome/fontawesome-pro-webfonts": "^1.0.6",
+    "@fortawesome/fontawesome-pro": "*",
     "autoprefixer": "^7.1.2",
     "bootstrap": "^4.0.0-alpha.6",
     "browser-sync": "^2.18.11",
