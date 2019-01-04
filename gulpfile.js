@@ -18,7 +18,6 @@ var reportErrors = function(error) {
 
     var report = '';
     var chalk = gutil.colors.white.bgRed;
-
     report += chalk('TASK:') + ' [' + error.plugin + ']\n';
     report += chalk('CULPRIT:') + ' ' + error.message + '\n';
     if (error.lineNumber) { report += chalk('LINE:') + ' ' + error.lineNumber + '\n'; }
@@ -204,7 +203,7 @@ gulp.task('scripts', ['lint:js'], () => {
         .pipe(using(configs.using_opts))
         .pipe(bundleJsTask())
         .pipe(buffer())
-        .pipe(gulpif(argv.production, uglify()))
+        .pipe(gulpif(argv.production, uglify().on('error', reportErrors)))
         .on('error', reportErrors)
         .pipe(gulp.dest(configs.paths.scripts_dest))
         .pipe(browserSync.stream({match: '**/*.js'}));
