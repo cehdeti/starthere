@@ -29,8 +29,8 @@ module.exports = {
     html_src: ['web/templates/**/*.html'],
     html_watch: ['web/templates/**/*.html'],
 
-    images_src: ['assets/images/**/*.{png,jpg,gif,svg}'],
-    images_watch: ['assets/images/**/*.{png,jpg,gif,svg}'],
+    images_src: ['assets/images/**/*.{png,jpg,gif,svg,ico}'],
+    images_watch: ['assets/images/**/*.{png,jpg,gif,svg,ico}'],
     images_dest: './static',
 
     // Browserify the root JS only so we don't compile components and vendors
