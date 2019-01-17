@@ -43,7 +43,7 @@ faker = "*"
 "flake8-quotes" = "*"
 "flake8-tuple" = "*"
 nplusone = "*"
-splinter = { extras = ["django"] }
+splinter = { version = "==0.9.0", extras = ["django"] }
 unittest-xml-reporting = "*"
 django = ">=1.11.11,<1.12"
 
