@@ -163,13 +163,12 @@ const compileSassTask = lazypipe()
   })
   .pipe(function() {
     return sass({
-              outputStyle: 'compressed'
-          }).on('error', reportErrors)
+        outputStyle: 'compressed'
+    }).on('error', reportErrors)
   })
   .pipe(function() {
     return postcss([ autoprefixer({ browsers: ['last 15 versions', '> 1%'] }) ])
   })
-  .on('error', reportErrors)
   .pipe(function() {
     return sourcemaps.write('.')
   })
