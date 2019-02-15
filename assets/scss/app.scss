@@ -9,17 +9,17 @@
 
 
 // VENDOR
-@import '../../node_modules/bootstrap/scss/bootstrap';
+@import './bootstrap/scss/bootstrap';
 
 
 // FONTS
 $fa-font-path: '.';
-@import '../../node_modules/@fortawesome/fontawesome-pro/scss/fontawesome';
+@import './@fortawesome/fontawesome-pro/scss/fontawesome';
 //You don't need all of these. You can just pick the ones you like and want to use
-@import '../../node_modules/@fortawesome/fontawesome-pro/scss/solid';
-@import '../../node_modules/@fortawesome/fontawesome-pro/scss/regular';
-@import '../../node_modules/@fortawesome/fontawesome-pro/scss/light';
-@import '../../node_modules/@fortawesome/fontawesome-pro/scss/brands';
+@import './@fortawesome/fontawesome-pro/scss/solid';
+@import './@fortawesome/fontawesome-pro/scss/regular';
+@import './@fortawesome/fontawesome-pro/scss/light';
+@import './@fortawesome/fontawesome-pro/scss/brands';
 
 
 // TOOLS - Custom mixins, functions

@@ -163,6 +163,7 @@ const compileSassTask = lazypipe()
   })
   .pipe(function() {
     return sass({
+        includePaths: ['./node_modules/'],
         outputStyle: 'compressed'
     }).on('error', reportErrors)
   })
