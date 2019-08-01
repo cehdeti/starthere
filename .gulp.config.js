@@ -11,7 +11,7 @@ module.exports = {
     prefix: 'Compiling...',
     path: 'relative',
     color: 'green',
-    filesize: true,
+    filesize: true
   },
 
   gulpfile: './gulpfile.js',
@@ -22,12 +22,16 @@ module.exports = {
 
     root_dest: './static',
 
-    fonts_src: ['assets/fonts/*', 'node_modules/@fortawesome/fontawesome-pro/webfonts/*'],
+    fonts_src: ['assets/fonts/*', 'node_modules/@fortawesome/fontawesome-free/webfonts/*'],
     fonts_watch: ['assets/fonts'],
     fonts_dest: './static',
 
-    html_src: ['web/templates/**/*.html'],
-    html_watch: ['web/templates/**/*.html'],
+    html_src: [
+      './**/templates/**/*.html'
+    ],
+    html_watch: [
+      './**/templates/**/*.html'
+    ],
 
     images_src: ['assets/images/**/*.{png,jpg,gif,svg,ico}'],
     images_watch: ['assets/images/**/*.{png,jpg,gif,svg,ico}'],
@@ -38,8 +42,12 @@ module.exports = {
     scripts_watch: ['./assets/js/**/*.js'],
     scripts_dest: './static',
 
-    scss_src: ['assets/scss/[^_]*.scss'], // Ignore files with _ prefix
+    scss_src: ['assets/scss/[^_]*.scss'], //Ignore files with _ prefix
     scss_watch: ['./assets/scss/**/*.scss'],
-    scss_dest: './static',
-  },
+    scss_out: 'screen.css',
+    css_dest: './static',
+
+    vendors_assets_src: ['./node_modules/flatpickr/dist/flatpickr.min.css'],
+    vendors_assets_dest: './static'
+  }
 };

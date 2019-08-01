@@ -8,7 +8,7 @@ repo, then follow the instructions below. The `bin/setup` script will detect
 that you are starting a new project from the `starthere` app and replace some
 strings, do additional setup, etc.
 
-**DO NOT** run `./bin/setup` in the `starthere` project. Lots of mess to clean up if you do that. Clone then run it in a different project folder.
+**DO NOT** run `make setup` in the `starthere` project. Lots of mess to clean up if you do that. Clone then run it in a different project folder.
 # <<REMOVE_END>>
 # <<PROJECT>>
 
@@ -17,6 +17,7 @@ strings, do additional setup, etc.
 
 * Python 3.5.x
 * PostgreSQL 9.4.x
+* NPM 10.6.0+ (or use [nvm](https://github.com/nvm-sh/nvm) to manage versions)
 
 ## Installation
 
@@ -29,7 +30,7 @@ strings, do additional setup, etc.
         createdb "$(basename "$(pwd)")"
         # or if you're using Postgres.app:
         /Applications/Postgres.app/Contents/Versions/latest/bin/createdb "$(basename "$(pwd)")"
-5. Run the setup script to initialize the app: `./bin/setup`
+5. Run the setup script to initialize the app: `make setup`
 6. `pipenv` should be installed during the setup script. Then: 
 ```
       //You wil have to type `pipenv run` every time
@@ -47,17 +48,17 @@ All frontend assets should reside in `./assets/`, the outputs for the assets wil
 ### Dependencies
 
 * [Bootstrap 4 Beta](https://getbootstrap.com/docs/4.0)
-* [FontAwesome 5](https://fontawesome.com/) - We have a Pro license, you will need to add your project's domain to FontAwesome (ask John or Mon for login).
+* [FontAwesome 5](https://fontawesome.com/) - The included package is the FREE version. But we do have a Pro license if you want to use it. You will need to add your project's domain to FontAwesome (ask John or Mon for login).
   * [Go here](https://fontawesome.com/how-to-use/js-component-packages) to set your npm config
   * How to use and troubleshooting: [See docs](https://fontawesome.com/how-to-use/web-fonts-with-css)
 
 ### Running Gulp Task
 
-If you ran `./bin/setup`, npm dependencies should be installed. The default `gulp` task is the `watch` task that launches alongside with `./manage.py runserver`, so you shouldn't have to run it individually.
+If you ran `make setup`, npm dependencies should be installed. The default `gulp` task is the `watch` task that launches alongside with `./manage.py runserver`, so you shouldn't have to run it individually.
 
 ### Gulp Configs
 
-All of the `gulp` configurations live in the file `gulp_configs.js`.
+All of the `gulp` configurations live in the file `gulp.configs.js`.
 
 
 ## Testing
@@ -74,7 +75,7 @@ directory and functional tests in the `features` directory. They are written wit
 
 Some helpful commands:
 
-* Running the tests + pep8 style checks: `./bin/test`
+* Running the tests + pep8 style checks: `make test`
 * Running the functional tests only: `python manage.py behave --keepdb`
 * Running the unit tests only: `python manage.py test --keepdb`
 * Generate coverage reports: `coverage run manage.py test --keepdb && coverage html`.
@@ -89,5 +90,9 @@ karma.js config.
 You will need `awscli` in order to deploy. If you don't have `awscli` installed, run `brew install awscli` and `brew install aws-elasticbeanstalk`
 
 Currently, the application is deployed to Amazon AWS. To deploy, just run the
-`./bin/deploy` script. This will compile the frontend assets, upload them to
+`make deploy` script. This will compile the frontend assets, upload them to
 S3, then deploy the backend application with Elastic Beanstalk.
+
+Refer to the [ETI Dev Wiki](https://github.com/cehdeti/etidev/wiki/Setting-Up-New-AWS-Instance) on setting up instances.
+
+
