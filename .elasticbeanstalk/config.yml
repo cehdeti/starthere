@@ -1,0 +1,21 @@
+branch-defaults:
+  development:
+    environment: <<PROJECT-DIR>>-development
+  master:
+    environment: <<PROJECT-DIR>>-production
+environment-defaults:
+  <<PROJECT-DIR>>-development:
+    branch: null
+    repository: null
+global:
+  application_name: <<PROJECT-DIR>>
+  default_ec2_keyname: eti_keypair
+  default_platform: Python 3.6
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  sc: git
+  workspace_type: Application

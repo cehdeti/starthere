@@ -4,7 +4,7 @@
 A starter repo for ETI projects. Uses Django, gulp, sass, and all the good stuff.
 
 Copy the contents of this repo (including this README) to your new project's
-repo, then follow the instructions below. The `bin/setup` script will detect
+repo, then follow the instructions below. The `make setup` script will detect
 that you are starting a new project from the `starthere` app and replace some
 strings, do additional setup, etc.
 
