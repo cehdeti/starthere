@@ -1,12 +1,8 @@
-"""
-This is to default email as the username instead of letting the user to pick an username
-"""
-
 from django.db import models, transaction
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import UserManager, PermissionsMixin
-from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
+from django.utils.translation import ugettext as _
 
 
 class AccountQuerySet(models.QuerySet):

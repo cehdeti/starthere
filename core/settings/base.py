@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'bootstrap4',
     'corsheaders',
 
-    'member',
+    'user',
     'web',
 )
 
@@ -76,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = 'member.Account'
+AUTH_USER_MODEL = 'user.Account'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
