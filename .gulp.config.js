@@ -23,8 +23,7 @@ module.exports = {
     root_dest: './static',
 
     fonts_vendor: [
-      'node_modules/bootstrap/assets/fonts/bootstrap/*',
-      'node_modules/font-awesome/fonts/*',
+      './node_modules/@fortawesome/fontawesome-free/webfonts/*',
     ],
 
     fonts_src: ['assets/fonts/*',],
