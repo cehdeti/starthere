@@ -54,7 +54,7 @@ const reportErrors = (error) => {
     report += chalk('FILE:') + ' ' + error.fileName + '\n';
   }
   log.error(report);
-  this.emit('end');
+  this.emit('end'); // eslint-disable-line no-invalid-this
 };
 
 /* ----- BEGINS GULP TASKS ----- */
@@ -173,7 +173,7 @@ const bundleJsTask = lazypipe()
     });
 
 gulp.task('scripts', gulp.series('lint:js', () => {
-  return gulp.src(configs.paths.scripts_vendor.concat(configs.paths.scripts_src))
+  return gulp.src(configs.paths.scripts_src)
       .pipe(using(configs.using_opts))
       .pipe(bundleJsTask())
       .pipe(buffer())

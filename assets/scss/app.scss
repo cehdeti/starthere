@@ -14,12 +14,10 @@
 
 // FONTS
 $fa-font-path: '.';
-@import './@fortawesome/fontawesome-pro/scss/fontawesome';
+@import './@fortawesome/fontawesome-free/scss/fontawesome';
 //You don't need all of these. You can just pick the ones you like and want to use
-@import './@fortawesome/fontawesome-pro/scss/solid';
-@import './@fortawesome/fontawesome-pro/scss/regular';
-@import './@fortawesome/fontawesome-pro/scss/light';
-@import './@fortawesome/fontawesome-pro/scss/brands';
+@import './@fortawesome/fontawesome-free/scss/solid';
+@import './@fortawesome/fontawesome-free/scss/regular';
 
 
 // TOOLS - Custom mixins, functions

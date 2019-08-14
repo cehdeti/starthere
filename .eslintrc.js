@@ -5,6 +5,9 @@ module.exports = {
     jasmine: true,
     node: true,
   },
+    parserOptions: {
+    ecmaVersion: 6
+  },
   rules: {
     'camelcase': 0,
     'max-len': 0,
