@@ -40,6 +40,11 @@ module.exports = {
 
     scss_src: ['assets/scss/[^_]*.scss'], // Ignore files with _ prefix
     scss_watch: ['./assets/scss/**/*.scss'],
-    scss_dest: './static',
+    scss_out: 'app.css',
+    css_dest: './static',
+
+    // Example vendor assets
+    // vendors_assets_src: ['./node_modules/flatpickr/dist/flatpickr.min.css'],
+    // vendors_assets_dest: './static'
   },
 };

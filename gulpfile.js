@@ -92,13 +92,13 @@ gulp.task('fonts', () =>{
       .pipe(browserSync.reload({stream: true}));
 });
 
-/* ----- copy additional assets ----- */
+/* ----- copy additional assets
 gulp.task('assets', () =>{
   return gulp.src(configs.paths.vendors_assets_src)
       .pipe(newer(configs.paths.vendors_assets_dest))
       .pipe(gulp.dest(configs.paths.vendors_assets_dest))
       .pipe(browserSync.reload({stream: true}));
-});
+});----- */
 
 /* ----- images ----- */
 
@@ -147,9 +147,7 @@ const compileSassTask = lazypipe()
     })
     .pipe(() => {
       return postcss([
-        autoprefixer({
-          browsers: ['last 15 versions', '> 1%'],
-        }),
+        autoprefixer(),
       ]);
     })
     .pipe(() => {
