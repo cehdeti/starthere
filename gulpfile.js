@@ -92,14 +92,6 @@ gulp.task('fonts', () =>{
       .pipe(browserSync.reload({stream: true}));
 });
 
-/* ----- copy additional assets
-gulp.task('assets', () =>{
-  return gulp.src(configs.paths.vendors_assets_src)
-      .pipe(newer(configs.paths.vendors_assets_dest))
-      .pipe(gulp.dest(configs.paths.vendors_assets_dest))
-      .pipe(browserSync.reload({stream: true}));
-});----- */
-
 /* ----- images ----- */
 
 gulp.task('images', () => {
@@ -156,7 +148,7 @@ const compileSassTask = lazypipe()
     .pipe(stripCssComments);
 
 gulp.task('sass', gulp.series('lint:sass', () => {
-  return gulp.src(configs.paths.scss_src)
+  return gulp.src(configs.paths.css_vendor.concat(configs.paths.scss_src))
       .pipe(changed(configs.paths.css_dest))
       .pipe(using(configs.using_opts))
       .pipe(plumber({
@@ -181,7 +173,7 @@ const bundleJsTask = lazypipe()
     });
 
 gulp.task('scripts', gulp.series('lint:js', () => {
-  return gulp.src(configs.paths.scripts_src, {read: false})
+  return gulp.src(configs.paths.scripts_vendor.concat(configs.paths.scripts_src))
       .pipe(using(configs.using_opts))
       .pipe(bundleJsTask())
       .pipe(buffer())
@@ -190,17 +182,16 @@ gulp.task('scripts', gulp.series('lint:js', () => {
       .pipe(browserSync.stream({match: '**/*.js'}));
 }));
 
-
 /* ----- build ----- */
 
-gulp.task('build', gulp.series('clean', gulp.parallel('scripts', 'sass', 'images', 'fonts', 'assets'), (done) => {
+gulp.task('build', gulp.series('clean', gulp.parallel('scripts', 'sass', 'images', 'fonts'), (done) => {
   done();
 }));
 
 
 /* ----- watch ----- */
 
-gulp.task('watch', gulp.series(gulp.parallel('scripts', 'sass', 'images', 'fonts', 'assets'), () => {
+gulp.task('watch', gulp.series(gulp.parallel('scripts', 'sass', 'images', 'fonts'), () => {
   browserSync.init(configs.browsersync);
 
   gulp.watch(configs.paths.scss_watch, gulp.parallel('sass'));

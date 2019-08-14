@@ -33,6 +33,13 @@ module.exports = {
     images_watch: ['assets/images/**/*.{png,jpg,gif,svg,ico}'],
     images_dest: './static',
 
+    // Browserify the root JS only so we don't compile components and tests
+    scripts_vendor: [
+      'node_modules/jquery/dist/jquery.min.js',
+      'node_modules/popper.js/dist/umd/popper.js',
+      'node_modules/bootstrap/dist/js/bootstrap.min.js',
+    ],
+
     // Browserify the root JS only so we don't compile components and vendors
     scripts_src: ['assets/js/[^_]*.js', '!assets/js/*.spec.js'],
     scripts_watch: ['./assets/js/**/*.js'],
@@ -43,8 +50,8 @@ module.exports = {
     scss_out: 'app.css',
     css_dest: './static',
 
-    // Example vendor assets
-    // vendors_assets_src: ['./node_modules/flatpickr/dist/flatpickr.min.css'],
-    // vendors_assets_dest: './static'
+    // Additional vendor css
+    css_vendor: [], // Ex: ['./node_modules/flatpickr/dist/flatpickr.min.css'],
+
   },
 };
