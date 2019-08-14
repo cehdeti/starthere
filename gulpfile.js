@@ -86,7 +86,7 @@ gulp.task('clean:js', () => {
 /* ----- fonts ----- */
 
 gulp.task('fonts', () =>{
-  return gulp.src(configs.paths.fonts_src)
+  return gulp.src(configs.paths.fonts_vendor.concat(configs.paths.fonts_src))
       .pipe(newer(configs.paths.fonts_dest))
       .pipe(gulp.dest(configs.paths.fonts_dest))
       .pipe(browserSync.reload({stream: true}));
@@ -148,7 +148,7 @@ const compileSassTask = lazypipe()
     .pipe(stripCssComments);
 
 gulp.task('sass', gulp.series('lint:sass', () => {
-  return gulp.src(configs.paths.css_vendor.concat(configs.paths.scss_src))
+  return gulp.src(configs.paths.scss_vendor.concat(configs.paths.scss_src))
       .pipe(changed(configs.paths.css_dest))
       .pipe(using(configs.using_opts))
       .pipe(plumber({

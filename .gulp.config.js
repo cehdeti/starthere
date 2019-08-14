@@ -22,16 +22,21 @@ module.exports = {
 
     root_dest: './static',
 
-    fonts_src: ['assets/fonts/*', 'node_modules/@fortawesome/fontawesome-free/webfonts/*'],
+    fonts_vendor: [
+      'node_modules/bootstrap/assets/fonts/bootstrap/*',
+      'node_modules/font-awesome/fonts/*',
+    ],
+
+    fonts_src: ['assets/fonts/*',],
     fonts_watch: ['assets/fonts'],
-    fonts_dest: './static',
+    fonts_dest: './static/fonts',
 
     html_src: ['web/templates/**/*.html'],
     html_watch: ['web/templates/**/*.html'],
 
     images_src: ['assets/images/**/*.{png,jpg,gif,svg,ico}'],
     images_watch: ['assets/images/**/*.{png,jpg,gif,svg,ico}'],
-    images_dest: './static',
+    images_dest: './static/images',
 
     // Browserify the root JS only so we don't compile components and tests
     scripts_vendor: [
@@ -51,7 +56,10 @@ module.exports = {
     css_dest: './static',
 
     // Additional vendor css
-    css_vendor: [], // Ex: ['./node_modules/flatpickr/dist/flatpickr.min.css'],
+    scss_vendor: [
+      './node_modules/bootstrap/scss/bootstrap.scss',
+      './node_modules/flatpickr/dist/flatpickr.min.css'
+    ],
 
   },
 };
