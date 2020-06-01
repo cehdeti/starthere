@@ -56,12 +56,12 @@ def _has_message(context, type_):
     return context.browser.is_element_present_by_css('.alert-%s' % type_)
 
 
-@then('I should see an? (?P<type_>\w+) message')
+@then(r'I should see an? (?P<type_>\w+) message')
 def i_should_see_a_message(context, type_):
     context.test.assertTrue(_has_message(context, type_))
 
 
-@then('I should not see an? (?P<type_>\w+) message')
+@then(r'I should not see an? (?P<type_>\w+) message')
 def i_should_not_see_a_message(context, type_):
     context.test.assertFalse(_has_message(context, type_))
 
