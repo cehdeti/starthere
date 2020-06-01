@@ -1,18 +1,19 @@
-# <<REMOVE_BEGIN>>
 # Start Here
 
 A starter repo for ETI projects. Uses Django, gulp, sass, and all the good stuff.
 
-Copy the contents of this repo (including this README) to your new project's
-repo, then follow the instructions below. The `make setup` script will detect
-that you are starting a new project from the `starthere` app and replace some
-strings, do additional setup, etc.
+1. Copy the contents of this repo (including this README) to your new project's
+   repo.
+2. Search for any occurrences of `<<PROJECT>>` and replace it with your
+   project's name.
+3. Search for any occurrences of `<<REMOVE_BEGIN>>` and remove from that mark
+   until `<<REMOVE_END>>`.
+4. Follow the setup instructions below.
 
-## IMPORTANT
+==========================================================
+Remove everything above this in your new project's README.
+==========================================================
 
-**DO NOT** run `make setup` in the `starthere` project. Lots of mess to clean up if you do that. Clone then run it in a different project folder.
-
-# <<REMOVE_END>>
 # <<PROJECT>>
 
 
@@ -34,7 +35,7 @@ strings, do additional setup, etc.
         # or if you're using Postgres.app:
         /Applications/Postgres.app/Contents/Versions/latest/bin/createdb "$(basename "$(pwd)")"
 5. Run the setup script to initialize the app: `make setup`
-6. `pipenv` should be installed during the setup script. Then: 
+6. `pipenv` should be installed during the setup script. Then:
 ```
       //You wil have to type `pipenv run` every time
       pipenv run ./manage.py [commands]
@@ -97,5 +98,3 @@ Currently, the application is deployed to Amazon AWS. To deploy, just run the
 S3, then deploy the backend application with Elastic Beanstalk.
 
 Refer to the [ETI Dev Wiki](https://github.com/cehdeti/etidev/wiki/Setting-Up-New-AWS-Instance) on setting up instances.
-
-
