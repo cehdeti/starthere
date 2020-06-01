@@ -6,7 +6,7 @@ import dj_database_url
 from storages.backends.s3boto import S3BotoStorage
 
 
-INSTALLED_APPS = ('collectfast', ) + INSTALLED_APPS + ('django_ses',)
+INSTALLED_APPS = ('collectfast', ) + INSTALLED_APPS
 
 ###################
 # MAIN AWS SETTINGS
@@ -52,7 +52,7 @@ STATICFILES_STORAGE = 'core.settings.aws.StaticStorage'
 # SES
 #####
 
-EMAIL_BACKEND = 'django_ses.SESBackend'
+EMAIL_BACKEND = 'django_amazon_ses.EmailBackend'
 
 #####
 # RDS

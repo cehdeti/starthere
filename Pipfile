@@ -7,16 +7,17 @@ name = "pypi"
 
 [packages]
 
+boto3 = "*"
 collectfast = "*"
-django = ">=1.11.11,<1.12"
+django = ">=3,<4"
 pillow = "*"
 dj-database-url = "*"
 dj-static = "*"
+django-amazon-ses = "*"
 "django-bootstrap4" = "*"
 django-cors-headers = "*"
 django-debug-toolbar = "*"
 django-maintenancemode = "*"
-django-ses = "*"
 django-storages = "*"
 gunicorn = "*"
 "psycopg2-binary" = "*"
@@ -35,17 +36,17 @@ factory-boy = "*"
 faker = "*"
 "flake8" = "*"
 "flake8-bandit" = "*"
+"flake8-bugbear" = "*"
 "flake8-builtins" = "*"
 "flake8-debugger" = "*"
 "flake8-deprecated" = "*"
 "flake8-logging-format" = "*"
 "flake8-print" = "*"
 "flake8-quotes" = "*"
-"flake8-tuple" = "*"
 nplusone = "*"
-splinter = { version = "==0.9.0", extras = ["django"] }
+pep8-naming = "*"
+splinter = { extras = ["django"] }
 unittest-xml-reporting = "*"
-django = ">=1.11.11,<1.12"
 
 
 [requires]
