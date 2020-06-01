@@ -62,24 +62,24 @@ const reportErrors = (error) => {
 /* ----- clean ----- */
 
 gulp.task('clean', (cb) => {
-  del(['static/**/*']);
+  del(['.assets/**/*']);
   cb();
 });
 
 gulp.task('clean:css', () => {
-  return del(['static/css']);
+  return del(['.assets/css']);
 });
 
 gulp.task('clean:fonts', () => {
-  return del(['static/fonts']);
+  return del(['.assets/fonts']);
 });
 
 gulp.task('clean:images', () => {
-  return del(['static/images']);
+  return del(['.assets/images']);
 });
 
 gulp.task('clean:js', () => {
-  return del(['static/js']);
+  return del(['.assets/js']);
 });
 
 

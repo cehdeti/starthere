@@ -12,6 +12,7 @@ package-lock.json
 *.log
 
 # Web build artifacts
+/.assets/
 /rev-manifest.json
 node_modules
 _gh_pages
