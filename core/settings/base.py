@@ -1,11 +1,15 @@
 import os
 from django.core import exceptions
+from django.utils.translation import gettext_lazy as _
 
 from core.utils import is_testing
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+APP_NAME = '<<PROJECT>>'
+APP_NAME_READABLE = _('<<PROJECT>>')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -71,6 +75,8 @@ TEMPLATES = [
 
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'core.context_processors.misc',
             ],
         },
     },

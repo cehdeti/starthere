@@ -27,5 +27,5 @@ if config:
 else:
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '<<PROJECT>>',
+        'NAME': APP_NAME,
     }

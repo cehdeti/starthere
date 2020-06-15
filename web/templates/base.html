@@ -13,11 +13,11 @@
     {% endblock %}
 
     {% if head_title %}
-      <title>{{ head_title }} | <<PROJECT>></title>
+      <title>{{ head_title }} | {{ APP_NAME }}</title>
     {% elif title %}
-      <title>{{ title }} | <<PROJECT>></title>
+      <title>{{ title }} | {{ APP_NAME }}</title>
     {% else %}
-      <title><<PROJECT>></title>
+      <title>{{ APP_NAME }}</title>
     {% endif %}
 
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />

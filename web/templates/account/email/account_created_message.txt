@@ -1,6 +1,6 @@
-{% load i18n %}{% blocktrans %}Hello from <<PROJECT>>!
+{% load i18n %}{% blocktrans %}Hello from {{ APP_NAME }}!
 
-You're receiving this email because you have been invited to <<PROJECT>>.
+You're receiving this email because you have been invited to {{ APP_NAME }}.
 
 Please click on the link below to set your password then you can log into your account using this email address: {{ username }}
 
@@ -8,5 +8,5 @@ Please click on the link below to set your password then you can log into your a
 
 {{ password_reset_url }}
 
-{% endif %}{% blocktrans %}Thank you for using <<PROJECT>>!
+{% endif %}{% blocktrans %}Thank you for using {{ APP_NAME }}!
 {{ site_domain }}{% endblocktrans %}
