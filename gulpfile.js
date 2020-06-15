@@ -24,7 +24,7 @@ const notify        = require('gulp-notify');
 const plumber       = require('gulp-plumber');
 const postcss       = require('gulp-postcss');
 const sass          = require('gulp-sass');
-const sasslint      = require('gulp-sass-lint');
+const sasslint      = require('gulp-stylelint');
 const sourcemaps    = require('gulp-sourcemaps');
 const stripCssComments  = require('gulp-strip-css-comments');
 const tap           = require('gulp-tap');
@@ -115,10 +115,13 @@ gulp.task('lint:js', () => {
 });
 
 gulp.task('lint:sass', () => {
-  return gulp.src(configs.paths.scss_watch)
-      .pipe(sasslint())
-      .pipe(sasslint.format())
-      .pipe(sasslint.failOnError())
+  return gulp.src(configs.paths.scss_src)
+      .pipe(sasslint({
+        failAfterError: true,
+        reporters: [
+          {formatter: 'string', console: true},
+        ],
+      }))
   ;
 });
 

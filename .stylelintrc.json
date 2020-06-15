@@ -1,0 +1,14 @@
+{
+  "extends": "stylelint-config-sass-guidelines",
+  "ignoreFiles": [
+    "assets/scss/settings/_theme.scss"
+  ],
+  "rules": {
+    "max-nesting-depth": [10],
+    "selector-max-id": null,
+    "selector-max-compound-selectors": [10],
+    "selector-no-qualifying-type": [true, {"ignore": ["attribute", "class"]}],
+    "order/properties-alphabetical-order": null,
+    "scss/at-extend-no-missing-placeholder": null
+  }
+}

@@ -1,6 +1,7 @@
 @media print {
-	//Workaround for BS4 does some weird stuff with the ::first-letter that the first letter gets push down.
-	::first-letter {
-		margin-top: 0;
-	}
+  // Workaround for BS4 does some weird stuff with the ::first-letter that the
+  // first letter gets push down.
+  ::first-letter {
+    margin-top: 0;
+  }
 }
