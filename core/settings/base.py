@@ -32,7 +32,6 @@ INTERNAL_IPS = ['127.0.0.1']
 SITE_ID = 1
 
 INSTALLED_APPS = (
-    'collectfast',
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
@@ -41,7 +40,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
 
-    'storages',
     'bootstrap4',
     'corsheaders',
 
@@ -49,7 +47,7 @@ INSTALLED_APPS = (
     'web',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -58,6 +56,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 )
+
+WSGI_APPLICATION = 'core.wsgi.application'
 
 ROOT_URLCONF = 'core.urls'
 
@@ -83,12 +83,11 @@ TEMPLATES = [
 ]
 
 AUTH_USER_MODEL = 'user.Account'
+LOGIN_REDIRECT_URL = '/'
+
 
 CORS_ORIGIN_ALLOW_ALL = True
-
 CORS_ALLOW_METHODS = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS')
-
-WSGI_APPLICATION = 'core.wsgi.application'
 
 
 LANGUAGE_CODE = 'en-us'
@@ -98,22 +97,15 @@ USE_L10N = True
 USE_TZ = True
 
 
-MEDIA_ROOT = '%s/media/' % BASE_DIR
-
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'unique-snowflake',
     },
-    'collectfast': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'collectfast',
-    }
 }
 
-COLLECTFAST_CACHE = 'collectfast'
 
+MEDIA_ROOT = '%s/media/' % BASE_DIR
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

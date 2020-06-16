@@ -1,4 +1,4 @@
-from django.conf.urls import url, include
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -10,9 +10,9 @@ from web.sitemap import DEFAULT_SITEMAPS
 
 
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
-    url(r'^accounts/', include('web.urls.accounts')),
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': DEFAULT_SITEMAPS}),
+    path('', views.home, name='home'),
+    path('accounts/', include('user.urls.web.account')),
+    path('sitemap.xml', sitemap, {'sitemaps': DEFAULT_SITEMAPS}),
 ]
 
 

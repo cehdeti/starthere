@@ -27,7 +27,6 @@ CACHES['collectfast'] = {
     'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     'LOCATION': 'collectfast',
 }
-
 COLLECTFAST_CACHE = 'collectfast'
 
 STATIC_URL = '/assets/'
