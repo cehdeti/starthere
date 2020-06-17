@@ -1,7 +1,7 @@
 {
-  "name": "Base",
+  "name": "<<APP_SLUG>>",
   "version": "1.0.0",
-  "description": "A repository for the starthere webapp.",
+  "description": "A repository for the <<APP_NAME>> webapp.",
   "dependencies": {},
   "devDependencies": {
     "@fortawesome/fontawesome-free": "*",

@@ -1,20 +1,19 @@
+# <<REMOVE_BEGIN>>
+
 # Start Here
 
 A starter repo for ETI projects. Uses Django, gulp, sass, and all the good stuff.
 
-1. Copy the contents of this repo (including this README) to your new project's
-   repo.
-2. Search for any occurrences of `<<PROJECT>>` and replace it with your
-   project's name.
-3. Search for any occurrences of `<<REMOVE_BEGIN>>` and remove from that mark
-   until `<<REMOVE_END>>`.
+1. Check out this repo to your computer in the directory where you want your
+   new project to live (ex: `git clone https://github.com/cehdeti/starthere.git
+   my_new_project`).
+2. `cd` into the new directory and run `make setup`. This will prompt you for
+   an app slug and a human-readable app name, which the `make` task will use to
+   set up your new project.
 4. Follow the setup instructions below.
 
-==========================================================
-Remove everything above this in your new project's README.
-==========================================================
-
-# <<PROJECT>>
+# <<REMOVE_END>>
+# <<APP_NAME>>
 
 
 ## Requirements/Versions
@@ -26,7 +25,7 @@ Remove everything above this in your new project's README.
 ## Installation
 
 1. Check out the project. Make sure to switch to the `development` branch after cloning the repo.
-2. If you don't have `postgresql` running on your machine, install it. You can homebrew it (`brew install postgresql94`) or [Postgres.app](http://postgresapp.com/) makes it pretty easy.
+2. If you don't have `postgresql` running on your machine, install it. You can homebrew it (`brew install postgresql`) or [Postgres.app](http://postgresapp.com/) makes it pretty easy.
 3. Make sure you have the OSX command line developer tools installed. If you
    don't have them, you can install XCode from self service and they will be
    installed alongside Xcode: `sudo xcode-select --install`

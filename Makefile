@@ -175,5 +175,24 @@ update: deps db
 .PHONY: update
 
 setup: update
+	# <<REMOVE_BEGIN>>
+	$(MAKE) setup/git_reinit
+	$(MAKE) setup/replace_project_meta
+	# <<REMOVE_END>>
 	pipenv run python manage.py createsuperuser
 .PHONY: setup
+# <<REMOVE_BEGIN>>
+
+setup/replace_project_meta: APP_SLUG ?= $(shell read -p "App Slug: " app_name; echo $$app_name)
+setup/replace_project_meta: APP_NAME ?= $(shell read -p "App Name (Human-Readable): " app_name_readable; echo $$app_name_readable)
+setup/replace_project_meta:
+	find . -type f ! -path './.git/*' ! -name 'Makefile' ! -path './node_modules/*' ! -path './.venv/' -print0 | xargs -0 env LC_CTYPE=C LANG=C sed -i '' "s/<<APP_SLUG>>/$(APP_SLUG)/g"
+	find . -type f ! -path './.git/*' ! -name 'Makefile' ! -path './node_modules/*' ! -path './.venv/' -print0 | xargs -0 env LC_CTYPE=C LANG=C sed -i '' "s/<<APP_NAME>>/$(APP_NAME)/g"
+	find . -type f ! -path './.git/*' ! -path './node_modules/*' ! -path './.venv' -print0 | xargs -0 env LC_CTYPE=C LANG=C sed -i '' '/^[[:space:]]*# <<REMOVE_BEGIN>>$$/,/^[[:space:]]*# <<REMOVE_END>>$$/d'
+.PHONY: setup/replace_project_meta
+
+setup/git_reinit:
+	rm -rf .git
+	git init
+.PHONY: setup/git_reinit
+# <<REMOVE_END>>

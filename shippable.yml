@@ -22,7 +22,7 @@ build:
     - mkdir -p shippable/codecoverage
 
     # create test database
-    - psql -c 'create database test_<<PROJECT>>;' -U postgres
+    - psql -c 'create database test_<<APP_SLUG>>;' -U postgres
     - psql -c 'create user root with superuser;' -U postgres
 
     # Run test and code coverage and output results to the right folder

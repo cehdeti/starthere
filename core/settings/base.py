@@ -8,8 +8,8 @@ from core.utils import is_testing
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-APP_NAME = '<<PROJECT>>'
-APP_NAME_READABLE = _('<<PROJECT>>')
+APP_NAME = '<<APP_SLUG>>'
+APP_NAME_READABLE = _('<<APP_NAME>>')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
