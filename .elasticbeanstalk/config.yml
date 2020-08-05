@@ -10,7 +10,8 @@ environment-defaults:
 global:
   application_name: <<PROJECT-DIR>>
   default_ec2_keyname: eti_keypair
-  default_platform: Python 3.6
+  default_platform: arn:aws:elasticbeanstalk:us-east-1::platform/Python 3.7 running
+    on 64bit Amazon Linux 2/3.0.3
   default_region: us-east-1
   include_git_submodules: true
   instance_profile: null

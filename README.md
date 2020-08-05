@@ -18,9 +18,9 @@ A starter repo for ETI projects. Uses Django, gulp, sass, and all the good stuff
 
 ## Requirements/Versions
 
-* Python 3.5.x
-* PostgreSQL 9.4.x
-* NPM 10.6.0+ (or use [nvm](https://github.com/nvm-sh/nvm) to manage versions)
+* Python (see `Pipfile` for version)
+* PostgreSQL
+* NPM
 
 ## Installation
 

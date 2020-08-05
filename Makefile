@@ -24,7 +24,7 @@ db/migrate:
 
 ebenv = $(shell echo "$(1)" | grep -Eo "$(2)=([^ ]+)" | sed 's/^.*=//')
 
-deploy: deploy/assets/build deploy/deps/lock deploy/envs deploy/clean
+deploy: deploy/assets/build deploy/envs
 .PHONY: deploy
 
 deploy/assets: deploy/assets/build deploy/assets/upload
@@ -40,21 +40,16 @@ deploy/assets/upload:
 	DJANGO_SETTINGS_MODULE="$(DJANGO_SETTINGS_MODULE)" S3_BUCKET_NAME="$(S3_BUCKET_NAME)" pipenv run python manage.py collectstatic --no-input
 .PHONY: deploy/assets/upload
 
-deploy/clean:
-	-rm -rf requirements.txt
-.PHONY: deploy/clean
-
-deploy/deps/lock:
-	pipenv lock --requirements > requirements.txt
-.PHONY: deploy/deps/lock
-
 deploy/eb:
 	pipenv run eb deploy "${DEPLOY_ENV}"
-	pipenv run eb labs cleanup-versions "${DEPLOY_ENV}" --num-to-leave=5 --force
 .PHONY: deploy/eb
 
+deploy/eb/clean:
+	pipenv run eb labs cleanup-versions "${DEPLOY_ENV}" --num-to-leave=5 --force
+.PHONY: deploy/eb/clean
+
 deploy/env: _EB_ENV="$(shell pipenv run eb printenv "${DEPLOY_ENV}" | tail -n +2 | sed -e 's/^[ \t]*//' | sed -e 's/ = /=/')"
-deploy/env: deploy/eb deploy/assets/upload deploy/notify
+deploy/env: deploy/eb deploy/assets/upload deploy/notify deploy/eb/clean
 .PHONY: deploy/env
 
 deploy/envs: DEPLOY_ENVS=$(or ${DEPLOY_TO},$(shell pipenv run eb list | grep "\* " | sed -e 's/\* //'))
@@ -102,7 +97,7 @@ deps/backend/outdated:
 .PHONY: deps/backend/outdated
 
 deps/backend/security:
-	-pipenv check
+	PIPENV_PYUP_API_KEY= pipenv check
 .PHONY: deps/backend/security
 
 deps/backend/update:
@@ -118,7 +113,7 @@ deps/frontend/outdated:
 .PHONY: deps/frontend/outdated
 
 deps/frontend/security:
-	-npm audit
+	npm audit
 .PHONY: deps/frontend/security
 
 deps/frontend/update:
@@ -149,12 +144,12 @@ test: test/functional test/unit
 
 test_functional = manage.py behave --keepdb --format progress
 test/functional:
-	pipenv run python $(test_functional)
+	pipenv run python -Wa $(test_functional)
 .PHONY: test/functional
 
 test_unit = manage.py test --keepdb --reverse
 test/unit:
-	pipenv run python $(test_unit)
+	pipenv run python -Wa $(test_unit)
 .PHONY: test/unit
 
 test/coverage:
