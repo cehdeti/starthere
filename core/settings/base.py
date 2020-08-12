@@ -19,9 +19,7 @@ DEBUG = os.environ.get('DEBUG', '1') == '1'
 if 'SECRET_KEY' in os.environ:
     SECRET_KEY = os.environ['SECRET_KEY']
 elif DEBUG:
-    SECRET_KEY = 'not_secret'
-else:
-    raise exceptions.ImproperlyConfigured('You must set a `SECRET_KEY` env var when `DEBUG` is not enabled')
+    SECRET_KEY = 'not_secret'  # noqa: S105
 
 # Are we running the test suite?
 TESTING = is_testing()
