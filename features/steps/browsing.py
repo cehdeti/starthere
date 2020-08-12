@@ -1,8 +1,6 @@
-from behave import when, then, use_step_matcher
-
+from behave import then, use_step_matcher, when
 from six.moves.urllib.parse import urlparse
 from splinter.exceptions import ElementDoesNotExist
-
 
 FINDERS = ['css', 'xpath', 'tag', 'name', 'text', 'id', 'value']
 

@@ -1,7 +1,7 @@
-from django.db import models, transaction
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import UserManager, PermissionsMixin
+from django.contrib.auth.models import PermissionsMixin, UserManager
 from django.core.mail import send_mail
+from django.db import models, transaction
 from django.utils.translation import ugettext as _
 
 

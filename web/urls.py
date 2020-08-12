@@ -1,13 +1,11 @@
-from django.urls import path, include
-from django.conf.urls.static import static
 from django.conf import settings
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.urls import include, path
 
 from web import views
 from web.sitemap import DEFAULT_SITEMAPS
-
 
 urlpatterns = [
     path('', views.home, name='home'),

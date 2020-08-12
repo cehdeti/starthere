@@ -39,9 +39,11 @@ faker = "*"
 "flake8-builtins" = "*"
 "flake8-debugger" = "*"
 "flake8-deprecated" = "*"
+"flake8-isort" = "*"
 "flake8-logging-format" = "*"
 "flake8-print" = "*"
 "flake8-quotes" = "*"
+isort = { extras = ["pipfile_deprecated_finder"] }
 nplusone = "*"
 pep8-naming = "*"
 splinter = { extras = ["django"] }

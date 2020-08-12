@@ -1,5 +1,4 @@
-from behave import when, then
-
+from behave import then, when
 
 _MAIN_FORM = '#main-content form'
 

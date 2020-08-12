@@ -1,9 +1,8 @@
 # flake8: noqa
 
-from .base import *
-
 import dj_database_url
 
+from .base import *
 
 INSTALLED_APPS = \
     ('django_gulp',) + \

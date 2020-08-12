@@ -1,9 +1,8 @@
 import os
-from django.core import exceptions
+
 from django.utils.translation import gettext_lazy as _
 
 from core.utils import is_testing
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

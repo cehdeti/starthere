@@ -1,9 +1,10 @@
 # flake8: noqa
 
-from .base import *
 import os
+
 from django.http import Http404
 
+from .base import *
 
 DEFAULT_FROM_EMAIL = 'eti@umn.edu'
 
