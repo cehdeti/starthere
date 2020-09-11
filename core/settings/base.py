@@ -81,6 +81,7 @@ TEMPLATES = [
 
 AUTH_USER_MODEL = 'user.Account'
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/account/login'
 
 
 CORS_ORIGIN_ALLOW_ALL = True

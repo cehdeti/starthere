@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
@@ -9,7 +10,7 @@ except ImportError:
     from django.contrib.auth import logout
 
 
-class LogoutView(TemplateView):
+class LogoutView(LoginRequiredMixin, TemplateView):
     template_name = 'account/logout.html'
 
     def post(self, request, *args, **kargs):
