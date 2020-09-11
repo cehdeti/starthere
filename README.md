@@ -7,7 +7,7 @@ A starter repo for ETI projects. Uses Django, gulp, sass, and all the good stuff
 1. Check out this repo to your computer in the directory where you want your
    new project to live (ex: `git clone https://github.com/cehdeti/starthere.git
    my_new_project`).
-2. `cd` into the new directory and run `make setup`. This will prompt you for
+2. `cd` into the new directory and run `make starthere`. This will prompt you for
    an app slug and a human-readable app name, which the `make` task will use to
    set up your new project.
 4. Follow the setup instructions below.
