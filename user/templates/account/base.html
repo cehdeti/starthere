@@ -1,17 +1,14 @@
 {% extends "base.html" %}
 
-{% load i18n %}
-
 {% block content %}
-
-  <div class="container">
-      <div class="row">
-          <div class="col-10 col-md-8 col-lg-6 mx-auto">
-                <h2 class="display-4 border-bottom pb-3 mb-4">
-                    {% block account_title %}{% endblock account_title %}
-                </h2>
-                {% block account_content %}{% endblock %}
-          </div>
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-10 col-md-8 col-lg-6 mx-auto">
+      <h2 class="display-4 border-bottom pb-3 mb-4">
+        {% block account_title %}{% endblock account_title %}
+      </h2>
+      {% block account_content %}{% endblock %}
+    </div>
   </div>
+</div>
 {% endblock %}

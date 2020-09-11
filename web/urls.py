@@ -9,7 +9,7 @@ from web.sitemap import DEFAULT_SITEMAPS
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('accounts/', include('user.urls.web.account')),
+    path('account/', include('user.urls.web.account', namespace='account')),
     path('sitemap.xml', sitemap, {'sitemaps': DEFAULT_SITEMAPS}),
 ]
 
