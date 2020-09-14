@@ -1,7 +1,6 @@
 $page-paddings: .75rem;
 $page-lg-paddings: 1.5rem;
 
-.pageheader,
 .page-content,
 .page-footer {
     @extend .container;
@@ -11,10 +10,6 @@ $page-lg-paddings: 1.5rem;
     @include media-breakpoint-up(lg) {
         padding: $page-lg-paddings;
     }
-}
-
-.page-header {
-    @extend .display-3;
 }
 
 .page-content {

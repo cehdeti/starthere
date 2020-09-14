@@ -12,13 +12,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     {% endblock %}
 
-    {% if head_title %}
-      <title>{{ head_title }} | {{ APP_NAME }}</title>
-    {% elif title %}
-      <title>{{ title }} | {{ APP_NAME }}</title>
-    {% else %}
-      <title>{{ APP_NAME }}</title>
-    {% endif %}
+    <title>{{ APP_NAME }}</title>
 
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
 
@@ -31,12 +25,6 @@
     <main class="page-container">
 
       {% include "_header.html" %}
-
-      {% if page_title or title %}
-        <section class="page-header">
-          <h2>{% firstof page_title title %}</h2>
-        </section>
-      {% endif %}
 
       <article class="page-content">
         {% block content %}{% endblock %}
