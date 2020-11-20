@@ -7,8 +7,8 @@ class S3StaticStorage(S3Boto3Storage):
     querystring_auth = False
     bucket_name = '%s-assets' % os.environ.get('S3_BUCKET_NAME')
     preload_metadata = True
+    default_acl = 'public-read'
 
 
 class S3MediaStorage(S3Boto3Storage):
     bucket_name = '%s-media' % os.environ.get('S3_BUCKET_NAME')
-    default_acl = 'private'
