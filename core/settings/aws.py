@@ -28,6 +28,7 @@ CACHES['collectfast'] = {
     'LOCATION': 'collectfast',
 }
 COLLECTFAST_CACHE = 'collectfast'
+COLLECTFAST_STRATEGY = 'collectfast.strategies.boto3.Boto3Strategy'
 
 STATIC_URL = '/assets/'
 MEDIA_URL = '/uploads/'
